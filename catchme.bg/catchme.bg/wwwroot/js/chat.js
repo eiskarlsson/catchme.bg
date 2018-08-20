@@ -11,7 +11,7 @@ function appendMessage(content) {
 }
 
 //var connection = new signalR.HubConnection("/hubs/chat");
-const connection = new signalR.HubConnectionBuilder()
+var connection = new signalR.HubConnectionBuilder()
     .withUrl("/hubs/chat")
     .configureLogging(signalR.LogLevel.Information)
     .build();
@@ -21,7 +21,7 @@ sendForm.addEventListener("submit",
         var message = messageTextbox.value;
         messageTextbox.value = "";
         connection.send("Send", message);
-        evt.preventDefault;
+        evt.preventDefault();
     });
 
 connection.on("SendMessage",
