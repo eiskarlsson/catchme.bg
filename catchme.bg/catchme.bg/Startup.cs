@@ -58,7 +58,10 @@ namespace catchme.bg
             app.UseMvc();
             app.UseFileServer();
 
-            app.UseSignalR(routes => { routes.MapHub<ChatHub>("/chat"); });
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<ChatHub>("/hubs/chat");
+            });
 
             app.UseMvc(routes =>
             {

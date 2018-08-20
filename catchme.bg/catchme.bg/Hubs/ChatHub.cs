@@ -2,16 +2,27 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 
 namespace catchme.bg
 {
+    [Authorize]
     public class ChatHub : Hub
     {
-        public void Send(string name, string message)
+        public override async Task OnConnectedAsync()
         {
-            // Call the broadcastMessage method to update clients.
-            Clients.All.SendAsync("broadcastMessage", name, message);
+            await Clients.All.SendAsync("SendAction", Context.User.Identity.Name, "joined");
+        }
+
+        public override async Task OnDisconnectedAsync(Exception ex)
+        {
+            await Clients.All.SendAsync("SendAction", Context.User.Identity.Name, "left");
+        }
+
+        public async Task Send(string message)
+        {
+            await Clients.All.SendAsync("SendMessage", Context.User.Identity.Name, message);
         }
     }
 }
