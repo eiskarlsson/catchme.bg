@@ -35,25 +35,26 @@
     <div class="container menu-content">
         <div id="responsive-panel">
             @(Html.Kendo().Menu()
-                .Name("Menu")
-                .Items(items =>
-                {
-                    items.Add()
-                        .Text("Home")
-                        .Action("Index", "Home");
-                    items.Add()
-                        .Text("About")
-                        .Action("About", "Home");
-                    items.Add()
-                        .Text("Contact")
-                        .Action("Contact", "Home");
-                })
-            )
-            <partial name="_LoginPartial" />
+                  .Name("Menu")
+                  .Items(items =>
+                  {
+                      items.Add()
+                          .Text("Home")
+                          .Action("Index", "Home");
+                      items.Add()
+                          .Text("About")
+                          .Action("About", "Home");
+                      items.Add()
+                          .Text("Contact")
+                          .Action("Contact", "Home");
+                  })
+                  )
+            
         </div>
+        <partial name="_LoginPartial" />
         <button id="configure" class="k-rpanel-toggle k-button k-primary btn-toggle"><span class="k-icon k-i-hbars"></span></button>
     </div>
-
+    
     <div class="container body-content">
             @RenderBody()
             <footer class="footer">

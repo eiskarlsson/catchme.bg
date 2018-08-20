@@ -33,6 +33,8 @@ namespace catchme.bg
                 // https://github.com/aspnet/Announcements/issues/194
                 .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
 
+            services.AddSignalR();
+
             // Add Kendo UI services to the services container
             services.AddKendo();
         }
@@ -54,6 +56,9 @@ namespace catchme.bg
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseMvc();
+            app.UseFileServer();
+
+            app.UseSignalR(routes => { routes.MapHub<ChatHub>("/chat"); });
 
             app.UseMvc(routes =>
             {
