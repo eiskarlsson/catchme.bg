@@ -52,6 +52,8 @@ namespace catchme.bg
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseAuthentication();
+            app.UseMvc();
 
             app.UseMvc(routes =>
             {
