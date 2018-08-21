@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using catchme.bg.Common;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 
@@ -10,19 +11,105 @@ namespace catchme.bg
     [Authorize]
     public class ChatHub : Hub
     {
+        //public override async Task OnConnectedAsync()
+        //{
+        //    await Clients.All.SendAsync("SendAction", Context.User.Identity.Name, "joined");
+        //}
+
+        //public override async Task OnDisconnectedAsync(Exception ex)
+        //{
+        //    await Clients.All.SendAsync("SendAction", Context.User.Identity.Name, "left");
+        //}
+
+        //public async Task Send(string message)
+        //{
+        //    await Clients.All.SendAsync("SendMessage", Context.User.Identity.Name, message);
+        //}
+
+        #region Data Members
+
+        static List<UserDetail> ConnectedUsers = new List<UserDetail>();
+        static List<MessageDetail> CurrentMessage = new List<MessageDetail>();
+
+        #endregion
+
+        #region Methods
+
         public override async Task OnConnectedAsync()
         {
-            await Clients.All.SendAsync("SendAction", Context.User.Identity.Name, "joined");
+            var userName = Context.User.Identity.Name;
+            
+            var id = Context.ConnectionId;
+
+
+            if (ConnectedUsers.Count(x => x.ConnectionId == id) == 0)
+            {
+                ConnectedUsers.Add(new UserDetail {ConnectionId = id, UserName = userName});
+
+                // send to caller
+                await Clients.Caller.SendAsync("OnConnected", id, userName, ConnectedUsers, CurrentMessage);
+
+                // send to all except caller client
+                await Clients.AllExcept(id).SendAsync("NewUserConnected", id, userName);
+            }
+        }
+
+        
+        public async Task SendMessageToAll(string message)
+        {
+            var userName = Context.User.Identity.Name;
+            // store last 100 messages in cache
+            AddMessageinCache(userName, message);
+
+            // Broad cast message
+            await Clients.All.SendAsync("MessageReceived", userName, message);
+        }
+
+        public async Task SendPrivateMessage(string toUserId, string message)
+        {
+
+            string fromUserId = Context.ConnectionId;
+
+            var toUser = ConnectedUsers.FirstOrDefault(x => x.ConnectionId == toUserId);
+            var fromUser = ConnectedUsers.FirstOrDefault(x => x.ConnectionId == fromUserId);
+
+            if (toUser != null && fromUser != null)
+            {
+                // send to 
+                await Clients.Client(toUserId).SendAsync("SendPrivateMessage", fromUserId, fromUser.UserName, message);
+
+                // send to caller user
+                await Clients.Caller.SendAsync("SendPrivateMessage", toUserId, fromUser.UserName, message);
+            }
+
         }
 
         public override async Task OnDisconnectedAsync(Exception ex)
         {
-            await Clients.All.SendAsync("SendAction", Context.User.Identity.Name, "left");
+            var item = ConnectedUsers.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
+            if (item != null)
+            {
+                ConnectedUsers.Remove(item);
+
+                var id = Context.ConnectionId;
+                await Clients.All.SendAsync("UserDisconnected", id, item.UserName);
+
+            }
         }
 
-        public async Task Send(string message)
+
+        #endregion
+
+        #region private Messages
+
+        private void AddMessageinCache(string userName, string message)
         {
-            await Clients.All.SendAsync("SendMessage", Context.User.Identity.Name, message);
+            CurrentMessage.Add(new MessageDetail { UserName = userName, Message = message });
+
+            if (CurrentMessage.Count > 100)
+                CurrentMessage.RemoveAt(0);
         }
+
+        #endregion
     }
 }
