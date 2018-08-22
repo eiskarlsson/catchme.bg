@@ -1,0 +1,68 @@
+﻿@*<div>
+        <form id="send-form" action="#">
+            Send a message:
+            <input type="text" id="message-textbox" disabled/>
+            <button id="send-button" type="submit" disabled>Send</button>
+        </form>
+        <ul id="messages-list"></ul>
+    </div>
+
+    @section Scripts{
+        <script src="~/lib/signalr/signalr.min.js"></script>
+        <script src="~/js/chat.js"></script>
+    }*@
+
+<link href="~/ChatStyle.css" rel="stylesheet" />
+<link href="~/lib/jquery-ui/themes/base/jquery-ui.css" rel="stylesheet" />
+
+@section Scripts{
+    @*<script src="~/lib/jquery-ui/ui/minified/core.js"></script>*@
+    <script src="~/lib/jquery-ui/jquery-ui.js"></script>
+    <script src="~/lib/jquery-ui/ui/minified/widget.js"></script>
+    <script src="~/lib/jquery-ui/ui/widgets/mouse.js"></script>
+    <script src="~/lib/jquery-ui/ui/widgets/draggable.js"></script>
+    <script src="~/lib/jquery-ui/ui/widgets/resizable.js"></script>
+
+    <script src="~/lib/signalr/signalr.min.js"></script>
+    <script src="~/js/chatjs.js"></script>
+
+}
+
+<div id="header">
+    SignalR Chat Room
+</div>
+<br />
+<br />
+<br />
+
+<div id="divContainer">
+    @*<div id="divLogin" class="login">
+            <div>
+                Your Name:<br />
+                <input id="txtNickName" type="text" class="textBox" />
+            </div>
+            <div id="divButton">
+                <input id="btnStartChat" type="button" class="submitButton" value="Start Chat" />
+            </div>
+        </div>*@
+
+    <div id="divChat" class="chatRoom">
+        <div class="title">
+            Welcome to Chat Room [<span id='spanUser'></span>]
+
+        </div>
+        <div class="content">
+            <div id="divChatWindow" class="chatWindow">
+            </div>
+            <div id="divusers" class="users">
+            </div>
+        </div>
+        <div class="messageBar">
+            <input class="textbox" type="text" id="txtMessage" />
+            <input id="btnSendMsg" type="button" value="Send" class="submitButton" />
+        </div>
+    </div>
+
+    <input id="hdId" type="hidden" />
+    <input id="hdUserName" type="hidden" />
+</div>

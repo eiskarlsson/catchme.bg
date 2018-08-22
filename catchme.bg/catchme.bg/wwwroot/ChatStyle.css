@@ -74,7 +74,7 @@
         .chatRoom .content .chatWindow
         {
             float: left;
-            width: 409px;
+            width: 408px;
             height: 300px;
             border-right: solid 1px #5f9482;
             overflow-y: scroll;
