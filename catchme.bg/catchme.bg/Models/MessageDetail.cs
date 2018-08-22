@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace catchme.bg.Common
+namespace catchme.bg.Models
 {
-    public class UserDetail
+    public class MessageDetail
     {
-        public string ConnectionId { get; set; }
+        public long MessageDetailId { get; set; }
 
         public string UserName { get; set; }
+
+        public string Message { get; set; }
     }
 }

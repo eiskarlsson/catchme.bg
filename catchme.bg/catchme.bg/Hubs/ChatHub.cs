@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using catchme.bg.Common;
+using catchme.bg.Data;
+using catchme.bg.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
 
 namespace catchme.bg
 {
@@ -26,6 +28,13 @@ namespace catchme.bg
         //    await Clients.All.SendAsync("SendMessage", Context.User.Identity.Name, message);
         //}
 
+        private CatchmeContext _context { get; set; }
+
+        public ChatHub(CatchmeContext context) 
+        {
+            _context = context;
+        }
+
         #region Data Members
 
         static List<UserDetail> ConnectedUsers = new List<UserDetail>();
@@ -45,6 +54,8 @@ namespace catchme.bg
             if (ConnectedUsers.Count(x => x.ConnectionId == id) == 0)
             {
                 ConnectedUsers.Add(new UserDetail {ConnectionId = id, UserName = userName});
+
+                CurrentMessage.AddRange(GetMessageDetailsForUser(userName).Result);
 
                 // send to caller
                 await Clients.Caller.SendAsync("OnConnected", id, userName, ConnectedUsers, CurrentMessage);
@@ -104,12 +115,26 @@ namespace catchme.bg
 
         private void AddMessageinCache(string userName, string message)
         {
-            CurrentMessage.Add(new MessageDetail { UserName = userName, Message = message });
+            var privateMessage = new MessageDetail {UserName = userName, Message = message};
+            CurrentMessage.Add(privateMessage);
+            _context.MessageDetails.Add(privateMessage);
+            _context.SaveChanges();
 
             if (CurrentMessage.Count > 100)
+            {
                 CurrentMessage.RemoveAt(0);
+                _context.MessageDetails.Remove(CurrentMessage[0]);
+                _context.SaveChanges();
+            }
+
+            
         }
 
         #endregion
+
+        public async Task<List<MessageDetail>> GetMessageDetailsForUser(string userName)
+        {
+            return await _context.MessageDetails.Where(u=>u.UserName==userName).ToListAsync();
+        }
     }
 }
