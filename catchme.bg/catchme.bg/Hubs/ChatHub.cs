@@ -57,10 +57,13 @@ namespace catchme.bg
 
                 CurrentMessage.Clear();
 
-                CurrentMessage.AddRange(GetMessageDetailsForUser(userName).Result);
-
+                foreach (var _user in ConnectedUsers)
+                {
+                    CurrentMessage.AddRange(GetMessageDetailsForUser(_user.UserName).Result);
+                }
+                
                 // send to caller
-                await Clients.Caller.SendAsync("OnConnected", id, userName, ConnectedUsers, CurrentMessage);
+                await Clients.Caller.SendAsync("OnConnected", id, userName, ConnectedUsers, CurrentMessage.Distinct());
 
                 // send to all except caller client
                 await Clients.AllExcept(id).SendAsync("NewUserConnected", id, userName);
