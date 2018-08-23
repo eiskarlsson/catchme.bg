@@ -131,7 +131,7 @@
                     // Add Existing Messages
                     for (i = 0; i < messages.length; i++) {
 
-                        AddMessage(messages[i].UserName, messages[i].Message);
+                        AddMessage(messages[i].userName, messages[i].message);
                     }
 
 

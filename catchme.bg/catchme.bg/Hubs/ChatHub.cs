@@ -55,6 +55,8 @@ namespace catchme.bg
             {
                 ConnectedUsers.Add(new UserDetail {ConnectionId = id, UserName = userName});
 
+                CurrentMessage.Clear();
+
                 CurrentMessage.AddRange(GetMessageDetailsForUser(userName).Result);
 
                 // send to caller
