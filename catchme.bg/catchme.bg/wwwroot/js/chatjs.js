@@ -30,7 +30,7 @@
 
         }
 
-        function AddUser(connection, id, name) {
+        function AddUser(connection, id, name, privateMessages) {
 
             var userId = $('#hdId').val();
 
@@ -49,7 +49,7 @@
                     var id = $(this).attr('id');
 
                     if (userId != id)
-                        OpenPrivateChatWindow(connection, id, name);
+                        OpenPrivateChatWindow(connection, id, name, privateMessages);
 
                 });
             }
@@ -67,7 +67,7 @@
 
             var height = $('#divChatWindow')[0].scrollHeight;
             $('#divChatWindow').scrollTop(height);
-        }
+}
 
         function registerEvents(connection) {
 
@@ -114,7 +114,7 @@
 
             // Calls when user successfully logged in
             connection.on("OnConnected",
-                function (id, userName, allUsers, messages) {
+                function (id, userName, allUsers, messages, privateMessages) {
 
                     setScreen(true);
 
@@ -125,7 +125,7 @@
                     // Add All Users
                     for (i = 0; i < allUsers.length; i++) {
 
-                        AddUser(connection, allUsers[i].connectionId, allUsers[i].userName);
+                        AddUser(connection, allUsers[i].connectionId, allUsers[i].userName, privateMessages);
                     }
 
                     // Add Existing Messages
@@ -134,13 +134,14 @@
                         AddMessage(messages[i].userName, messages[i].message);
                     }
 
+                    
 
                 });
 
             // On New User Connected
             connection.on("NewUserConnected",
-                function (id, name) {
-                    AddUser(connection, id, name);
+                function (id, name, privateMesssages) {
+                    AddUser(connection, id, name, privateMesssages);
                 });
             
 
@@ -167,6 +168,13 @@
                 function (userName, message) {
 
                     AddMessage(userName, message);
+                    
+                });
+
+            connection.on("ShowPrivateMessagesSaved",
+                function (windowId, userName, messages) {
+
+                   // AddPrivateMessage(windowId, userName, messages);
                 });
 
 
@@ -196,13 +204,27 @@
 
         }
 
-        function OpenPrivateChatWindow(connection, id, userName) {
+        function OpenPrivateChatWindow(connection, id, userName, privateMessages) {
 
             var ctrId = 'private_' + id;
 
             if ($('#' + ctrId).length > 0) return;
 
             createPrivateChatWindow(connection, id, ctrId, userName);
+
+            //Add Private Messages
+            for (i = 0; i < privateMessages.length; i++) {
+
+                $('#' + ctrId).find('#divMessage').append('<div class="message"><span class="userName">' +
+                    privateMessages[i].userNameFrom +
+                    '</span>: ' +
+                    privateMessages[i].message +
+                    '</div>');
+            }
+
+            // set scrollbar
+            var height = $('#' + ctrId).find('#divMessage')[0].scrollHeight;
+            $('#' + ctrId).find('#divMessage').scrollTop(height);
 
         }
 
@@ -252,6 +274,8 @@
                     $div.find("#btnSendMessage").click();
                 }
             });
+
+            
 
             AddDivToContainer($div);
 

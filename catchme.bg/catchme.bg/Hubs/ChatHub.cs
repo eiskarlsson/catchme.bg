@@ -39,6 +39,7 @@ namespace catchme.bg
 
         static List<UserDetail> ConnectedUsers = new List<UserDetail>();
         static List<MessageDetail> CurrentMessage = new List<MessageDetail>();
+        static List<PrivateMessageDetail> CurrentPrivateMessage = new List<PrivateMessageDetail>();
 
         #endregion
 
@@ -57,16 +58,20 @@ namespace catchme.bg
 
                 CurrentMessage.Clear();
 
+                CurrentPrivateMessage.Clear();
+
                 foreach (var user_name in ConnectedUsers.Select(u=>u.UserName).Distinct())
                 {
                     CurrentMessage.AddRange(GetMessageDetailsForUser(user_name).Result);
+
+                    CurrentPrivateMessage.AddRange(GetPrivateMessageDetailsForUsers(Context.User.Identity.Name, user_name).Result);
                 }
                 
                 // send to caller
-                await Clients.Caller.SendAsync("OnConnected", id, userName, ConnectedUsers, CurrentMessage);
+                await Clients.Caller.SendAsync("OnConnected", id, userName, ConnectedUsers, CurrentMessage, CurrentPrivateMessage);
 
                 // send to all except caller client
-                await Clients.AllExcept(id).SendAsync("NewUserConnected", id, userName);
+                await Clients.AllExcept(id).SendAsync("NewUserConnected", id, userName, CurrentPrivateMessage);
             }
         }
 
@@ -91,11 +96,17 @@ namespace catchme.bg
 
             if (toUser != null && fromUser != null)
             {
+                
                 // send to 
                 await Clients.Client(toUserId).SendAsync("SendPrivateMessage", fromUserId, fromUser.UserName, message);
 
                 // send to caller user
                 await Clients.Caller.SendAsync("SendPrivateMessage", toUserId, fromUser.UserName, message);
+
+                await Clients.All.SendAsync("ShowPrivateMessagesSaved", toUser.UserName, CurrentPrivateMessage);
+
+                AddPrivateMessageinCache(fromUser.UserName, toUser.UserName, message);
+                
             }
 
         }
@@ -116,13 +127,13 @@ namespace catchme.bg
 
         #endregion
 
-        #region private Messages
+        #region public Messages
 
         private void AddMessageinCache(string userName, string message)
         {
-            var privateMessage = new MessageDetail {UserName = userName, Message = message};
-            CurrentMessage.Add(privateMessage);
-            _context.MessageDetails.Add(privateMessage);
+            var publicMessage = new MessageDetail {UserName = userName, Message = message};
+            CurrentMessage.Add(publicMessage);
+            _context.MessageDetails.Add(publicMessage);
             _context.SaveChanges();
 
             if (CurrentMessage.Count > 100)
@@ -137,9 +148,39 @@ namespace catchme.bg
 
         #endregion
 
+        #region private Messages
+
+        
+
+        private void AddPrivateMessageinCache(string userFrom, string userTo, string message)
+        {
+            var privateMessage = new PrivateMessageDetail { UserNameFrom = userFrom, UserNameTo = userTo, Message = message };
+            CurrentPrivateMessage.Add(privateMessage);
+            _context.PrivateMessageDetails.Add(privateMessage);
+            _context.SaveChanges();
+
+            var singleUserPrivateMessages = CurrentPrivateMessage.Where(u => u.UserNameFrom == userFrom && u.UserNameTo == userTo).ToList();
+
+            if (singleUserPrivateMessages.Count > 100)
+            {
+                CurrentPrivateMessage.Remove(singleUserPrivateMessages.First());
+                _context.PrivateMessageDetails.Remove(singleUserPrivateMessages.First());
+                _context.SaveChanges();
+            }
+
+
+        }
+
+        #endregion
+
         public async Task<List<MessageDetail>> GetMessageDetailsForUser(string userName)
         {
             return await _context.MessageDetails.Where(u=>u.UserName==userName).ToListAsync();
+        }
+
+        public async Task<List<PrivateMessageDetail>> GetPrivateMessageDetailsForUsers(string userFrom, string userTo)
+        {
+            return await _context.PrivateMessageDetails.Where(u => u.UserNameFrom == userFrom && u.UserNameTo== userTo).ToListAsync();
         }
     }
 }
