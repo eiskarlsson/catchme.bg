@@ -103,8 +103,6 @@ namespace catchme.bg
                 // send to caller user
                 await Clients.Caller.SendAsync("SendPrivateMessage", toUserId, fromUser.UserName, message);
 
-                await Clients.All.SendAsync("ShowPrivateMessagesSaved", toUser.UserName, CurrentPrivateMessage);
-
                 AddPrivateMessageinCache(fromUser.UserName, toUser.UserName, message);
                 
             }

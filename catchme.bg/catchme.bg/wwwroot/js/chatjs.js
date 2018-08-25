@@ -171,13 +171,6 @@
                     
                 });
 
-            connection.on("ShowPrivateMessagesSaved",
-                function (windowId, userName, messages) {
-
-                   // AddPrivateMessage(windowId, userName, messages);
-                });
-
-
             connection.on("SendPrivateMessage",
                 function (windowId, fromUserName, message) {
 
