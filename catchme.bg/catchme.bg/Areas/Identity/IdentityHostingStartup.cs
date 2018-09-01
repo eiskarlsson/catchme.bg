@@ -1,4 +1,5 @@
 ﻿using System;
+using catchme.bg.Areas.Identity.Data;
 using catchme.bg.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -19,7 +20,7 @@ namespace catchme.bg.Areas.Identity
                     options.UseSqlServer(
                         context.Configuration.GetConnectionString("catchmebgContextConnection")));
 
-                services.AddDefaultIdentity<IdentityUser>()
+                services.AddDefaultIdentity<CatchmebgUser>()
                     .AddEntityFrameworkStores<catchmebgContext>();
             });
         }

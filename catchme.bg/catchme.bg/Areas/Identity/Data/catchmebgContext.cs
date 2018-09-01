@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using catchme.bg.Areas.Identity.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace catchme.bg.Models
 {
-    public class catchmebgContext : IdentityDbContext<IdentityUser>
+    public class catchmebgContext : IdentityDbContext<CatchmebgUser>
     {
         public catchmebgContext(DbContextOptions<catchmebgContext> options)
             : base(options)

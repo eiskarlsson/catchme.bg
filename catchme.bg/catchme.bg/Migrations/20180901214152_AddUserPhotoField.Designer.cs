@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using catchme.bg.Models;
 
 namespace catchme.bg.Migrations
 {
     [DbContext(typeof(catchmebgContext))]
-    partial class catchmebgContextModelSnapshot : ModelSnapshot
+    [Migration("20180901214152_AddUserPhotoField")]
+    partial class AddUserPhotoField
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

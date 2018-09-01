@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
+using System.Runtime.CompilerServices;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using catchme.bg.Areas.Identity.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -15,14 +18,14 @@ namespace catchme.bg.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<CatchmebgUser> _signInManager;
+        private readonly UserManager<CatchmebgUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
 
         public RegisterModel(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager,
+            UserManager<CatchmebgUser> userManager,
+            SignInManager<CatchmebgUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
@@ -36,6 +39,7 @@ namespace catchme.bg.Areas.Identity.Pages.Account
         public InputModel Input { get; set; }
 
         public string ReturnUrl { get; set; }
+        public byte[] UserPhotoArray { get; set; }
 
         public class InputModel
         {
@@ -59,6 +63,9 @@ namespace catchme.bg.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            [Display(Name = "UserPhoto")]
+            public byte[] UserPhoto { get; set; }
         }
 
         public void OnGet(string returnUrl = null)
@@ -71,7 +78,34 @@ namespace catchme.bg.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser { UserName = Input.Username, Email = Input.Email };
+                var filePath = Path.GetTempFileName();
+                // To convert the user uploaded Photo as Byte Array before save to DB
+               
+                if (Request.Form.Files.Count > 0)
+                {
+                    var poImgFile = Request.Form.Files["UserPhoto"];
+
+                    if (poImgFile != null && poImgFile.Length > 0)
+                    {
+                        using ( var inputStream = new FileStream(filePath, FileMode.Create))
+                        {
+                            // read file to stream
+                            await poImgFile.CopyToAsync(inputStream);
+                            // stream to byte array
+                            UserPhotoArray = new byte[inputStream.Length];
+                            inputStream.Seek(0, SeekOrigin.Begin);
+                            inputStream.Read(UserPhotoArray, 0, UserPhotoArray.Length);
+                            // get file name
+                            string fName = poImgFile.FileName;
+                        }
+                    }
+
+                }
+
+                var user = new CatchmebgUser {UserName = Input.Username, Email = Input.Email, UserPhoto = UserPhotoArray};
+
+                //Here we pass the byte array to user context to store in db
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

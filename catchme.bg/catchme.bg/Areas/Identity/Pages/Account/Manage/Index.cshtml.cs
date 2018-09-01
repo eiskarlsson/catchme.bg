@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using catchme.bg.Areas.Identity.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -13,13 +14,13 @@ namespace catchme.bg.Areas.Identity.Pages.Account.Manage
 {
     public partial class IndexModel : PageModel
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<CatchmebgUser> _userManager;
+        private readonly SignInManager<CatchmebgUser> _signInManager;
         private readonly IEmailSender _emailSender;
 
         public IndexModel(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager,
+            UserManager<CatchmebgUser> userManager,
+            SignInManager<CatchmebgUser> signInManager,
             IEmailSender emailSender)
         {
             _userManager = userManager;
@@ -40,6 +41,11 @@ namespace catchme.bg.Areas.Identity.Pages.Account.Manage
         public class InputModel
         {
             [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "Username")]
+            public string Username { get; set; }
+
+            //[Required]
             [EmailAddress]
             public string Email { get; set; }
 
@@ -64,6 +70,7 @@ namespace catchme.bg.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
+                Username = user.UserName,
                 Email = email,
                 PhoneNumber = phoneNumber
             };
@@ -84,6 +91,11 @@ namespace catchme.bg.Areas.Identity.Pages.Account.Manage
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
+
+            if (Input.Username != user.UserName)
+            {
+                user.UserName = Input.Username;
             }
 
             var email = await _userManager.GetEmailAsync(user);
@@ -107,6 +119,8 @@ namespace catchme.bg.Areas.Identity.Pages.Account.Manage
                     throw new InvalidOperationException($"Unexpected error occurred setting phone number for user with ID '{userId}'.");
                 }
             }
+
+            await _userManager.UpdateAsync(user);
 
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";

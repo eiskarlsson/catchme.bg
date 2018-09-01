@@ -1,6 +1,7 @@
-﻿@using Microsoft.AspNetCore.Identity
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
+﻿@using catchme.bg.Areas.Identity.Data
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<CatchmebgUser> SignInManager
+@inject UserManager<CatchmebgUser> UserManager
 
 @if (SignInManager.IsSignedIn(User))
 {
