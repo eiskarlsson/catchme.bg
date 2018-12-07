@@ -9,11 +9,11 @@ namespace catchme.bg.Models
     {
         public int ID { set; get; }
         public string QuestionText { set; get; }
-        public List<Answer> Answers { set; get; }
-        public int SelectedAnswer { set; get; }
+        public string AnswerText1 { set; get; }
+        public string AnswerText2 { set; get; }
         public Question()
         {
-            Answers = new List<Answer>();
+           
         }
     }
 }

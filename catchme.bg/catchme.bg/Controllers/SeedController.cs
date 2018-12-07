@@ -20,14 +20,12 @@ namespace catchme.bg.Controllers
                 {
                     ID = 1,
                     QuestionText = "Abcdefghijklmnopqrstuvwxyz",
-                    Answers = new List<Answer>()
-                    {
-                        new Answer() {ID = 1, AnswerText = "a"}, new Answer() {ID = 1, AnswerText = "b"}
-
-                    }
+                    AnswerText1 = "Good.",
+                    AnswerText2 = "Bad.",
                 };
 
                 context.Questions.Add(question1);
+                context.SaveChanges();
             }
         }
 
