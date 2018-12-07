@@ -8,7 +8,7 @@ namespace catchme.bg.Models
     public class Answer
     {
         public int ID { set; get; }
-        public string UserName { get; set; }
+        //public string UserName { get; set; }
         public string AnswerText { set; get; }
     }
 }

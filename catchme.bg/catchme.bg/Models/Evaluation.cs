@@ -7,6 +7,7 @@ namespace catchme.bg.Models
 {
     public class Evaluation
     {
+        public string UserName { get; set; }
         public List<Question> Questions { set; get; }
         public Evaluation()
         {

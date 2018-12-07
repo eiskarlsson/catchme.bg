@@ -9,6 +9,10 @@ namespace catchme.bg.Data
 {
     public class CatchmeContext : DbContext
     {
+        public CatchmeContext()
+        {
+        }
+
         public CatchmeContext(DbContextOptions<CatchmeContext> options) : base(options)
         {
         }
