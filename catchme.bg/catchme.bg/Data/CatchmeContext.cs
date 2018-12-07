@@ -17,6 +17,10 @@ namespace catchme.bg.Data
 
         public virtual DbSet<PrivateMessageDetail> PrivateMessageDetails { get; set; }
 
+        public virtual DbSet<Question> Questions { get; set; }
+
+        public virtual DbSet<Answer> Answers { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<PrivateMessageDetail>(entity =>
