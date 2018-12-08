@@ -76,7 +76,7 @@ namespace catchme.bg.Controllers
             }
             
             // redirect to our Index action passing the new label value
-            return RedirectToAction("Index", textValue);
+            return RedirectToAction("Index", "Seed", new { label = textValue });
         }
     }
 }
