@@ -6,6 +6,10 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Content Include="SeedData\MbtiTest.csv" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="FileHelpers" Version="3.3.0" />
         <PackageReference Include="Microsoft.AspNetCore.App" />
         <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.1.2" />

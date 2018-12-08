@@ -1,8 +1,13 @@
-﻿@*@model TModel*@
+﻿@model string
 
-@{
-    ViewBag.Title = "Seed MBTI Tables";
-    Layout = "_Layout";
+@using (Html.BeginForm()) {
+    <fieldset>
+        <legend>Form</legend>
+        <p>
+            @Html.Label("label", Model)
+        </p>
+        <p>
+            <input type="submit" value="Seed Data!" />
+        </p>
+    </fieldset>
 }
-
-<h2>Seed Data</h2>

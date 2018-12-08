@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using catchme.bg.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace catchme.bg.Data
 {
@@ -11,6 +13,7 @@ namespace catchme.bg.Data
     {
         public CatchmeContext()
         {
+
         }
 
         public CatchmeContext(DbContextOptions<CatchmeContext> options) : base(options)
@@ -33,6 +36,19 @@ namespace catchme.bg.Data
                 entity.Property(e => e.UserNameFrom).IsRequired().HasMaxLength(256).IsUnicode(true);
                 entity.Property(e => e.UserNameTo).IsRequired().HasMaxLength(256).IsUnicode(true);
             });
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                IConfigurationRoot configuration = new ConfigurationBuilder()
+                    .SetBasePath(Directory.GetCurrentDirectory())
+                    .AddJsonFile("appsettings.json")
+                    .Build();
+                var connectionString = configuration.GetConnectionString("catchmebgContextConnection");
+                optionsBuilder.UseSqlServer(connectionString);
+            }
         }
     }
 }

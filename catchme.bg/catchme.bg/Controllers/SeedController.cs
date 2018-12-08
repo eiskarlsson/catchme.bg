@@ -19,18 +19,18 @@ namespace catchme.bg.Controllers
             _env = env;
         }
 
-        private void SeedOperatingSystemTable()
+        private void SeedMbtiTable()
         {
             var engine = new FileHelperEngine<Question>();
 
-            var webRoot = _env.WebRootPath;
-            var filePath = System.IO.Path.Combine(webRoot, "/SeedData/MbtiTest.csv");
+            var contentRoot = _env.ContentRootPath;
+            var filePath = System.IO.Path.Combine(contentRoot, "SeedData/MbtiTest.csv");
 
             
             // To Read Use:
             var result = engine.ReadFile(filePath);
             // result is now an array of MbtiTest
-            using (var context = new CatchmeContext())
+            using (CatchmeContext context = new CatchmeContext())
             {
                 foreach (Question question in result)
                 {
@@ -38,14 +38,15 @@ namespace catchme.bg.Controllers
 
                     var dbQuestion = new Question()
                     {
-                        ID = question.ID,
+                        QuestionID = question.QuestionID,
                         QuestionText = question.QuestionText,
                         AnswerText1 = question.AnswerText1,
-                        AnswerText2 = question.AnswerText2 //,
-                        //Language = question.Language
+                        AnswerText2 = question.AnswerText2,
+                        Language = question.Language
                     };
-
+                    
                     context.Questions.Add(dbQuestion);
+                    //context.DetachLocal(dbQuestion, dbQuestion.ID.ToString());
                 }
 
                 context.SaveChanges();
@@ -54,12 +55,28 @@ namespace catchme.bg.Controllers
             }
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string label)
         {
-            SeedOperatingSystemTable();
+            // pass label value into view
+            return View("Index", label ?? "");
+        }
 
-
-            return View();
+        [HttpPost]
+        public ActionResult Index()
+        {
+            var textValue = String.Empty;
+            try
+            {
+                SeedMbtiTable();
+                textValue = "Success!";
+            }
+            catch (Exception ex)
+            {
+                textValue = ex.Message;
+            }
+            
+            // redirect to our Index action passing the new label value
+            return RedirectToAction("Index", textValue);
         }
     }
 }

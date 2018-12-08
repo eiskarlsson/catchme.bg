@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using catchme.bg.Data;
 
 namespace catchme.bg.Migrations.Catchme
 {
     [DbContext(typeof(CatchmeContext))]
-    partial class CatchmeContextModelSnapshot : ModelSnapshot
+    [Migration("20181208194024_CreateQuestionsSchemaAddQuestionId")]
+    partial class CreateQuestionsSchemaAddQuestionId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
