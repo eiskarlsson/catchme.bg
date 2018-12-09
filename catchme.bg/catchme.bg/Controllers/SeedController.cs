@@ -19,37 +19,48 @@ namespace catchme.bg.Controllers
             _env = env;
         }
 
-        private void SeedMbtiTable()
+        private string SeedMbtiTable()
         {
             var engine = new FileHelperEngine<Question>();
 
             var contentRoot = _env.ContentRootPath;
             var filePath = System.IO.Path.Combine(contentRoot, "SeedData/MbtiTest.csv");
 
-            
+
             // To Read Use:
             var result = engine.ReadFile(filePath);
             // result is now an array of MbtiTest
             using (CatchmeContext context = new CatchmeContext())
             {
-                foreach (Question question in result)
+                var firstQuestion = context.Questions.FirstOrDefault(u => u.ID == 1 && u.Language == "en");
+                var lastQuestion = context.Questions.FirstOrDefault(u => u.ID == 140 && u.Language == "bg");
+                if (firstQuestion != null && lastQuestion != null)
                 {
-
-
-                    var dbQuestion = new Question()
+                    return "Db seeded already!";
+                }
+                else
+                {
+                    foreach (Question question in result)
                     {
-                        QuestionID = question.QuestionID,
-                        QuestionText = question.QuestionText,
-                        AnswerText1 = question.AnswerText1,
-                        AnswerText2 = question.AnswerText2,
-                        Language = question.Language
-                    };
-                    
-                    context.Questions.Add(dbQuestion);
-                    //context.DetachLocal(dbQuestion, dbQuestion.ID.ToString());
+
+
+                        var dbQuestion = new Question()
+                        {
+                            QuestionID = question.QuestionID,
+                            QuestionText = question.QuestionText,
+                            AnswerText1 = question.AnswerText1,
+                            AnswerText2 = question.AnswerText2,
+                            Language = question.Language
+                        };
+
+                        context.Questions.Add(dbQuestion);
+                        //context.DetachLocal(dbQuestion, dbQuestion.ID.ToString());
+                    }
+
+                    context.SaveChanges();
+                    return "Db has been seeded!";
                 }
 
-                context.SaveChanges();
 
 
             }
@@ -65,16 +76,16 @@ namespace catchme.bg.Controllers
         public ActionResult Index()
         {
             var textValue = String.Empty;
+
             try
             {
-                SeedMbtiTable();
-                textValue = "Success!";
+                textValue = SeedMbtiTable();
             }
             catch (Exception ex)
             {
                 textValue = ex.Message;
             }
-            
+
             // redirect to our Index action passing the new label value
             return RedirectToAction("Index", "Seed", new { label = textValue });
         }
