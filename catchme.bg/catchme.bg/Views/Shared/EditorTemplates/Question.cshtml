@@ -1,0 +1,14 @@
+﻿@model catchme.bg.Models.Question
+
+<div>
+    @Html.HiddenFor(x=>x.ID)
+   
+    <p>
+        @Model.QuestionText
+        @Html.RadioButtonFor(b => b.AnswerText1, Model.ID) @Model.AnswerText1
+        @Html.RadioButtonFor(b => b.AnswerText2, Model.ID) @Model.AnswerText2
+    </p>
+    </div>
+
+
+

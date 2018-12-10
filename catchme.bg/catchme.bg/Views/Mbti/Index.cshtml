@@ -1,0 +1,21 @@
+﻿@model catchme.bg.Models.Evaluation
+
+@{
+    ViewData["Title"] = "MBTI Test";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h4>MBTI Questions</h4>
+<hr />
+
+<div>
+    @using (Html.BeginForm())
+    {
+        @Html.EditorFor(x => x.Questions)
+        <input type="submit" />
+    }
+</div>
+
+
+
+
