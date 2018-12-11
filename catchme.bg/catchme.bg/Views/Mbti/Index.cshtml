@@ -11,8 +11,14 @@
 <div>
     @using (Html.BeginForm())
     {
-        @Html.EditorFor(x => x.Questions)
-        <input type="submit" />
+    @*@Html.EditorFor(x => x.Questions)*@
+        foreach (var item in Model.Questions)
+        {
+            @Html.RadioButtonFor(m => m.Answers[item.QuestionID-1], 1)  @item.AnswerText1
+            @Html.RadioButtonFor(m => m.Answers[item.QuestionID-1], 2)  @item.AnswerText2
+        }
+
+    <input type="submit" />
     }
 </div>
 

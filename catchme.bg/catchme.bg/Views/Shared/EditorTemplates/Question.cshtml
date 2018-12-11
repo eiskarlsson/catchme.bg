@@ -5,8 +5,8 @@
    
     <p>
         @Model.QuestionText
-        @Html.RadioButtonFor(b => b.AnswerText1, Model.ID) @Model.AnswerText1
-        @Html.RadioButtonFor(b => b.AnswerText2, Model.ID) @Model.AnswerText2
+        @Html.RadioButton("Radio"+@Model.QuestionID.ToString(), 1) @Model.AnswerText1
+        @Html.RadioButton("Radio"+@Model.QuestionID.ToString(), 2) @Model.AnswerText2
     </p>
     </div>
 
