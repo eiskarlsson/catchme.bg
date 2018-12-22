@@ -10,26 +10,26 @@
 
 <div>
 
-    @using (Html.BeginForm("Step1", "Mbti", FormMethod.Post, new { @class = "container" }))
+    @using (Html.BeginForm("Step1", "Mbti", FormMethod.Post, new { @class = "" }))
     {
         @Html.TextBoxFor(m => m.UserName, new { @class = "hidden", @readonly = "readonly" })
         for (int i = 0; i < Model.Questions.Count(u => u.Language == "bg"); i++)
         {
-    <div class="row">
+    <div class="row no-gutters">
         <div class="col-sm-4">
-            @Html.TextBoxFor(m => m.Questions[i].QuestionText, new { @class = "form-control", @readonly = "readonly" })
+            @Html.DisplayFor(m => m.Questions[i].QuestionText, new { @class = "badge badge-info", @readonly = "readonly" })
         </div>
         <div class="col-sm-1">
             @Html.RadioButtonFor(m => m.Answers[i].SelectedAnswer, 1, new { @class = "form-control" })
         </div>
         <div class="col-sm-3">
-            @Html.TextBoxFor(m => m.Questions[i].AnswerText1, new { @class = "form-control", @readonly = "readonly" })
+            @Html.DisplayFor(m => m.Questions[i].AnswerText1, new { @class = "form-control", @readonly = "readonly" })
         </div>
         <div class="col-sm-1">
             @Html.RadioButtonFor(m => m.Answers[i].SelectedAnswer, 2, new { @class = "form-control" })
         </div>
         <div class="col-sm-3">
-            @Html.TextBoxFor(m => m.Questions[i].AnswerText2, new { @class = "form-control", @readonly = "readonly" })
+            @Html.DisplayFor(m => m.Questions[i].AnswerText2, new { @class = "form-control", @readonly = "readonly" })
         </div>
     </div>
             @Html.TextBoxFor(m => m.Answers[i].ID, new { @class = "hidden", @readonly = "readonly" })
