@@ -36,7 +36,7 @@ namespace catchme.bg.Controllers
 
                 return userId != null ? _bgcontext.Users.FirstOrDefault(x => x.Id == userId) : null;
             }
-            set { _currentUser = value; }
+            set => _currentUser = value;
         }
 
         protected string userId;
@@ -48,15 +48,57 @@ namespace catchme.bg.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public IActionResult Step1()
         {
             var model = new Evaluation()
             {
                 UserName = CurrentUser.UserName,
-                Questions = _context.Questions.Where(u => u.Language == "bg").OrderBy(u => u.QuestionID).ToList(),
-                Answers = new List<Answer>() 
+                Questions = _context.Questions.Where(u => u.Language == "bg").Where(u=>u.QuestionID>=1 && u.QuestionID<=25).OrderBy(u => u.QuestionID).ToList(),
+                Answers = new List<Answer>()
             };
-            
+
+            foreach (var q in model.Questions)
+            {
+                model.Answers.Add(new Answer()
+                {
+                    QuestionID = q.QuestionID,
+                    UserName = CurrentUser.UserName
+                });
+            }
+
+            return View(model);
+        }
+
+        public IActionResult Step2()
+        {
+            var model = new Evaluation()
+            {
+                UserName = CurrentUser.UserName,
+                Questions = _context.Questions.Where(u => u.Language == "bg").Where(u => u.QuestionID >= 26 && u.QuestionID <= 50).OrderBy(u => u.QuestionID).ToList(),
+                Answers = new List<Answer>()
+            };
+
+            foreach (var q in model.Questions)
+            {
+                model.Answers.Add(new Answer()
+                {
+                    QuestionID = q.QuestionID,
+                    UserName = CurrentUser.UserName
+                });
+            }
+
+            return View(model);
+        }
+
+        public IActionResult Step3()
+        {
+            var model = new Evaluation()
+            {
+                UserName = CurrentUser.UserName,
+                Questions = _context.Questions.Where(u => u.Language == "bg").Where(u => u.QuestionID >= 51 && u.QuestionID <= 70).OrderBy(u => u.QuestionID).ToList(),
+                Answers = new List<Answer>()
+            };
+
             foreach (var q in model.Questions)
             {
                 model.Answers.Add(new Answer()
@@ -71,21 +113,69 @@ namespace catchme.bg.Controllers
 
 
         [HttpPost]
-        public ActionResult Index([Bind] Evaluation model)
+        public ActionResult Step1([Bind] Evaluation model)
         {
             if (ModelState.IsValid)
             {
-                var answers = _context.Answers.Where(u => u.UserName == CurrentUser.UserName);
+                var answers = _context.Answers.Where(u => u.UserName == CurrentUser.UserName).Where(u => u.QuestionID >= 1 && u.QuestionID <= 25);
                 if (answers.Any())
                 {
-                    foreach (var answer in model.Answers)
+                    foreach (var answer in model.Answers.Where(u => u.QuestionID >= 1 && u.QuestionID <= 25))
                     {
                         _context.Answers.Update(answer);
                     }
                 }
                 else
                 {
-                    _context.AddRange(model.Answers.Where(u=>u.UserName==CurrentUser.UserName));
+                    _context.AddRange(model.Answers.Where(u => u.UserName == CurrentUser.UserName).Where(u => u.QuestionID >= 1 && u.QuestionID <= 25));
+                }
+                _context.SaveChanges();
+                return RedirectToAction("Step2"); //PRG Pattern
+            }
+            //reload questions
+            return View(Eval);
+        }
+
+        [HttpPost]
+        public ActionResult Step2([Bind] Evaluation model)
+        {
+            if (ModelState.IsValid)
+            {
+                var answers = _context.Answers.Where(u => u.UserName == CurrentUser.UserName).Where(u => u.QuestionID >= 26 && u.QuestionID <= 50);
+                if (answers.Any())
+                {
+                    foreach (var answer in model.Answers.Where(u => u.QuestionID >= 26 && u.QuestionID <= 50))
+                    {
+                        _context.Answers.Update(answer);
+                    }
+                }
+                else
+                {
+                    _context.AddRange(model.Answers.Where(u => u.UserName == CurrentUser.UserName).Where(u => u.QuestionID >= 26 && u.QuestionID <= 50));
+                }
+                _context.SaveChanges();
+                return RedirectToAction("Step3"); //PRG Pattern
+            }
+            //reload questions
+            return View(Eval);
+        }
+
+        [HttpPost]
+        public ActionResult Step3([Bind] Evaluation model)
+        {
+            if (ModelState.IsValid)
+            {
+                var answers = _context.Answers.Where(u => u.UserName == CurrentUser.UserName).Where(u => u.QuestionID >= 51 && u.QuestionID <= 70);
+                if (answers.Any())
+                {
+                    foreach (var answer in model.Answers.Where(u => u.QuestionID >= 51 && u.QuestionID <= 70))
+                    {
+                        _context.Answers.Update(answer);
+                    }
+                }
+                else
+                {
+                    _context.AddRange(model.Answers.Where(u => u.UserName == CurrentUser.UserName).Where(u => u.QuestionID >= 51 && u.QuestionID <= 70));
                 }
                 _context.SaveChanges();
                 return RedirectToAction("ThankYou"); //PRG Pattern
