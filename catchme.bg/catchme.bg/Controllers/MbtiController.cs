@@ -10,12 +10,12 @@ using catchme.bg.Models;
 using Kendo.Mvc.UI;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-/// <summary>
-/// Based on the SO Question: https://stackoverflow.com/questions/12844763/getting-a-list-of-radio-button-values-in-asp-mvc-3/12845534#12845534
-/// </summary>
 
 namespace catchme.bg.Controllers
 {
+    /// <summary>
+    /// Based on the SO Question: https://stackoverflow.com/questions/39062061/post-list-of-list-of-model-object-to-controller-in-asp-net-mvc
+    /// </summary>
     [Authorize]
     public class MbtiController : Controller
     {
@@ -56,16 +56,14 @@ namespace catchme.bg.Controllers
                 Questions = _context.Questions.Where(u => u.Language == "bg").OrderBy(u => u.QuestionID).ToList(),
                 Answers = new List<Answer>() 
             };
-            //var i = 0;
+            
             foreach (var q in model.Questions)
             {
                 model.Answers.Add(new Answer()
                 {
-                    //ID = i,
                     QuestionID = q.QuestionID,
                     UserName = CurrentUser.UserName
                 });
-                //i++;
             }
 
             return View(model);
