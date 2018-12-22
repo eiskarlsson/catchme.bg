@@ -50,6 +50,10 @@ namespace catchme.bg.Controllers
 
         public IActionResult Step1()
         {
+            var answersToDelete = _context.Answers.Where(u => u.UserName == CurrentUser.UserName);
+            _context.Answers.RemoveRange(answersToDelete);
+            _context.SaveChanges();
+
             var model = new Evaluation()
             {
                 UserName = CurrentUser.UserName,
