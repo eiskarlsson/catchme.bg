@@ -56,17 +56,16 @@ namespace catchme.bg.Controllers
                 Questions = _context.Questions.Where(u => u.Language == "bg").OrderBy(u => u.QuestionID).ToList(),
                 Answers = new List<Answer>() 
             };
-            var i = 0;
+            //var i = 0;
             foreach (var q in model.Questions)
             {
-                Answer answer = new Answer();
                 model.Answers.Add(new Answer()
                 {
-                    ID = i,
+                    //ID = i,
                     QuestionID = q.QuestionID,
                     UserName = CurrentUser.UserName
                 });
-                i++;
+                //i++;
             }
 
             return View(model);
@@ -78,7 +77,18 @@ namespace catchme.bg.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.AddRange(model.Answers.Where(u=>u.UserName==CurrentUser.UserName));
+                var answers = _context.Answers.Where(u => u.UserName == CurrentUser.UserName);
+                if (answers.Any())
+                {
+                    foreach (var answer in model.Answers)
+                    {
+                        _context.Answers.Update(answer);
+                    }
+                }
+                else
+                {
+                    _context.AddRange(model.Answers.Where(u=>u.UserName==CurrentUser.UserName));
+                }
                 _context.SaveChanges();
                 return RedirectToAction("ThankYou"); //PRG Pattern
             }
@@ -86,25 +96,10 @@ namespace catchme.bg.Controllers
             return View(Eval);
         }
 
-        //private void CreateAnswers(Evaluation model)
-        //{
-        //    foreach (var q in model.Questions)
-        //    {
-        //        Answer selectedAnswer = new Answer();
-        //        if (model.Answers[q.ID] != null)
-        //        {
-        //            selectedAnswer = model.Answers[q.ID];
-        //        }
-
-        //        _context.Answers.Add(new Answer()
-        //        {
-        //            QuestionID = q.ID,
-        //            SelectedAnswer = selectedAnswer.SelectedAnswer,
-        //            UserName = CurrentUser.UserName
-        //        });
-        //    }
-        //    _context.SaveChanges();
-        //}
+        public ActionResult ThankYou()
+        {
+            return View();
+        }
 
 
 
