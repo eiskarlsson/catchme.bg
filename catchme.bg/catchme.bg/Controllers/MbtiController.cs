@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using catchme.bg.Areas.Identity.Data;
@@ -49,59 +50,61 @@ namespace catchme.bg.Controllers
 
         public IActionResult Index()
         {
-
-            Eval = new Evaluation()
+            var model = new Evaluation()
             {
                 UserName = CurrentUser.UserName,
                 Questions = _context.Questions.Where(u => u.Language == "bg").OrderBy(u => u.QuestionID).ToList(),
-                Answers = new List<Answer>()
+                Answers = new List<Answer>() 
             };
+            var i = 0;
+            foreach (var q in model.Questions)
+            {
+                Answer answer = new Answer();
+                model.Answers.Add(new Answer()
+                {
+                    ID = i,
+                    QuestionID = q.QuestionID,
+                    UserName = CurrentUser.UserName
+                });
+                i++;
+            }
 
-            CreateAnswers(Eval);
-            Eval.Answers = _context.Answers.Where(u => u.UserName == CurrentUser.UserName).ToList();
-            return View(Eval);
+            return View(model);
         }
 
 
         [HttpPost]
-        public ActionResult Index(Evaluation model)
+        public ActionResult Index([Bind] Evaluation model)
         {
-            Eval = new Evaluation()
-            {
-                UserName = CurrentUser.UserName,
-                Questions = _context.Questions.Where(u => u.Language == "bg").OrderBy(u => u.QuestionID).ToList(),
-                Answers = new List<Answer>()
-            };
             if (ModelState.IsValid)
             {
-                CreateAnswers(Eval);
+                _context.AddRange(model.Answers.Where(u=>u.UserName==CurrentUser.UserName));
+                _context.SaveChanges();
                 return RedirectToAction("ThankYou"); //PRG Pattern
             }
             //reload questions
             return View(Eval);
         }
 
-        private void CreateAnswers(Evaluation model)
-        {
-            foreach (var q in model.Questions)
-            {
-                var qId = q.QuestionID;
-                Answer selectedAnswer = new Answer();
-                if (model.Answers.Any())
-                {
-                    selectedAnswer = model.Answers[q.QuestionID - 1];
-                }
+        //private void CreateAnswers(Evaluation model)
+        //{
+        //    foreach (var q in model.Questions)
+        //    {
+        //        Answer selectedAnswer = new Answer();
+        //        if (model.Answers[q.ID] != null)
+        //        {
+        //            selectedAnswer = model.Answers[q.ID];
+        //        }
 
-                //Save
-                _context.Answers.Add(new Answer()
-                {
-                    QuestionID = qId,
-                    SelectedAnswer = selectedAnswer.SelectedAnswer,
-                    UserName = CurrentUser.UserName
-                });
-                _context.SaveChanges();
-            }
-        }
+        //        _context.Answers.Add(new Answer()
+        //        {
+        //            QuestionID = q.ID,
+        //            SelectedAnswer = selectedAnswer.SelectedAnswer,
+        //            UserName = CurrentUser.UserName
+        //        });
+        //    }
+        //    _context.SaveChanges();
+        //}
 
 
 

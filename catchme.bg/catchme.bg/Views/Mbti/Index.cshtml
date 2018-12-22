@@ -9,17 +9,30 @@
 <hr />
 
 <div>
+
     @using (Html.BeginForm())
     {
-    @*@Html.EditorFor(x => x.Questions)*@
-        foreach (var item in Model.Questions)
+        @Html.TextBoxFor(m => m.UserName, new { @class = "hidden", @readonly = "readonly" })
+        @for (int i = 0; i < Model.Questions.Where(u => u.Language == "bg").Count(); i++)
         {
-            @Html.RadioButtonFor(m => m.Answers[item.QuestionID-1], 1)  @item.AnswerText1
-            @Html.RadioButtonFor(m => m.Answers[item.QuestionID-1], 2)  @item.AnswerText2
-        }
+            @Html.TextBoxFor(m => m.Questions[i].QuestionText, new { @class = "form-control", @readonly = "readonly" })
 
-    <input type="submit" />
+            @Html.RadioButtonFor(m => m.Answers[i].SelectedAnswer, 1, new { @class = "form-control" }) @Html.TextBoxFor(m => m.Questions[i].AnswerText1, new { @class = "form-control", @readonly = "readonly" })
+
+            @Html.RadioButtonFor(m => m.Answers[i].SelectedAnswer, 2, new { @class = "form-control" }) @Html.TextBoxFor(m => m.Questions[i].AnswerText2, new { @class = "form-control", @readonly = "readonly" })
+
+            @Html.TextBoxFor(m => m.Answers[i].ID, new { @class = "hidden", @readonly = "readonly" })
+
+            @Html.TextBoxFor(m => m.Answers[i].QuestionID, new { @class = "hidden", @readonly = "readonly" })
+
+            @Html.TextBoxFor(m => m.Answers[i].UserName, new { @class = "hidden", @readonly = "readonly" })
+            <br />
+        }
+        <input type="submit" />
     }
+
+
+
 </div>
 
 
