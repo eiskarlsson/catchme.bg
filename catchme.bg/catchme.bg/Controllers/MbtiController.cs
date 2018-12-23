@@ -48,6 +48,19 @@ namespace catchme.bg.Controllers
             _context = context;
         }
 
+        public IActionResult Index()
+        {
+            var answers = _context.Answers.Where(u => u.UserName == CurrentUser.UserName);
+            if (answers.Any())
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Step1"); //PRG Pattern
+            }
+        }
+
         public IActionResult Step1()
         {
             var answersToDelete = _context.Answers.Where(u => u.UserName == CurrentUser.UserName);
