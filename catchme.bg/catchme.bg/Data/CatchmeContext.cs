@@ -27,7 +27,31 @@ namespace catchme.bg.Data
         public virtual DbSet<Question> Questions { get; set; }
 
         public virtual DbSet<Answer> Answers { get; set; }
-        
+
+        public virtual  DbSet<Pets> Pets { get; set; }
+        public virtual  DbSet<Children> Children { get; set; }
+        public virtual  DbSet<Drugs> Drugs { get; set; }
+        public virtual  DbSet<Diet> Diet { get; set; }
+        public virtual  DbSet<Drinks> Drinks { get; set; }
+        public virtual  DbSet<Smokes> Smokes { get; set; }
+        public virtual  DbSet<Religion> Religion { get; set; }
+        public virtual  DbSet<Ethnicity> Ethnicity { get; set; }
+        public virtual  DbSet<Education> Education { get; set; }
+        public virtual  DbSet<HairColor> HairColor { get; set; }
+        public virtual  DbSet<EyeColor> EyeColor { get; set; }
+        public virtual  DbSet<BodyType> BodyType { get; set; }
+        public virtual  DbSet<Weight> Weight { get; set; }
+        public virtual  DbSet<Height> Height { get; set; }
+        public virtual  DbSet<Languages> Languages { get; set; }
+        public virtual  DbSet<Gender> Gender { get; set; }
+        public virtual  DbSet<Age> Age { get; set; }
+        public virtual  DbSet<LookingFor> LookingFor { get; set; }
+        public virtual  DbSet<MaritalStatus> MaritalStatus { get; set; }
+
+        public virtual DbSet<Profile> Profiles { get; set; }
+
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<PrivateMessageDetail>(entity =>
