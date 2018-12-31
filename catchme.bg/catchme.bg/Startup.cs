@@ -28,6 +28,14 @@ namespace catchme.bg
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                // This lambda determines whether user consent for non-essential cookies 
+                // is needed for a given request.
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
             // Add framework services.
             services.AddDbContext<CatchmeContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("catchmebgContextConnection")));
@@ -54,6 +62,8 @@ namespace catchme.bg
 
             // Add Kendo UI services to the services container
             services.AddKendo();
+
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -71,6 +81,7 @@ namespace catchme.bg
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseCookiePolicy();
             app.UseAuthentication();
             app.UseMvc();
             app.UseFileServer();
@@ -86,6 +97,8 @@ namespace catchme.bg
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            
         }
     }
 }

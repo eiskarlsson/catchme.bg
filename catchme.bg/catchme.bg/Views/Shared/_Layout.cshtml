@@ -61,13 +61,14 @@
         <partial name="_LoginPartial" />
         <button id="configure" class="k-rpanel-toggle k-button k-primary btn-toggle"><span class="k-icon k-i-hbars"></span></button>
     </div>
-    
+    <partial name="_CookieConsentPartial" />
     <div class="container body-content">
-            @RenderBody()
-            <footer class="footer">
-                <span class="text-muted">Copyright © @DateTime.Now.Year Catchme.bg Corporation and/or its subsidiaries or affiliates.</span>
-                <span class="text-muted">All rights reserved.</span>
-            </footer>
+        
+        @RenderBody()
+        <footer class="footer">
+            <span class="text-muted">Copyright © @DateTime.Now.Year Catchme.bg Corporation and/or its subsidiaries or affiliates.</span>
+            <span class="text-muted">All rights reserved.</span>
+        </footer>
     </div>
 
     @RenderSection("scripts", required: false)

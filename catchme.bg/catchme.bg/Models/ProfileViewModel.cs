@@ -6,6 +6,9 @@ using catchme.bg.Areas.Identity.Data;
 
 namespace catchme.bg.Models
 {
+    /// <summary>
+    /// https://odetocode.com/blogs/scott/archive/2013/03/11/dropdownlistfor-with-asp-net-mvc.aspx
+    /// </summary>
     public class ProfileViewModel
     {
         public int ID { set; get; }
