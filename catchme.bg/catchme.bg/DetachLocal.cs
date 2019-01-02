@@ -31,5 +31,12 @@ namespace catchme.bg
 
             context.Entry(t).State = EntityState.Modified;
         }
+
+        //Warning: The following is only suitable for small tables (think < 1000 rows)
+        public static void Clear<T>(this DbSet<T> dbSet) where T : class
+        {
+            dbSet.RemoveRange(dbSet);
+        }
+
     }
 }
