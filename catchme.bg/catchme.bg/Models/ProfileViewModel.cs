@@ -234,7 +234,7 @@ namespace catchme.bg.Models
             {
                 using (CatchmeContext context = new CatchmeContext())
                 {
-                    _age1 = context.Age.ToList();
+                    _age1 = context.Age.OrderBy(x => int.Parse(x.Name)).ToList();
                 }
                 return _age1;
             }
@@ -359,5 +359,9 @@ namespace catchme.bg.Models
         {
             get { return new SelectList(_maritalStatus, "Id", "Name"); }
         }
+
+
     }
+
+    
 }
