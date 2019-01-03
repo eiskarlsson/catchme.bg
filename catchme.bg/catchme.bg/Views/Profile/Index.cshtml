@@ -1,0 +1,45 @@
+﻿@model catchme.bg.Models.ProfileViewModel
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Profile</h2>
+
+<hr />
+
+<div>
+
+    @using (Html.BeginForm("Index", "Profile", FormMethod.Post, new { @class = "" }))
+    {
+        @Html.TextBoxFor(m => m.ID, new { @class = "hidden", @readonly = "readonly" })
+        @Html.TextBoxFor(m => m.Profile.Details, new { @class = "" })
+        @Html.TextBoxFor(m => m.Profile.EducationDescription, new { @class = "" })
+        @Html.TextBoxFor(m => m.Profile.DateCreated, new { @class = "" })
+        @Html.TextBoxFor(m => m.Profile.DateLastChange, new { @class = "" })
+        @Html.TextBoxFor(m => m.Profile.Job, new { @class = "" })
+        @Html.TextBoxFor(m => m.Profile.JobDescription, new { @class = "" })
+
+        @Html.LabelFor(m=>m.Profile.SelectedAge)
+        @Html.DropDownListFor(m => m.Profile.SelectedAge, Model.AgeItems,"Select Age", new { @class = "dropdowns", id = "ageDDL" })
+        @Html.ValidationMessageFor(m=>m.Profile.SelectedAge)
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <input type="submit" value="Submit" /> 
+
+    }
+
+</div>
