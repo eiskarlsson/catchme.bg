@@ -68,7 +68,7 @@ namespace catchme.bg.Controllers
             }
         }
 
-        private async void ClearData()
+        private void ClearData()
         {
             using (CatchmeContext context = new CatchmeContext())
             {
@@ -91,313 +91,317 @@ namespace catchme.bg.Controllers
                 context.Religion.Clear();
                 context.Smokes.Clear();
                 context.Weight.Clear();
-                await context.SaveChangesAsync();
+                context.SaveChanges();
             }
         }
 
-        //private async void SeedTable(DbSet<IProfileItem> tableDbSet, List<string> values)
-        //{
-        //    using (CatchmeContext context = new CatchmeContext())
-        //    {
-        //        foreach (var item in values)
-        //        {
-        //            IProfileItem instance = Activator.CreateInstance<IProfileItem>();
-        //            instance.Name = item;
-        //            tableDbSet.Add(instance);
-        //        }
-
-        //        await context.SaveChangesAsync();
-        //    }
-        //}
-
-        private async void SeedTables()
+        private string SeedTables()
         {
             
-           await SeedTable(new Age(), new List<string>() { });
-           await SeedTable(new BodyType(), new List<string>() { });
-           await SeedTable(new Children(), new List<string>() { });
-           await SeedTable(new Diet(), new List<string>() { });
-           await SeedTable(new Drinks(), new List<string>() { });
-           await SeedTable(new Drugs(), new List<string>() { });
-           await SeedTable(new Education(), new List<string>() { });
-           await SeedTable(new Ethnicity(), new List<string>() { });
-           await SeedTable(new EyeColor(), new List<string>() { });
-           await SeedTable(new Gender(), new List<string>() { });
-           await SeedTable(new HairColor(), new List<string>() { });
-           await SeedTable(new Height(), new List<string>() { });
-           await SeedTable(new Languages(), new List<string>() { });
-           await SeedTable(new LookingFor(), new List<string>() { });
-           await SeedTable(new MaritalStatus(), new List<string>() { });
-           await SeedTable(new Pets(), new List<string>() { });
-           await SeedTable(new Religion(), new List<string>() { });
-           await SeedTable(new Smokes(), new List<string>() { });
-           await SeedTable(new Weight(), new List<string>() { });
-
+           SeedAge(Enumerable.Range(18,100).Select(i => i.ToString()).OrderBy(x => x, new SemiNumericComparer()).ToList<string>());
+           SeedBodyType(new List<string>() { "Slim", "Normal", "Heavy Set" });
+           SeedChildren(new List<string>() { "No Children", "Doesn't want children", "Wants children", "Has children"});
+           SeedDiet(new List<string>() { "No diet", "On a diet" });
+           SeedDrinks(new List<string>() { "Doesn't drink", "Drinks socially", "Heavy drinker" });
+           SeedDrugs(new List<string>() { "Drugs", "No drugs"});
+           SeedEducation(new List<string>() { "High School", "Some College", "Bachelor's Degree", "Graduate Degree and above" });
+           SeedEthnicity(new List<string>() { "White", "Asian", "Black", "Other"});
+           SeedEyeColor(new List<string>() { "Brown", "Blue", "Green", "Red" });
+           SeedGender(new List<string>() { "Woman", "Man", "Transgender" });
+           SeedHairColor(new List<string>() { "Brown", "Black", "Blonde", "Red", "Grey" });
+           SeedHeight(Enumerable.Range(10, 300).Select(i => i.ToString()).ToList<string>());
+           SeedLanguages(new List<string>() { "One", "Two", "Three", "More than three" });
+           SeedLookingFor(new List<string>() { "Woman", "Man", "Couple" });
+           SeedMaritalStatus(new List<string>() { "Single", "Divorced", "Married" });
+           SeedPets(new List<string>() { "No pets", "Doesn't want pets", "Wants pets", "Has pets" });
+           SeedReligion(new List<string>() { "Doesn't believe", "Believer", "Christian", "Buddhist", "Muslim", "Taoist", "Judaist", "Other" });
+           SeedSmokes(new List<string>() { "Smokes", "Doesn't smoke" });
+           SeedWeight(Enumerable.Range(10, 300).Select(i => i.ToString()).ToList<string>());
+           return "Profile Tables Seeded!";
         }
 
-        private async Task SeedTable(Age age, List<string> list)
+        private void SeedAge(List<string> list)
         {
             using (CatchmeContext context = new CatchmeContext())
             {
                 foreach (var item in list)
                 {
+                    var age = new Age();
                     age.Name = item;
                     context.Age.Add(age);
                 }
 
-                await context.SaveChangesAsync();
+                context.SaveChanges();
             }
         }
 
-        private async Task SeedTable(BodyType bodyType, List<string> list)
+        private void SeedBodyType(List<string> list)
         {
             using (CatchmeContext context = new CatchmeContext())
             {
                 foreach (var item in list)
                 {
+                    var bodyType = new BodyType();
                     bodyType.Name = item;
                     context.BodyType.Add(bodyType);
                 }
 
-                await context.SaveChangesAsync();
+                context.SaveChanges();
             }
         }
 
-        private async Task SeedTable(Children children, List<string> list)
+        private void SeedChildren(List<string> list)
         {
             using (CatchmeContext context = new CatchmeContext())
             {
                 foreach (var item in list)
                 {
+                    var children = new Children();
                     children.Name = item;
                     context.Children.Add(children);
                 }
 
-                await context.SaveChangesAsync();
+                context.SaveChanges();
             }
         }
 
-        private async Task SeedTable(Diet diet, List<string> list)
+        private void SeedDiet(List<string> list)
         {
             using (CatchmeContext context = new CatchmeContext())
             {
                 foreach (var item in list)
                 {
+                    var diet = new Diet();
                     diet.Name = item;
                     context.Diet.Add(diet);
                 }
 
-                await context.SaveChangesAsync();
+                context.SaveChanges();
             }
         }
 
-        private async Task SeedTable(Drinks drinks, List<string> list)
+        private void SeedDrinks(List<string> list)
         {
             using (CatchmeContext context = new CatchmeContext())
             {
                 foreach (var item in list)
                 {
+                    var drinks = new Drinks();
                     drinks.Name = item;
                     context.Drinks.Add(drinks);
                 }
 
-                await context.SaveChangesAsync();
+                context.SaveChanges();
             }
         }
 
-        private async Task SeedTable(Drugs drugs, List<string> list)
+        private void SeedDrugs(List<string> list)
         {
             using (CatchmeContext context = new CatchmeContext())
             {
                 foreach (var item in list)
                 {
+                    var drugs = new Drugs();
                     drugs.Name = item;
                     context.Drugs.Add(drugs);
                 }
 
-                await context.SaveChangesAsync();
+                context.SaveChanges();
             }
         }
 
-        private async Task SeedTable(Education education, List<string> list)
+        private void SeedEducation(List<string> list)
         {
             using (CatchmeContext context = new CatchmeContext())
             {
                 foreach (var item in list)
                 {
+                    var education = new Education();
                     education.Name = item;
                     context.Education.Add(education);
                 }
 
-                await context.SaveChangesAsync();
+                context.SaveChanges();
             }
         }
 
-        private async Task SeedTable(Ethnicity ethnicity, List<string> list)
+        private void SeedEthnicity(List<string> list)
         {
             using (CatchmeContext context = new CatchmeContext())
             {
                 foreach (var item in list)
                 {
+                    var ethnicity = new Ethnicity();
                     ethnicity.Name = item;
                     context.Ethnicity.Add(ethnicity);
                 }
 
-                await context.SaveChangesAsync();
+                context.SaveChanges();
             }
         }
 
-        private async Task SeedTable(EyeColor eyeColor, List<string> list)
+        private void SeedEyeColor(List<string> list)
         {
             using (CatchmeContext context = new CatchmeContext())
             {
                 foreach (var item in list)
                 {
+                    var eyeColor = new EyeColor();
                     eyeColor.Name = item;
                     context.EyeColor.Add(eyeColor);
                 }
 
-                await context.SaveChangesAsync();
+                context.SaveChanges();
             }
         }
 
-        private async Task SeedTable(Gender gender, List<string> list)
+        private void SeedGender(List<string> list)
         {
             using (CatchmeContext context = new CatchmeContext())
             {
                 foreach (var item in list)
                 {
+                    var gender = new Gender();
                     gender.Name = item;
                     context.Gender.Add(gender);
                 }
 
-                await context.SaveChangesAsync();
+                context.SaveChanges();
             }
         }
 
-        private async Task SeedTable(HairColor hairColor, List<string> list)
+        private void SeedHairColor(List<string> list)
         {
             using (CatchmeContext context = new CatchmeContext())
             {
                 foreach (var item in list)
                 {
+                    var hairColor = new HairColor();
                     hairColor.Name = item;
                     context.HairColor.Add(hairColor);
                 }
 
-                await context.SaveChangesAsync();
+                context.SaveChanges();
             }
         }
 
-        private async Task SeedTable(Height height, List<string> list)
+        private void SeedHeight(List<string> list)
         {
             using (CatchmeContext context = new CatchmeContext())
             {
                 foreach (var item in list)
                 {
+                    var height = new Height();
                     height.Name = item;
                     context.Height.Add(height);
                 }
 
-                await context.SaveChangesAsync();
+                context.SaveChanges();
             }
         }
 
-        private async Task SeedTable(Languages languages, List<string> list)
+        private void SeedLanguages(List<string> list)
         {
             using (CatchmeContext context = new CatchmeContext())
             {
                 foreach (var item in list)
                 {
+                    var languages = new Languages();
                     languages.Name = item;
                     context.Languages.Add(languages);
                 }
 
-                await context.SaveChangesAsync();
+                context.SaveChanges();
             }
         }
 
-        private async Task SeedTable(LookingFor lookingFor, List<string> list)
+        private void SeedLookingFor(List<string> list)
         {
             using (CatchmeContext context = new CatchmeContext())
             {
                 foreach (var item in list)
                 {
+                    var lookingFor = new LookingFor();
                     lookingFor.Name = item;
                     context.LookingFor.Add(lookingFor);
                 }
 
-                await context.SaveChangesAsync();
+                context.SaveChanges();
             }
         }
 
-        private async Task SeedTable(MaritalStatus maritalStatus, List<string> list)
+        private void SeedMaritalStatus(List<string> list)
         {
             using (CatchmeContext context = new CatchmeContext())
             {
                 foreach (var item in list)
                 {
+                    var maritalStatus = new MaritalStatus();
                     maritalStatus.Name = item;
                     context.MaritalStatus.Add(maritalStatus);
                 }
 
-                await context.SaveChangesAsync();
+                context.SaveChanges();
             }
         }
 
-        private async Task SeedTable(Pets pets, List<string> list)
+        private void SeedPets(List<string> list)
         {
             using (CatchmeContext context = new CatchmeContext())
             {
                 foreach (var item in list)
                 {
+                    var pets = new Pets();
                     pets.Name = item;
                     context.Pets.Add(pets);
                 }
 
-                await context.SaveChangesAsync();
+                context.SaveChanges();
             }
         }
 
-        private async Task SeedTable(Religion religion, List<string> list)
+        private void SeedReligion(List<string> list)
         {
             using (CatchmeContext context = new CatchmeContext())
             {
                 foreach (var item in list)
                 {
+                    var religion = new Religion();
                     religion.Name = item;
                     context.Religion.Add(religion);
                 }
 
-                await context.SaveChangesAsync();
+                context.SaveChanges();
             }
         }
 
-        private async Task SeedTable(Smokes smokes, List<string> list)
+        private void SeedSmokes(List<string> list)
         {
             using (CatchmeContext context = new CatchmeContext())
             {
                 foreach (var item in list)
                 {
+                    var smokes = new Smokes();
                     smokes.Name = item;
                     context.Smokes.Add(smokes);
                 }
 
-                await context.SaveChangesAsync();
+                context.SaveChanges();
             }
         }
 
-        private async Task SeedTable(Weight weight, List<string> list)
+        private void SeedWeight(List<string> list)
         {
             using (CatchmeContext context = new CatchmeContext())
             {
                 foreach (var item in list)
                 {
+                    var weight = new Weight();
                     weight.Name = item;
                     context.Weight.Add(weight);
                 }
 
-                await context.SaveChangesAsync();
+                context.SaveChanges();
             }
         }
 
@@ -411,10 +415,13 @@ namespace catchme.bg.Controllers
         public ActionResult Index()
         {
             var textValue = String.Empty;
+            var textValue1 = String.Empty;
 
             try
             {
                 textValue = SeedMbtiTable();
+                ClearData();
+                textValue1 =  SeedTables();
             }
             catch (Exception ex)
             {
@@ -422,7 +429,41 @@ namespace catchme.bg.Controllers
             }
 
             // redirect to our Index action passing the new label value
-            return RedirectToAction("Index", "Seed", new { label = textValue });
+            return RedirectToAction("Index", "Seed", new { label = textValue+ " " + textValue1 });
+        }
+
+        public class SemiNumericComparer : IComparer<string>
+        {
+            public int Compare(string s1, string s2)
+            {
+                if (IsNumeric(s1) && IsNumeric(s2))
+                {
+                    if (Convert.ToInt32(s1) > Convert.ToInt32(s2)) return 1;
+                    if (Convert.ToInt32(s1) < Convert.ToInt32(s2)) return -1;
+                    if (Convert.ToInt32(s1) == Convert.ToInt32(s2)) return 0;
+                }
+
+                if (IsNumeric(s1) && !IsNumeric(s2))
+                    return -1;
+
+                if (!IsNumeric(s1) && IsNumeric(s2))
+                    return 1;
+
+                return string.Compare(s1, s2, true);
+            }
+
+            public static bool IsNumeric(object value)
+            {
+                try
+                {
+                    int i = Convert.ToInt32(value.ToString());
+                    return true;
+                }
+                catch (FormatException)
+                {
+                    return false;
+                }
+            }
         }
     }
 }
