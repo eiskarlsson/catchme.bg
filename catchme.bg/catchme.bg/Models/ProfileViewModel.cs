@@ -35,7 +35,7 @@ namespace catchme.bg.Models
 
         public int ID { set; get; }
 
-        public CatchmebgUser User { get; set; }
+        public CatchmebgUser ProfileUser { get; set; }
 
         public Profile Profile { get; set; }
 

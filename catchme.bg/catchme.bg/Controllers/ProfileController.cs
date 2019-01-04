@@ -47,20 +47,17 @@ namespace catchme.bg.Controllers
         public IActionResult Index()
         {
             var model = new ProfileViewModel();
-            var currentProfile = _context.Profiles.FirstOrDefault(u => u.User.Id == CurrentUser.Id);
+            var currentProfile = _context.Profiles.FirstOrDefault(u => u.ProfileUser.Id == CurrentUser.Id);
             if (currentProfile != null)
             {
                 model.Profile = currentProfile;
             }
             else
             {
-                model.User = CurrentUser;
+                model.ProfileUser = CurrentUser;
                 model.Profile = new Profile();
             }
             
-            //model.Profile.DateCreated = DateTime.Now;
-            //model.Profile.DateLastChange = DateTime.Now;
-
             return View(model);
         }
 
@@ -70,7 +67,7 @@ namespace catchme.bg.Controllers
         {
             if (ModelState.IsValid)
             {
-                var currentProfile = _context.Profiles.FirstOrDefault(u => u.User.Id == CurrentUser.Id);
+                var currentProfile = _context.Profiles.FirstOrDefault(u => u.ProfileUser.Id == CurrentUser.Id);
                 if (currentProfile != null)
                 {
                     model.Profile.DateLastChange = DateTime.Now;
@@ -78,8 +75,8 @@ namespace catchme.bg.Controllers
                 }
                 else
                 {
-                    model.User = CurrentUser;
-                    model.Profile.User = CurrentUser;
+                    model.ProfileUser = CurrentUser;
+                    model.Profile.ProfileUser = CurrentUser;
                     model.Profile.DateCreated = DateTime.Now;
                     model.Profile.DateLastChange = DateTime.Now;
                     _context.Profiles.Add(model.Profile);

@@ -11,7 +11,7 @@ namespace catchme.bg.Models
     {
         public int ID { set; get; }
 
-        public CatchmebgUser User { get; set; }
+        public CatchmebgUser ProfileUser { get; set; }
 
         [Display(Name = "Pets:")]
         [Required(ErrorMessage = "{0} is required.")]
