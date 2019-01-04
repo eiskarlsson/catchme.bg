@@ -20,25 +20,95 @@
         @Html.TextBoxFor(m => m.Profile.Job, new { @class = "" })
         @Html.TextBoxFor(m => m.Profile.JobDescription, new { @class = "" })
 
-        @Html.LabelFor(m=>m.Profile.SelectedAge)
-        @Html.DropDownListFor(m => m.Profile.SelectedAge, Model.AgeItems,"Select Age", new { @class = "dropdowns", id = "ageDDL" })
-        @Html.ValidationMessageFor(m=>m.Profile.SelectedAge)
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <input type="submit" value="Submit" /> 
+        @Html.LabelFor(m => m.Profile.SelectedAge)
+        @Html.DropDownListFor(m => m.Profile.SelectedAge, Model.AgeItems, "Select Age", new { @class = "dropdowns", id = "ageDDL" })
+        @Html.ValidationMessageFor(m => m.Profile.SelectedAge)
+
+        @Html.LabelFor(m => m.Profile.SelectedWeight)
+        @Html.DropDownListFor(m => m.Profile.SelectedWeight, Model.WeightItems, "Select Weight", new { @class = "dropdowns", id = "ageDDL" })
+        @Html.ValidationMessageFor(m => m.Profile.SelectedWeight)
+
+        @Html.LabelFor(m => m.Profile.SelectedHeight)
+        @Html.DropDownListFor(m => m.Profile.SelectedHeight, Model.HeightItems, "Select Height", new { @class = "dropdowns", id = "ageDDL" })
+        @Html.ValidationMessageFor(m => m.Profile.SelectedHeight)
+
+        @Html.LabelFor(m => m.Profile.SelectedBodyType)
+        @Html.DropDownListFor(m => m.Profile.SelectedBodyType, Model.BodyTypeItems, "Select BodyType", new { @class = "dropdowns", id = "ageDDL" })
+        @Html.ValidationMessageFor(m => m.Profile.SelectedBodyType)
+
+        @Html.LabelFor(m => m.Profile.SelectedChildren)
+        @Html.DropDownListFor(m => m.Profile.SelectedChildren, Model.ChildrenItems, "Select Children", new { @class = "dropdowns", id = "ageDDL" })
+        @Html.ValidationMessageFor(m => m.Profile.SelectedChildren)
+
+        @Html.LabelFor(m => m.Profile.SelectedDiet)
+        @Html.DropDownListFor(m => m.Profile.SelectedDiet, Model.DietItems, "Select Diet", new { @class = "dropdowns", id = "ageDDL" })
+        @Html.ValidationMessageFor(m => m.Profile.SelectedDiet)
+
+        @Html.LabelFor(m => m.Profile.SelectedDrinks)
+        @Html.DropDownListFor(m => m.Profile.SelectedDrinks, Model.DrinksItems, "Select Drinks", new { @class = "dropdowns", id = "ageDDL" })
+        @Html.ValidationMessageFor(m => m.Profile.SelectedDrinks)
+
+        @Html.LabelFor(m => m.Profile.SelectedDrugs)
+        @Html.DropDownListFor(m => m.Profile.SelectedDrugs, Model.DrugsItems, "Select Drugs", new { @class = "dropdowns", id = "ageDDL" })
+        @Html.ValidationMessageFor(m => m.Profile.SelectedDrugs)
+
+        @Html.LabelFor(m => m.Profile.SelectedEducation)
+        @Html.DropDownListFor(m => m.Profile.SelectedEducation, Model.EducationItems, "Select Education", new { @class = "dropdowns", id = "ageDDL" })
+        @Html.ValidationMessageFor(m => m.Profile.SelectedEducation)
+
+        @Html.LabelFor(m => m.Profile.SelectedEthnicity)
+        @Html.DropDownListFor(m => m.Profile.SelectedEthnicity, Model.EthnicityItems, "Select Ethnicity", new { @class = "dropdowns", id = "ageDDL" })
+        @Html.ValidationMessageFor(m => m.Profile.SelectedEthnicity)
+
+        @Html.LabelFor(m => m.Profile.SelectedEyeColor)
+        @Html.DropDownListFor(m => m.Profile.SelectedEyeColor, Model.EyeColorItems, "Select Eye Color", new { @class = "dropdowns", id = "ageDDL" })
+        @Html.ValidationMessageFor(m => m.Profile.SelectedEyeColor)
+
+        @Html.LabelFor(m => m.Profile.SelectedGender)
+        @Html.DropDownListFor(m => m.Profile.SelectedGender, Model.GenderItems, "Select Gender", new { @class = "dropdowns", id = "ageDDL" })
+        @Html.ValidationMessageFor(m => m.Profile.SelectedGender)
+
+        @Html.LabelFor(m => m.Profile.SelectedHairColor)
+        @Html.DropDownListFor(m => m.Profile.SelectedHairColor, Model.HairColorItems, "Select Hair Color", new { @class = "dropdowns", id = "ageDDL" })
+        @Html.ValidationMessageFor(m => m.Profile.SelectedHairColor)
+
+        @Html.LabelFor(m => m.Profile.SelectedLanguages)
+        @Html.DropDownListFor(m => m.Profile.SelectedLanguages, Model.LanguagesItems, "Select Languages", new { @class = "dropdowns", id = "ageDDL" })
+        @Html.ValidationMessageFor(m => m.Profile.SelectedLanguages)
+
+        @Html.LabelFor(m => m.Profile.SelectedLookingFor)
+        @Html.DropDownListFor(m => m.Profile.SelectedLookingFor, Model.LookingForItems, "Select Looking For", new { @class = "dropdowns", id = "ageDDL" })
+        @Html.ValidationMessageFor(m => m.Profile.SelectedLookingFor)
+
+        @Html.LabelFor(m => m.Profile.SelectedMaritalStatus)
+        @Html.DropDownListFor(m => m.Profile.SelectedMaritalStatus, Model.MaritalStatusItems, "Select Marital Status", new { @class = "dropdowns", id = "ageDDL" })
+        @Html.ValidationMessageFor(m => m.Profile.SelectedMaritalStatus)
+
+        @Html.LabelFor(m => m.Profile.SelectedPets)
+        @Html.DropDownListFor(m => m.Profile.SelectedPets, Model.PetsItems, "Select Pets", new { @class = "dropdowns", id = "ageDDL" })
+        @Html.ValidationMessageFor(m => m.Profile.SelectedPets)
+
+        @Html.LabelFor(m => m.Profile.SelectedReligion)
+        @Html.DropDownListFor(m => m.Profile.SelectedReligion, Model.ReligionItems, "Select Religion", new { @class = "dropdowns", id = "ageDDL" })
+        @Html.ValidationMessageFor(m => m.Profile.SelectedReligion)
+
+        @Html.LabelFor(m => m.Profile.SelectedSmokes)
+        @Html.DropDownListFor(m => m.Profile.SelectedSmokes, Model.SmokesItems, "Select Smokes", new { @class = "dropdowns", id = "ageDDL" })
+        @Html.ValidationMessageFor(m => m.Profile.SelectedSmokes)
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <input type="submit" value="Submit" />
 
     }
 

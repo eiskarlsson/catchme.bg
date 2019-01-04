@@ -186,7 +186,7 @@ namespace catchme.bg.Models
             {
                 using (CatchmeContext context = new CatchmeContext())
                 {
-                    _weight1 = context.Weight.ToList();
+                    _weight1 = context.Weight.OrderBy(x => int.Parse(x.Name)).ToList();
                 }
                 return _weight1;
             }
@@ -198,7 +198,7 @@ namespace catchme.bg.Models
             {
                 using (CatchmeContext context = new CatchmeContext())
                 {
-                    _height1 = context.Height.ToList();
+                    _height1 = context.Height.OrderBy(x => int.Parse(x.Name)).ToList();
                 }
                 return _height1;
             }
