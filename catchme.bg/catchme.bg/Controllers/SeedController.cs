@@ -124,11 +124,14 @@ namespace catchme.bg.Controllers
         {
             using (CatchmeContext context = new CatchmeContext())
             {
+                var i = 0;
                 foreach (var item in list)
                 {
                     var age = new Age();
                     age.Name = item;
+                    age.ItemId = i;
                     context.Age.Add(age);
+                    i++;
                 }
 
                 context.SaveChanges();
@@ -139,11 +142,14 @@ namespace catchme.bg.Controllers
         {
             using (CatchmeContext context = new CatchmeContext())
             {
+                var i = 0;
                 foreach (var item in list)
                 {
                     var bodyType = new BodyType();
                     bodyType.Name = item;
+                    bodyType.ItemId = i;
                     context.BodyType.Add(bodyType);
+                    i++;
                 }
 
                 context.SaveChanges();
@@ -154,11 +160,14 @@ namespace catchme.bg.Controllers
         {
             using (CatchmeContext context = new CatchmeContext())
             {
+                var i = 0;
                 foreach (var item in list)
                 {
                     var children = new Children();
                     children.Name = item;
+                    children.ItemId = i;
                     context.Children.Add(children);
+                    i++;
                 }
 
                 context.SaveChanges();
@@ -169,11 +178,14 @@ namespace catchme.bg.Controllers
         {
             using (CatchmeContext context = new CatchmeContext())
             {
+                var i = 0;
                 foreach (var item in list)
                 {
                     var diet = new Diet();
                     diet.Name = item;
+                    diet.ItemId = i;
                     context.Diet.Add(diet);
+                    i++;
                 }
 
                 context.SaveChanges();
@@ -184,11 +196,14 @@ namespace catchme.bg.Controllers
         {
             using (CatchmeContext context = new CatchmeContext())
             {
+                var i = 0;
                 foreach (var item in list)
                 {
                     var drinks = new Drinks();
                     drinks.Name = item;
+                    drinks.ItemId = i;
                     context.Drinks.Add(drinks);
+                    i++;
                 }
 
                 context.SaveChanges();
@@ -199,11 +214,14 @@ namespace catchme.bg.Controllers
         {
             using (CatchmeContext context = new CatchmeContext())
             {
+                var i = 0;
                 foreach (var item in list)
                 {
                     var drugs = new Drugs();
                     drugs.Name = item;
+                    drugs.ItemId = i;
                     context.Drugs.Add(drugs);
+                    i++;
                 }
 
                 context.SaveChanges();
@@ -214,11 +232,14 @@ namespace catchme.bg.Controllers
         {
             using (CatchmeContext context = new CatchmeContext())
             {
+                var i = 0;
                 foreach (var item in list)
                 {
                     var education = new Education();
                     education.Name = item;
+                    education.ItemId = i;
                     context.Education.Add(education);
+                    i++;
                 }
 
                 context.SaveChanges();
@@ -229,11 +250,14 @@ namespace catchme.bg.Controllers
         {
             using (CatchmeContext context = new CatchmeContext())
             {
+                var i = 0;
                 foreach (var item in list)
                 {
                     var ethnicity = new Ethnicity();
                     ethnicity.Name = item;
+                    ethnicity.ItemId = i;
                     context.Ethnicity.Add(ethnicity);
+                    i++;
                 }
 
                 context.SaveChanges();
@@ -244,11 +268,14 @@ namespace catchme.bg.Controllers
         {
             using (CatchmeContext context = new CatchmeContext())
             {
+                var i = 0;
                 foreach (var item in list)
                 {
                     var eyeColor = new EyeColor();
                     eyeColor.Name = item;
+                    eyeColor.ItemId = i;
                     context.EyeColor.Add(eyeColor);
+                    i++;
                 }
 
                 context.SaveChanges();
@@ -259,11 +286,14 @@ namespace catchme.bg.Controllers
         {
             using (CatchmeContext context = new CatchmeContext())
             {
+                var i = 0;
                 foreach (var item in list)
                 {
                     var gender = new Gender();
                     gender.Name = item;
+                    gender.ItemId = i;
                     context.Gender.Add(gender);
+                    i++;
                 }
 
                 context.SaveChanges();
@@ -274,11 +304,14 @@ namespace catchme.bg.Controllers
         {
             using (CatchmeContext context = new CatchmeContext())
             {
+                var i = 0;
                 foreach (var item in list)
                 {
                     var hairColor = new HairColor();
                     hairColor.Name = item;
+                    hairColor.ItemId = i;
                     context.HairColor.Add(hairColor);
+                    i++;
                 }
 
                 context.SaveChanges();
@@ -289,11 +322,14 @@ namespace catchme.bg.Controllers
         {
             using (CatchmeContext context = new CatchmeContext())
             {
+                var i = 0;
                 foreach (var item in list)
                 {
                     var height = new Height();
                     height.Name = item;
+                    height.ItemId = i;
                     context.Height.Add(height);
+                    i++;
                 }
 
                 context.SaveChanges();
@@ -304,11 +340,14 @@ namespace catchme.bg.Controllers
         {
             using (CatchmeContext context = new CatchmeContext())
             {
+                var i = 0;
                 foreach (var item in list)
                 {
                     var languages = new Languages();
                     languages.Name = item;
+                    languages.ItemId = i;
                     context.Languages.Add(languages);
+                    i++;
                 }
 
                 context.SaveChanges();
@@ -319,11 +358,14 @@ namespace catchme.bg.Controllers
         {
             using (CatchmeContext context = new CatchmeContext())
             {
+                var i = 0;
                 foreach (var item in list)
                 {
                     var lookingFor = new LookingFor();
                     lookingFor.Name = item;
+                    lookingFor.ItemId = i;
                     context.LookingFor.Add(lookingFor);
+                    i++;
                 }
 
                 context.SaveChanges();
@@ -334,11 +376,14 @@ namespace catchme.bg.Controllers
         {
             using (CatchmeContext context = new CatchmeContext())
             {
+                var i = 0;
                 foreach (var item in list)
                 {
                     var maritalStatus = new MaritalStatus();
                     maritalStatus.Name = item;
+                    maritalStatus.ItemId = i;
                     context.MaritalStatus.Add(maritalStatus);
+                    i++;
                 }
 
                 context.SaveChanges();
@@ -349,11 +394,14 @@ namespace catchme.bg.Controllers
         {
             using (CatchmeContext context = new CatchmeContext())
             {
+                var i = 0;
                 foreach (var item in list)
                 {
                     var pets = new Pets();
                     pets.Name = item;
+                    pets.ItemId = i;
                     context.Pets.Add(pets);
+                    i++;
                 }
 
                 context.SaveChanges();
@@ -364,11 +412,14 @@ namespace catchme.bg.Controllers
         {
             using (CatchmeContext context = new CatchmeContext())
             {
+                var i = 0;
                 foreach (var item in list)
                 {
                     var religion = new Religion();
                     religion.Name = item;
+                    religion.ItemId = i;
                     context.Religion.Add(religion);
+                    i++;
                 }
 
                 context.SaveChanges();
@@ -379,11 +430,14 @@ namespace catchme.bg.Controllers
         {
             using (CatchmeContext context = new CatchmeContext())
             {
+                var i = 0;
                 foreach (var item in list)
                 {
                     var smokes = new Smokes();
                     smokes.Name = item;
+                    smokes.ItemId = i;
                     context.Smokes.Add(smokes);
+                    i++;
                 }
 
                 context.SaveChanges();
@@ -394,11 +448,14 @@ namespace catchme.bg.Controllers
         {
             using (CatchmeContext context = new CatchmeContext())
             {
+                var i = 0;
                 foreach (var item in list)
                 {
                     var weight = new Weight();
                     weight.Name = item;
+                    weight.ItemId = i;
                     context.Weight.Add(weight);
+                    i++;
                 }
 
                 context.SaveChanges();

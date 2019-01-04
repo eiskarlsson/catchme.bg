@@ -45,7 +45,7 @@ namespace catchme.bg.Models
             {
                 using (CatchmeContext context = new CatchmeContext())
                 {
-                    _pets1 = context.Pets.ToList();
+                    _pets1 = context.Pets.OrderBy(x => x.ItemId).ToList();
                 }
                 return _pets1;
             }
@@ -56,7 +56,7 @@ namespace catchme.bg.Models
             {
                 using (CatchmeContext context = new CatchmeContext())
                 {
-                    _children1 = context.Children.ToList();
+                    _children1 = context.Children.OrderBy(x => x.ItemId).ToList();
                 }
                 return _children1;
             }
@@ -67,7 +67,7 @@ namespace catchme.bg.Models
             {
                 using (CatchmeContext context = new CatchmeContext())
                 {
-                    _drugs1 = context.Drugs.ToList();
+                    _drugs1 = context.Drugs.OrderBy(x => x.ItemId).ToList();
                 }
                 return _drugs1;
             }
@@ -79,7 +79,7 @@ namespace catchme.bg.Models
             {
                 using (CatchmeContext context = new CatchmeContext())
                 {
-                    _diet1 = context.Diet.ToList();
+                    _diet1 = context.Diet.OrderBy(x => x.ItemId).ToList();
                 }
                 return _diet1;
             }
@@ -91,7 +91,7 @@ namespace catchme.bg.Models
             {
                 using (CatchmeContext context = new CatchmeContext())
                 {
-                    _drinks1 = context.Drinks.ToList();
+                    _drinks1 = context.Drinks.OrderBy(x => x.ItemId).ToList();
                 }
                 return _drinks1;
             }
@@ -103,7 +103,7 @@ namespace catchme.bg.Models
             {
                 using (CatchmeContext context = new CatchmeContext())
                 {
-                    _smokes1 = context.Smokes.ToList();
+                    _smokes1 = context.Smokes.OrderBy(x => x.ItemId).ToList();
                 }
                 return _smokes1;
             }
@@ -115,7 +115,7 @@ namespace catchme.bg.Models
             {
                 using (CatchmeContext context = new CatchmeContext())
                 {
-                    _religion1 = context.Religion.ToList();
+                    _religion1 = context.Religion.OrderBy(x => x.ItemId).ToList();
                 }
                 return _religion1;
             }
@@ -126,7 +126,7 @@ namespace catchme.bg.Models
             {
                 using (CatchmeContext context = new CatchmeContext())
                 {
-                    _ethnicity1 = context.Ethnicity.ToList();
+                    _ethnicity1 = context.Ethnicity.OrderBy(x => x.ItemId).ToList();
                 }
                 return _ethnicity1;
             }
@@ -138,7 +138,7 @@ namespace catchme.bg.Models
             {
                 using (CatchmeContext context = new CatchmeContext())
                 {
-                    _education1 = context.Education.ToList();
+                    _education1 = context.Education.OrderBy(x => x.ItemId).ToList();
                 }
                 return _education1;
             }
@@ -150,7 +150,7 @@ namespace catchme.bg.Models
             {
                 using (CatchmeContext context = new CatchmeContext())
                 {
-                    _hairColor1 = context.HairColor.ToList();
+                    _hairColor1 = context.HairColor.OrderBy(x => x.ItemId).ToList();
                 }
                 return _hairColor1;
             }
@@ -162,7 +162,7 @@ namespace catchme.bg.Models
             {
                 using (CatchmeContext context = new CatchmeContext())
                 {
-                    _eyeColor1 = context.EyeColor.ToList();
+                    _eyeColor1 = context.EyeColor.OrderBy(x => x.ItemId).ToList();
                 }
                 return _eyeColor1;
             }
@@ -174,7 +174,7 @@ namespace catchme.bg.Models
             {
                 using (CatchmeContext context = new CatchmeContext())
                 {
-                    _bodyType1 = context.BodyType.ToList();
+                    _bodyType1 = context.BodyType.OrderBy(x => x.ItemId).ToList();
                 }
                 return _bodyType1;
             }
@@ -210,7 +210,7 @@ namespace catchme.bg.Models
             {
                 using (CatchmeContext context = new CatchmeContext())
                 {
-                    _languages1 = context.Languages.ToList();
+                    _languages1 = context.Languages.OrderBy(x => x.ItemId).ToList();
                 }
                 return _languages1;
             }
@@ -222,7 +222,7 @@ namespace catchme.bg.Models
             {
                 using (CatchmeContext context = new CatchmeContext())
                 {
-                    _gender1 = context.Gender.ToList();
+                    _gender1 = context.Gender.OrderBy(x => x.ItemId).ToList();
                 }
                 return _gender1;
             }
@@ -246,7 +246,7 @@ namespace catchme.bg.Models
             {
                 using (CatchmeContext context = new CatchmeContext())
                 {
-                    _lookingFor1 = context.LookingFor.ToList();
+                    _lookingFor1 = context.LookingFor.OrderBy(x => x.ItemId).ToList();
                 }
                 return _lookingFor1;
             }
@@ -258,7 +258,7 @@ namespace catchme.bg.Models
             {
                 using (CatchmeContext context = new CatchmeContext())
                 {
-                    _maritalStatus1 = context.MaritalStatus.ToList();
+                    _maritalStatus1 = context.MaritalStatus.OrderBy(x => x.ItemId).ToList();
                 }
                 return _maritalStatus1;
             }
@@ -267,97 +267,97 @@ namespace catchme.bg.Models
         
         public IEnumerable<SelectListItem> PetsItems
         {
-            get { return new SelectList(_pets, "Id", "Name"); }
+            get { return new SelectList(_pets, "ItemId", "Name"); }
         }
 
         public IEnumerable<SelectListItem> ChildrenItems
         {
-            get { return new SelectList(_children, "Id", "Name"); }
+            get { return new SelectList(_children, "ItemId", "Name"); }
         }
 
         public IEnumerable<SelectListItem> DrugsItems
         {
-            get { return new SelectList(_drugs, "Id", "Name"); }
+            get { return new SelectList(_drugs, "ItemId", "Name"); }
         }
 
         public IEnumerable<SelectListItem> DietItems
         {
-            get { return new SelectList(_diet, "Id", "Name"); }
+            get { return new SelectList(_diet, "ItemId", "Name"); }
         }
 
         public IEnumerable<SelectListItem> DrinksItems
         {
-            get { return new SelectList(_drinks, "Id", "Name"); }
+            get { return new SelectList(_drinks, "ItemId", "Name"); }
         }
 
         public IEnumerable<SelectListItem> SmokesItems
         {
-            get { return new SelectList(_smokes, "Id", "Name"); }
+            get { return new SelectList(_smokes, "ItemId", "Name"); }
         }
 
         public IEnumerable<SelectListItem> ReligionItems
         {
-            get { return new SelectList(_religion, "Id", "Name"); }
+            get { return new SelectList(_religion, "ItemId", "Name"); }
         }
 
         public IEnumerable<SelectListItem> EthnicityItems
         {
-            get { return new SelectList(_ethnicity, "Id", "Name"); }
+            get { return new SelectList(_ethnicity, "ItemId", "Name"); }
         }
 
         public IEnumerable<SelectListItem> EducationItems
         {
-            get { return new SelectList(_education, "Id", "Name"); }
+            get { return new SelectList(_education, "ItemId", "Name"); }
         }
 
         public IEnumerable<SelectListItem> HairColorItems
         {
-            get { return new SelectList(_hairColor, "Id", "Name"); }
+            get { return new SelectList(_hairColor, "ItemId", "Name"); }
         }
 
         public IEnumerable<SelectListItem> EyeColorItems
         {
-            get { return new SelectList(_eyeColor, "Id", "Name"); }
+            get { return new SelectList(_eyeColor, "ItemId", "Name"); }
         }
 
         public IEnumerable<SelectListItem> BodyTypeItems
         {
-            get { return new SelectList(_bodyType, "Id", "Name"); }
+            get { return new SelectList(_bodyType, "ItemId", "Name"); }
         }
 
         public IEnumerable<SelectListItem> WeightItems
         {
-            get { return new SelectList(_weight, "Id", "Name"); }
+            get { return new SelectList(_weight, "ItemId", "Name"); }
         }
 
         public IEnumerable<SelectListItem> HeightItems
         {
-            get { return new SelectList(_height, "Id", "Name"); }
+            get { return new SelectList(_height, "ItemId", "Name"); }
         }
 
         public IEnumerable<SelectListItem> LanguagesItems
         {
-            get { return new SelectList(_languages, "Id", "Name"); }
+            get { return new SelectList(_languages, "ItemId", "Name"); }
         }
 
         public IEnumerable<SelectListItem> GenderItems
         {
-            get { return new SelectList(_gender, "Id", "Name"); }
+            get { return new SelectList(_gender, "ItemId", "Name"); }
         }
 
         public IEnumerable<SelectListItem> AgeItems
         {
-            get { return new SelectList(_age, "Id", "Name"); }
+            get { return new SelectList(_age, "ItemId", "Name"); }
         }
 
         public IEnumerable<SelectListItem> LookingForItems
         {
-            get { return new SelectList(_lookingFor, "Id", "Name"); }
+            get { return new SelectList(_lookingFor, "ItemId", "Name"); }
         }
 
         public IEnumerable<SelectListItem> MaritalStatusItems
         {
-            get { return new SelectList(_maritalStatus, "Id", "Name"); }
+            get { return new SelectList(_maritalStatus, "ItemId", "Name"); }
         }
 
 

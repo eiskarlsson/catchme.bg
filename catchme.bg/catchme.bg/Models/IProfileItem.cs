@@ -8,6 +8,7 @@ namespace catchme.bg.Models
     public interface IProfileItem
     {
         int Id { get; set; }
+        int ItemId { get; set; }
         string Name { get; set; }
     }
 }
