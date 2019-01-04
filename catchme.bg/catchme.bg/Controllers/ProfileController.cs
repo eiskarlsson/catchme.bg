@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -8,10 +9,12 @@ using catchme.bg.Data;
 using catchme.bg.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace catchme.bg.Controllers
 {
     [Authorize]
+    [AutoValidateAntiforgeryToken]
     public class ProfileController : Controller
     {
         public catchmebgContext _bgcontext { get; set; }
@@ -43,11 +46,14 @@ namespace catchme.bg.Controllers
             _context = context;
         }
 
-        [HttpGet]
+
         public IActionResult Index()
         {
             var model = new ProfileViewModel();
-            var currentProfile = _context.Profiles.FirstOrDefault(u => u.ProfileUser.Id == CurrentUser.Id);
+            //https://docs.microsoft.com/en-gb/ef/core/querying/related-data
+            //var currentProfile = (from u in _context.Profiles.Include(u=>u.ProfileUser) where (u.ProfileUser.Id == CurrentUser.Id) select u).FirstOrDefault();
+            var currentProfile = (from u in _context.Profiles where (u.ProfileUser.Id == CurrentUser.Id) select u).FirstOrDefault();
+            
             if (currentProfile != null)
             {
                 model.Profile = currentProfile;
@@ -62,7 +68,7 @@ namespace catchme.bg.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public IActionResult Index(ProfileViewModel model)
         {
             if (ModelState.IsValid)

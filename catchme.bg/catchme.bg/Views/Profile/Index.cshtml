@@ -14,8 +14,8 @@
     {
         @Html.AntiForgeryToken()
 
-        @Html.TextBoxFor(m => m.ID, new { @class = "hidden", @readonly = "readonly" })
-        @Html.TextBoxFor(m => m.ProfileUser.Id, new { @class = "hidden", @readonly = "readonly" })
+        @*@Html.TextBoxFor(m => m.ID, new { @class = "hidden" })*@
+        @*@Html.TextBoxFor(m => m.ProfileUser.Id, new { @class = "hidden", @readonly = "readonly" })*@
         @Html.TextBoxFor(m => m.Profile.Details, new { @class = "" })
         @Html.TextBoxFor(m => m.Profile.EducationDescription, new { @class = "" })
         @Html.TextBoxFor(m => m.Profile.DateCreated, new { @class = "hidden", @readonly = "readonly" })
