@@ -12,7 +12,10 @@
 
     @using (Html.BeginForm("Index", "Profile", FormMethod.Post, new { @class = "" }))
     {
+        @Html.AntiForgeryToken()
+
         @Html.TextBoxFor(m => m.ID, new { @class = "hidden", @readonly = "readonly" })
+        @Html.TextBoxFor(m => m.User.Id, new { @class = "hidden", @readonly = "readonly" })
         @Html.TextBoxFor(m => m.Profile.Details, new { @class = "" })
         @Html.TextBoxFor(m => m.Profile.EducationDescription, new { @class = "" })
         @Html.TextBoxFor(m => m.Profile.DateCreated, new { @class = "hidden", @readonly = "readonly" })
@@ -22,11 +25,11 @@
 
         @Html.LabelFor(m => m.Profile.SelectedAge)
         @Html.DropDownListFor(m => m.Profile.SelectedAge, Model.AgeItems, "Select Age", new { @class = "dropdowns", id = "ageDDL" })
-        @Html.ValidationMessageFor(m => m.Profile.SelectedAge,"", new {@class = "text-danger"})
+        @Html.ValidationMessageFor(m => m.Profile.SelectedAge, "", new { @class = "text-danger" })
 
         @Html.LabelFor(m => m.Profile.SelectedWeight)
         @Html.DropDownListFor(m => m.Profile.SelectedWeight, Model.WeightItems, "Select Weight", new { @class = "dropdowns", id = "ageDDL" })
-        @Html.ValidationMessageFor(m => m.Profile.SelectedWeight,"", new {@class = "text-danger"})
+        @Html.ValidationMessageFor(m => m.Profile.SelectedWeight, "", new { @class = "text-danger" })
 
         @Html.LabelFor(m => m.Profile.SelectedHeight)
         @Html.DropDownListFor(m => m.Profile.SelectedHeight, Model.HeightItems, "Select Height", new { @class = "dropdowns", id = "ageDDL" })

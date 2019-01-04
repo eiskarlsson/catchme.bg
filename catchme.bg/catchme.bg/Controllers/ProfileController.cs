@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 using catchme.bg.Areas.Identity.Data;
 using catchme.bg.Data;
 using catchme.bg.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace catchme.bg.Controllers
 {
+    [Authorize]
     public class ProfileController : Controller
     {
         public catchmebgContext _bgcontext { get; set; }
@@ -41,25 +43,49 @@ namespace catchme.bg.Controllers
             _context = context;
         }
 
-
+        [HttpGet]
         public IActionResult Index()
         {
             var model = new ProfileViewModel();
-            model.User = CurrentUser;
-            model.Profile = new Profile();
-            model.Profile.DateCreated = DateTime.Now;
-            model.Profile.DateLastChange = DateTime.Now;
+            var currentProfile = _context.Profiles.FirstOrDefault(u => u.User.Id == CurrentUser.Id);
+            if (currentProfile != null)
+            {
+                model.Profile = currentProfile;
+            }
+            else
+            {
+                model.User = CurrentUser;
+                model.Profile = new Profile();
+            }
+            
+            //model.Profile.DateCreated = DateTime.Now;
+            //model.Profile.DateLastChange = DateTime.Now;
 
             return View(model);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Index(ProfileViewModel model)
         {
-            model.Profile.DateCreated = DateTime.Now;
-            model.Profile.DateLastChange = DateTime.Now;
             if (ModelState.IsValid)
             {
+                var currentProfile = _context.Profiles.FirstOrDefault(u => u.User.Id == CurrentUser.Id);
+                if (currentProfile != null)
+                {
+                    model.Profile.DateLastChange = DateTime.Now;
+                    _context.Profiles.Update(model.Profile);
+                }
+                else
+                {
+                    model.User = CurrentUser;
+                    model.Profile.User = CurrentUser;
+                    model.Profile.DateCreated = DateTime.Now;
+                    model.Profile.DateLastChange = DateTime.Now;
+                    _context.Profiles.Add(model.Profile);
+                }
+                
+                _context.SaveChanges();
             }
 
             return View(model);
