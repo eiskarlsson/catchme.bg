@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -22,6 +23,8 @@ namespace catchme.bg.Controllers
         public CatchmeContext _context { get; set; }
 
         protected ProfileViewModel ProfileViewModel { get; set; }
+
+        public byte[] UserPhotoArray { get; set; }
 
         protected CatchmebgUser CurrentUser
         {
@@ -69,19 +72,46 @@ namespace catchme.bg.Controllers
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public IActionResult Index(ProfileViewModel model)
+        public async Task<IActionResult> Index(ProfileViewModel model)
         {
             if (ModelState.IsValid)
             {
                 var currentProfile = _context.Profiles.FirstOrDefault(u => u.ProfileUser.Id == CurrentUser.Id);
+
+                var filePath = Path.GetTempFileName();
+                // To convert the user uploaded Photo as Byte Array before save to DB
+
+                if (Request.Form.Files.Count > 0)
+                {
+                    var poImgFile = Request.Form.Files["UserPhoto"];
+
+                    if (poImgFile != null && poImgFile.Length > 0)
+                    {
+                        using (var inputStream = new FileStream(filePath, FileMode.Create))
+                        {
+                            // read file to stream
+                            await poImgFile.CopyToAsync(inputStream);
+                            // stream to byte array
+                            UserPhotoArray = new byte[inputStream.Length];
+                            inputStream.Seek(0, SeekOrigin.Begin);
+                            inputStream.Read(UserPhotoArray, 0, UserPhotoArray.Length);
+                            // get file name
+                            string fName = poImgFile.FileName;
+                        }
+                    }
+
+                }
+
                 if (currentProfile != null)
                 {
                     model.Profile.DateLastChange = DateTime.Now;
+                    model.Profile.ProfileUser.UserPhoto = UserPhotoArray;
                     _context.Profiles.Update(model.Profile);
                 }
                 else
                 {
                     model.ProfileUser = CurrentUser;
+                    CurrentUser.UserPhoto = UserPhotoArray;
                     model.Profile.ProfileUser = CurrentUser;
                     model.Profile.DateCreated = DateTime.Now;
                     model.Profile.DateLastChange = DateTime.Now;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using catchme.bg.Areas.Identity.Data;
@@ -32,10 +33,14 @@ namespace catchme.bg.Models
         private List<Age> _age1;
         private List<LookingFor> _lookingFor1;
         private List<MaritalStatus> _maritalStatus1;
+       
 
         public int ID { set; get; }
 
         public CatchmebgUser ProfileUser { get; set; }
+
+        [Display(Name = "UserPhoto")]
+        public byte[] UserPhoto { get; set; }
 
         public Profile Profile { get; set; }
 
