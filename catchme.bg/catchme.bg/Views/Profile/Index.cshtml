@@ -10,21 +10,21 @@
 
 <div>
 
-    @using (Html.BeginForm("Index", "Profile", FormMethod.Post, new { @class = "" }))
+    @using (Html.BeginForm("Index", "Profile", FormMethod.Post, new { @class = "", enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
         <img src="@Url.Action("UserPhotos", "Home" )" style="width:160px;height:160px; background: #FFFFFF;margin: auto;-moz-border-radius: 60px;
          border-radius: 100px;padding: 6px;box-shadow: 0px 0px 20px #888;" />
+        <div class="form-group">
+            <label asp-for="UserPhoto" class = "col-md-2 form-control"></label>
+            <div class="col-md-10">
+             
+                <input asp-for="UserPhoto" type="file" name="UserPhoto" id="fileUpload" accept=".png,.jpg,.jpeg,.gif,.tif" />
+              
+            </div>
+        </div>
         <div class="container">
             <div class="row">
-                <div class="form-group">
-                    <label asp-for="Profile.ProfileUser.UserPhoto" class = "col-md-2 form-control"></label>
-                    <div class="col-md-10">
-             
-                        <input asp-for="Profile.ProfileUser.UserPhoto" type="file" name="UserPhoto" id="fileUpload" accept=".png,.jpg,.jpeg,.gif,.tif" />
-               
-                    </div>
-                </div>
                 <div class="col-sm">
                     <div class="form-group row">
                         @Html.LabelFor(m => m.Profile.SelectedAge, htmlAttributes: new { @class = "col-sm-5 col-form-label" })
@@ -187,8 +187,9 @@
                     </div>
                 </div>
                 <div class="col-sm">
-                    @*@Html.TextBoxFor(m => m.ID, new { @class = "hidden" })*@
-                    @*@Html.TextBoxFor(m => m.ProfileUser.Id, new { @class = "hidden", @readonly = "readonly" })*@
+                    @Html.TextBoxFor(m => m.ID, new { @class = "hidden" })
+                    @Html.TextBoxFor(m => m.ProfileUser.Id, new { @class = "hidden", @readonly = "readonly" })
+                    @Html.TextBoxFor(m => m.Profile.ProfileUser.Id, new { @class = "hidden", @readonly = "readonly" })
                     <div class="form-group row">
                         <label class="col-sm-5 col-form-label">Details</label>
                         <div class="col-sm-5">

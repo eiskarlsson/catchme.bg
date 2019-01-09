@@ -60,6 +60,9 @@ namespace catchme.bg.Data
                 entity.Property(e => e.UserNameFrom).IsRequired().HasMaxLength(256).IsUnicode(true);
                 entity.Property(e => e.UserNameTo).IsRequired().HasMaxLength(256).IsUnicode(true);
             });
+            modelBuilder.Entity<Profile>()
+                .Property(p => p.ID)
+                .ValueGeneratedOnAdd();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
