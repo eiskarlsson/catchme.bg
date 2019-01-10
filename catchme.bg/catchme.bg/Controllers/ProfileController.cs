@@ -76,11 +76,11 @@ namespace catchme.bg.Controllers
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> Index(ProfileViewModel model)
+        public async Task<IActionResult> Index([Bind] ProfileViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var currentProfile = _context.Profiles.FirstOrDefault(u => u.ProfileUser.Id == CurrentUser.Id);
+                var currentProfile = _context.Profiles.Include(u=>u.ProfileUser).FirstOrDefault(u => u.ProfileUser.Id == CurrentUser.Id);
 
                 var filePath = Path.GetTempFileName();
                 // To convert the user uploaded Photo as Byte Array before save to DB
@@ -112,26 +112,36 @@ namespace catchme.bg.Controllers
                     //_context.Entry(model.Profile).State = EntityState.Modified;
                     model.Profile = currentProfile;
                     model.Profile.DateLastChange = DateTime.Now;
-                    model.Profile.ProfileUser = CurrentUser;
-                    model.Profile.ProfileUser.UserPhoto = UserPhotoArray;
-                    _context.Profiles.Update(model.Profile);
+                    model.Profile.ProfileUser = currentProfile.ProfileUser;
+                    //model.Profile.ProfileUser.UserPhoto = UserPhotoArray;
+                    model.UserPhoto = UserPhotoArray;
+                    model.ProfileUser.UserPhoto = UserPhotoArray;
+                    currentProfile.ProfileUser.UserPhoto = UserPhotoArray;
+
+                    _context.Profiles.Update(currentProfile);
+                    _context.SaveChanges();
+                    
+                   
                 }
                 else
                 {
                     //_context.Profiles.Attach(model.Profile);
                     //_context.Entry(model.Profile).State = EntityState.Modified;
                     model.ProfileUser = CurrentUser;
+                    model.ProfileUser.UserPhoto = UserPhotoArray;
                     CurrentUser.UserPhoto = UserPhotoArray;
                     model.Profile.ProfileUser = CurrentUser;
                     model.Profile.DateCreated = DateTime.Now;
                     model.Profile.DateLastChange = DateTime.Now;
+                    model.UserPhoto = UserPhotoArray;
                     _context.Profiles.Add(model.Profile);
+                    _context.SaveChanges();
                 }
 
                 //_context.Profiles.Attach(model.Profile);
                 //_context.Entry(model.Profile).State = EntityState.Modified;
                 //_context.Profiles.Attach(model.Profile);
-                _context.SaveChanges();
+               
             }
 
             return View(model);
