@@ -9,6 +9,8 @@ using catchme.bg.Areas.Identity.Data;
 using catchme.bg.Data;
 using catchme.bg.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -56,7 +58,7 @@ namespace catchme.bg.Controllers
             var model = new ProfileViewModel();
             //https://docs.microsoft.com/en-gb/ef/core/querying/related-data
             //var currentProfile = (from u in _context.Profiles.Include(u=>u.ProfileUser) where (u.ProfileUser.Id == CurrentUser.Id) select u).FirstOrDefault();
-            var currentProfile = (from u in _context.Profiles.Include(u=>u.ProfileUser) where (u.ProfileUser.Id == CurrentUser.Id) select u).FirstOrDefault();
+            var currentProfile = (from u in _context.Profiles where (u.ProfileUser.Id == CurrentUser.Id) select u).FirstOrDefault();
             
             if (currentProfile != null)
             {
@@ -80,7 +82,7 @@ namespace catchme.bg.Controllers
         {
             if (ModelState.IsValid)
             {
-                var currentProfile = _context.Profiles.Include(u=>u.ProfileUser).FirstOrDefault(u => u.ProfileUser.Id == CurrentUser.Id);
+                var currentProfile = _context.Profiles.FirstOrDefault(u => u.ProfileUser.Id == CurrentUser.Id);
 
                 var filePath = Path.GetTempFileName();
                 // To convert the user uploaded Photo as Byte Array before save to DB
@@ -106,6 +108,7 @@ namespace catchme.bg.Controllers
 
                 }
 
+                
                 if (currentProfile != null)
                 {
                     //_context.Profiles.Attach(model.Profile);
@@ -116,12 +119,11 @@ namespace catchme.bg.Controllers
                     //model.Profile.ProfileUser.UserPhoto = UserPhotoArray;
                     model.UserPhoto = UserPhotoArray;
                     model.ProfileUser.UserPhoto = UserPhotoArray;
-                    currentProfile.ProfileUser.UserPhoto = UserPhotoArray;
-
-                    _context.Profiles.Update(currentProfile);
-                    _context.SaveChanges();
+                    //currentProfile.ProfileUser.UserPhoto = UserPhotoArray;
+                    CurrentUser.UserPhoto = UserPhotoArray;
+                    _bgcontext.Update(CurrentUser);
+                   _context.Profiles.Update(model.Profile);
                     
-                   
                 }
                 else
                 {
@@ -134,14 +136,16 @@ namespace catchme.bg.Controllers
                     model.Profile.DateCreated = DateTime.Now;
                     model.Profile.DateLastChange = DateTime.Now;
                     model.UserPhoto = UserPhotoArray;
+                    _bgcontext.Update(CurrentUser);
                     _context.Profiles.Add(model.Profile);
-                    _context.SaveChanges();
+                   
                 }
 
                 //_context.Profiles.Attach(model.Profile);
                 //_context.Entry(model.Profile).State = EntityState.Modified;
                 //_context.Profiles.Attach(model.Profile);
-               
+                _bgcontext.SaveChanges();
+                _context.SaveChanges();
             }
 
             return View(model);
