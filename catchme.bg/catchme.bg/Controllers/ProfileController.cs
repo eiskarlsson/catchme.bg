@@ -59,7 +59,7 @@ namespace catchme.bg.Controllers
             //https://docs.microsoft.com/en-gb/ef/core/querying/related-data
             //var currentProfile = (from u in _context.Profiles.Include(u=>u.ProfileUser) where (u.ProfileUser.Id == CurrentUser.Id) select u).FirstOrDefault();
             var currentProfile = (from u in _context.Profiles where (u.ProfileUser.Id == CurrentUser.Id) select u).FirstOrDefault();
-            
+
             if (currentProfile != null)
             {
                 model.ProfileUser = currentProfile.ProfileUser;
@@ -72,7 +72,7 @@ namespace catchme.bg.Controllers
                 model.Profile = new Profile();
                 model.Profile.ProfileUser = CurrentUser;
             }
-            
+
             return View(model);
         }
 
@@ -108,7 +108,7 @@ namespace catchme.bg.Controllers
 
                 }
 
-                
+
                 if (currentProfile != null)
                 {
                     //_context.Profiles.Attach(model.Profile);
@@ -116,14 +116,15 @@ namespace catchme.bg.Controllers
                     model.Profile = currentProfile;
                     model.Profile.DateLastChange = DateTime.Now;
                     model.Profile.ProfileUser = currentProfile.ProfileUser;
-                    //model.Profile.ProfileUser.UserPhoto = UserPhotoArray;
-                    model.UserPhoto = UserPhotoArray;
-                    model.ProfileUser.UserPhoto = UserPhotoArray;
-                    //currentProfile.ProfileUser.UserPhoto = UserPhotoArray;
-                    CurrentUser.UserPhoto = UserPhotoArray;
-                    _bgcontext.Update(CurrentUser);
-                   _context.Profiles.Update(model.Profile);
-                    
+                    if (UserPhotoArray != null)
+                    {
+                        model.UserPhoto = UserPhotoArray;
+                        model.ProfileUser.UserPhoto = UserPhotoArray;
+                        CurrentUser.UserPhoto = UserPhotoArray;
+                        _bgcontext.Update(CurrentUser);
+                    }
+                    _context.Profiles.Update(model.Profile);
+
                 }
                 else
                 {
@@ -138,7 +139,7 @@ namespace catchme.bg.Controllers
                     model.UserPhoto = UserPhotoArray;
                     _bgcontext.Update(CurrentUser);
                     _context.Profiles.Add(model.Profile);
-                   
+
                 }
 
                 //_context.Profiles.Attach(model.Profile);

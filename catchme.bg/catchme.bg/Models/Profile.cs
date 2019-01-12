@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,6 +13,7 @@ namespace catchme.bg.Models
         public int ID { set; get; }
 
         [Required]
+        //[NotMapped]
         public virtual CatchmebgUser ProfileUser { get; set; }
 
         [Display(Name = "Pets:")]
