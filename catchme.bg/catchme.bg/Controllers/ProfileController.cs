@@ -112,7 +112,6 @@ namespace catchme.bg.Controllers
                 {
                     model.Profile = currentProfile;
                     model.Profile.DateLastChange = DateTime.Now;
-                    //model.Profile.ProfileUser = currentProfile.ProfileUser;
                     if (UserPhotoArray != null)
                     {
                         model.UserPhoto = UserPhotoArray;
@@ -125,7 +124,6 @@ namespace catchme.bg.Controllers
                 }
                 else
                 {
-                    //model.Profile = new Profile();
                     model.ProfileUser = CurrentUser;
                     model.ProfileUser.UserPhoto = UserPhotoArray;
                     CurrentUser.UserPhoto = UserPhotoArray;
