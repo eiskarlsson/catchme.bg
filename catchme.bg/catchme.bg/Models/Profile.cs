@@ -13,8 +13,7 @@ namespace catchme.bg.Models
         public int ID { set; get; }
 
         [Required]
-        //[NotMapped]
-        public virtual CatchmebgUser ProfileUser { get; set; }
+        public string ProfileUserId { get; set; }
 
         [Display(Name = "Pets:")]
         [Required(ErrorMessage = "{0} is required.")]
