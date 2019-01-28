@@ -10,10 +10,10 @@
 
 <div>
 
-    @using (Html.BeginForm("Index", "Profile", FormMethod.Post, new { @class = "", enctype = "multipart/form-data" }))
+    @using (Html.BeginForm("Show", "Profile", FormMethod.Post, new { @class = "", enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
-        <img src="@Url.Action("UserPhotos", "Home" )" style="width:160px;height:160px; background: #FFFFFF;margin: auto;-moz-border-radius: 60px;
+        <img src="@Url.Action("UserPhotos", "Profile" )" style="width:160px;height:160px; background: #FFFFFF;margin: auto;-moz-border-radius: 60px;
          border-radius: 100px;padding: 6px;box-shadow: 0px 0px 20px #888;" />
         <div class="form-group">
             <label asp-for="UserPhoto" class="col-md-2 form-control"></label>

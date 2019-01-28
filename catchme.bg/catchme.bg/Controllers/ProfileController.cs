@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 
 namespace catchme.bg.Controllers
 {
@@ -20,6 +21,8 @@ namespace catchme.bg.Controllers
     [AutoValidateAntiforgeryToken]
     public class ProfileController : Controller
     {
+        private readonly IHostingEnvironment _environment;
+
         public catchmebgContext _bgcontext { get; set; }
 
         public CatchmeContext _context { get; set; }
@@ -46,16 +49,18 @@ namespace catchme.bg.Controllers
         protected string userId;
         private CatchmebgUser _currentUser;
 
-        public ProfileController(catchmebgContext bgcontext, CatchmeContext context)
+        public ProfileController(catchmebgContext bgcontext, CatchmeContext context, IHostingEnvironment environment)
         {
             _bgcontext = bgcontext;
             _context = context;
+            _environment = environment;
         }
 
         public IActionResult Show(string username)
         {
             var model = new ProfileViewModel();
             var user = _bgcontext.Users.FirstOrDefault(x => x.UserName.ToLower() == username.ToLower());
+            TempData["username"] = user?.UserName;
             //https://docs.microsoft.com/en-gb/ef/core/querying/related-data
             //var currentProfile = (from u in _context.Profiles.Include(u=>u.ProfileUser) where (u.ProfileUser.Id == CurrentUser.Id) select u).FirstOrDefault();
             var profile = (from u in _context.Profiles where (u.ProfileUserId == user.Id) select u).FirstOrDefault();
@@ -166,6 +171,54 @@ namespace catchme.bg.Controllers
             }
 
             return View(model);
+        }
+
+
+        public FileContentResult UserPhotos()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                //var userId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                string username = TempData["username"].ToString();
+                // to get the user details to load user Image
+                var user = _bgcontext.Users.FirstOrDefault(x => x.UserName.ToLower() == username.ToLower());
+
+                if (user?.Id == null)
+                {
+                    string fileName = Path.Combine(_environment.ContentRootPath, @"~/images/noImg.png");
+
+                    byte[] imageData = null;
+                    FileInfo fileInfo = new FileInfo(fileName);
+                    long imageFileLength = fileInfo.Length;
+                    FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+                    BinaryReader br = new BinaryReader(fs);
+                    imageData = br.ReadBytes((int)imageFileLength);
+
+                    return File(imageData, "image/png");
+
+                }
+
+
+                if (user?.UserPhoto != null)
+                {
+                    return new FileContentResult(user.UserPhoto, "image/jpeg");
+                }
+
+                return null;
+            }
+            else
+            {
+                string fileName = Path.Combine(_environment.ContentRootPath, @"wwwroot\images\noImg.png");
+
+                byte[] imageData = null;
+                FileInfo fileInfo = new FileInfo(fileName);
+                long imageFileLength = fileInfo.Length;
+                FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+                BinaryReader br = new BinaryReader(fs);
+                imageData = br.ReadBytes((int)imageFileLength);
+                return File(imageData, "image/png");
+
+            }
         }
     }
 }
