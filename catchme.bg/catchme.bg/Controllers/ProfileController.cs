@@ -52,6 +52,29 @@ namespace catchme.bg.Controllers
             _context = context;
         }
 
+        public IActionResult Show(string username)
+        {
+            var model = new ProfileViewModel();
+            var user = _bgcontext.Users.FirstOrDefault(x => x.UserName.ToLower() == username.ToLower());
+            //https://docs.microsoft.com/en-gb/ef/core/querying/related-data
+            //var currentProfile = (from u in _context.Profiles.Include(u=>u.ProfileUser) where (u.ProfileUser.Id == CurrentUser.Id) select u).FirstOrDefault();
+            var profile = (from u in _context.Profiles where (u.ProfileUserId == user.Id) select u).FirstOrDefault();
+
+            if (profile != null)
+            {
+                model.ProfileUser = user;
+                model.Profile = profile;
+                model.Profile.ProfileUserId = profile.ProfileUserId;
+            }
+            else
+            {
+                model.ProfileUser = user;
+                model.Profile = new Profile { ProfileUserId = user.Id };
+            }
+
+            return View(model);
+        }
+
 
         public IActionResult Index()
         {

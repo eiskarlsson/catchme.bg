@@ -1,0 +1,251 @@
+﻿@model catchme.bg.Models.ProfileViewModel
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Profile</h2>
+
+<hr />
+
+<div>
+
+    @using (Html.BeginForm("Index", "Profile", FormMethod.Post, new { @class = "", enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        <img src="@Url.Action("UserPhotos", "Home" )" style="width:160px;height:160px; background: #FFFFFF;margin: auto;-moz-border-radius: 60px;
+         border-radius: 100px;padding: 6px;box-shadow: 0px 0px 20px #888;" />
+        <div class="form-group">
+            <label asp-for="UserPhoto" class="col-md-2 form-control"></label>
+            <div class="col-md-10">
+
+                <input asp-for="UserPhoto" type="file" name="UserPhoto" id="fileUpload" accept=".png,.jpg,.jpeg,.gif,.tif" />
+
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm">
+                    <fieldset class="border p-2">
+                        <legend class="w-auto">General:</legend>
+                        <div class="form-group row">
+                            @Html.LabelFor(m => m.Profile.SelectedAge, htmlAttributes: new { @class = "col-sm-5 col-form-label" })
+                            <div class="col-sm-5">
+                                @Html.DropDownListFor(m => m.Profile.SelectedAge, Model.AgeItems, "Select Age", new { @class = "form-control", id = "ageDDL" })
+                                @Html.ValidationMessageFor(m => m.Profile.SelectedAge, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            @Html.LabelFor(m => m.Profile.SelectedGender, htmlAttributes: new { @class = "col-sm-5 col-form-label" })
+                            <div class="col-sm-5">
+                                @Html.DropDownListFor(m => m.Profile.SelectedGender, Model.GenderItems, "Select Gender", new { @class = "form-control", id = "genderDDL" })
+                                @Html.ValidationMessageFor(m => m.Profile.SelectedGender, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            @Html.LabelFor(m => m.Profile.SelectedLookingFor, htmlAttributes: new { @class = "col-sm-5 col-form-label" })
+                            <div class="col-sm-5">
+                                @Html.DropDownListFor(m => m.Profile.SelectedLookingFor, Model.LookingForItems, "Select Looking For", new { @class = "form-control", id = "ageDDL" })
+                                @Html.ValidationMessageFor(m => m.Profile.SelectedLookingFor, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            @Html.LabelFor(m => m.Profile.SelectedMaritalStatus, htmlAttributes: new { @class = "col-sm-5 col-form-label" })
+                            <div class="col-sm-5">
+                                @Html.DropDownListFor(m => m.Profile.SelectedMaritalStatus, Model.MaritalStatusItems, "Select Marital Status", new { @class = "form-control", id = "ageDDL" })
+                                @Html.ValidationMessageFor(m => m.Profile.SelectedMaritalStatus, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            @Html.LabelFor(m => m.Profile.SelectedChildren, htmlAttributes: new { @class = "col-sm-5 col-form-label" })
+                            <div class="col-sm-5">
+                                @Html.DropDownListFor(m => m.Profile.SelectedChildren, Model.ChildrenItems, "Select Children", new { @class = "form-control", id = "ageDDL" })
+                                @Html.ValidationMessageFor(m => m.Profile.SelectedChildren, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="col-sm">
+                    <fieldset class="border p-2">
+                        <legend class="w-auto">Personalia:</legend>
+                        <div class="form-group row">
+                            @Html.LabelFor(m => m.Profile.SelectedEyeColor, htmlAttributes: new { @class = "col-sm-5 col-form-label" })
+                            <div class="col-sm-5">
+                                @Html.DropDownListFor(m => m.Profile.SelectedEyeColor, Model.EyeColorItems, "Select Eye Color", new { @class = "form-control", id = "ageDDL" })
+                                @Html.ValidationMessageFor(m => m.Profile.SelectedEyeColor, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            @Html.LabelFor(m => m.Profile.SelectedHairColor, htmlAttributes: new { @class = "col-sm-5 col-form-label" })
+                            <div class="col-sm-5">
+                                @Html.DropDownListFor(m => m.Profile.SelectedHairColor, Model.HairColorItems, "Select Hair Color", new { @class = "form-control", id = "ageDDL" })
+                                @Html.ValidationMessageFor(m => m.Profile.SelectedHairColor, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            @Html.LabelFor(m => m.Profile.SelectedWeight, htmlAttributes: new { @class = "col-sm-5 col-form-label" })
+                            <div class="col-sm-5">
+                                @Html.DropDownListFor(m => m.Profile.SelectedWeight, Model.WeightItems, "Select Weight", new { @class = "form-control", id = "ageDDL" })
+                                @Html.ValidationMessageFor(m => m.Profile.SelectedWeight, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            @Html.LabelFor(m => m.Profile.SelectedHeight, htmlAttributes: new { @class = "col-sm-5 col-form-label" })
+                            <div class="col-sm-5">
+                                @Html.DropDownListFor(m => m.Profile.SelectedHeight, Model.HeightItems, "Select Height", new { @class = "form-control", id = "ageDDL" })
+                                @Html.ValidationMessageFor(m => m.Profile.SelectedHeight, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            @Html.LabelFor(m => m.Profile.SelectedBodyType, htmlAttributes: new { @class = "col-sm-5 col-form-label" })
+                            <div class="col-sm-5">
+                                @Html.DropDownListFor(m => m.Profile.SelectedBodyType, Model.BodyTypeItems, "Select BodyType", new { @class = "form-control", id = "ageDDL" })
+                                @Html.ValidationMessageFor(m => m.Profile.SelectedBodyType, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="col-sm">
+                    <fieldset class="border p-2">
+                        <legend class="w-auto">Habits:</legend>
+                        <div class="form-group row">
+                            @Html.LabelFor(m => m.Profile.SelectedSmokes, htmlAttributes: new { @class = "col-sm-5 col-form-label" })
+                            <div class="col-sm-5">
+                                @Html.DropDownListFor(m => m.Profile.SelectedSmokes, Model.SmokesItems, "Select Smokes", new { @class = "form-control", id = "ageDDL" })
+                                @Html.ValidationMessageFor(m => m.Profile.SelectedSmokes, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            @Html.LabelFor(m => m.Profile.SelectedDiet, htmlAttributes: new { @class = "col-sm-5 col-form-label" })
+                            <div class="col-sm-5">
+                                @Html.DropDownListFor(m => m.Profile.SelectedDiet, Model.DietItems, "Select Diet", new { @class = "form-control", id = "ageDDL" })
+                                @Html.ValidationMessageFor(m => m.Profile.SelectedDiet, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            @Html.LabelFor(m => m.Profile.SelectedDrinks, htmlAttributes: new { @class = "col-sm-5 col-form-label" })
+                            <div class="col-sm-5">
+                                @Html.DropDownListFor(m => m.Profile.SelectedDrinks, Model.DrinksItems, "Select Drinks", new { @class = "form-control", id = "ageDDL" })
+                                @Html.ValidationMessageFor(m => m.Profile.SelectedDrinks, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            @Html.LabelFor(m => m.Profile.SelectedDrugs, htmlAttributes: new { @class = "col-sm-5 col-form-label" })
+                            <div class="col-sm-5">
+                                @Html.DropDownListFor(m => m.Profile.SelectedDrugs, Model.DrugsItems, "Select Drugs", new { @class = "form-control", id = "ageDDL" })
+                                @Html.ValidationMessageFor(m => m.Profile.SelectedDrugs, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            @Html.LabelFor(m => m.Profile.SelectedReligion, htmlAttributes: new { @class = "col-sm-5 col-form-label" })
+                            <div class="col-sm-5">
+                                @Html.DropDownListFor(m => m.Profile.SelectedReligion, Model.ReligionItems, "Select Religion", new { @class = "form-control", id = "ageDDL" })
+                                @Html.ValidationMessageFor(m => m.Profile.SelectedReligion, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                    </fieldset>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-sm">
+
+                    <fieldset class="border p-2">
+                        <legend class="w-auto">Social:</legend>
+                        <div class="form-group row">
+                            @Html.LabelFor(m => m.Profile.SelectedEducation, htmlAttributes: new { @class = "col-sm-5 col-form-label" })
+                            <div class="col-sm-5">
+                                @Html.DropDownListFor(m => m.Profile.SelectedEducation, Model.EducationItems, "Select Education", new { @class = "form-control", id = "ageDDL" })
+                                @Html.ValidationMessageFor(m => m.Profile.SelectedEducation, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            @Html.LabelFor(m => m.Profile.SelectedEthnicity, htmlAttributes: new { @class = "col-sm-5 col-form-label" })
+                            <div class="col-sm-5">
+                                @Html.DropDownListFor(m => m.Profile.SelectedEthnicity, Model.EthnicityItems, "Select Ethnicity", new { @class = "form-control", id = "ageDDL" })
+                                @Html.ValidationMessageFor(m => m.Profile.SelectedEthnicity, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            @Html.LabelFor(m => m.Profile.SelectedLanguages, htmlAttributes: new { @class = "col-sm-5 col-form-label" })
+                            <div class="col-sm-5">
+                                @Html.DropDownListFor(m => m.Profile.SelectedLanguages, Model.LanguagesItems, "Select Languages", new { @class = "form-control", id = "ageDDL" })
+                                @Html.ValidationMessageFor(m => m.Profile.SelectedLanguages, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            @Html.LabelFor(m => m.Profile.SelectedPets, htmlAttributes: new { @class = "col-sm-5 col-form-label" })
+                            <div class="col-sm-5">
+                                @Html.DropDownListFor(m => m.Profile.SelectedPets, Model.PetsItems, "Select Pets", new { @class = "form-control", id = "ageDDL" })
+                                @Html.ValidationMessageFor(m => m.Profile.SelectedPets, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="col-sm">
+                    <fieldset class="border p-2">
+                        <legend class="w-auto">Extra:</legend>
+                        @Html.TextBoxFor(m => m.ID, new { @class = "hidden" })
+                        @Html.TextBoxFor(m => m.ProfileUser.Id, new { @class = "hidden", @readonly = "readonly" })
+                        @Html.TextBoxFor(m => m.Profile.ID, new { @class = "hidden", @readonly = "readonly" })
+                        @Html.TextBoxFor(m => m.Profile.ProfileUserId, new { @class = "hidden", @readonly = "readonly" })
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label">Details</label>
+                            <div class="col-sm-5">
+                                @Html.TextBoxFor(m => m.Profile.Details, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label">Job</label>
+                            <div class="col-sm-5">
+                                @Html.TextBoxFor(m => m.Profile.Job, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label">Job Description</label>
+                            <div class="col-sm-5">
+                                @Html.TextBoxFor(m => m.Profile.JobDescription, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label">Education Description</label>
+                            <div class="col-sm-5">
+                                @Html.TextBoxFor(m => m.Profile.EducationDescription, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    @Html.TextBoxFor(m => m.Profile.DateCreated, new { @class = "hidden", @readonly = "readonly" })
+                    @Html.TextBoxFor(m => m.Profile.DateLastChange, new { @class = "hidden", @readonly = "readonly" })
+                    <br />
+                    <input type="submit" value="Submit" class="btn btn-secondary" />
+                </div>
+            </div>
+        </div>
+
+
+
+    }
+
+
+</div>
+
