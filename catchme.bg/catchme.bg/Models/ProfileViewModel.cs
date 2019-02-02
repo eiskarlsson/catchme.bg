@@ -270,102 +270,43 @@ namespace catchme.bg.Models
             
         }
         
-        public IEnumerable<SelectListItem> PetsItems
-        {
-            get { return new SelectList(_pets, "ItemId", "Name"); }
-        }
+        public IEnumerable<SelectListItem> PetsItems => new SelectList(_pets, "ItemId", "Name");
 
-        public IEnumerable<SelectListItem> ChildrenItems
-        {
-            get { return new SelectList(_children, "ItemId", "Name"); }
-        }
+        public IEnumerable<SelectListItem> ChildrenItems => new SelectList(_children, "ItemId", "Name");
 
-        public IEnumerable<SelectListItem> DrugsItems
-        {
-            get { return new SelectList(_drugs, "ItemId", "Name"); }
-        }
+        public IEnumerable<SelectListItem> DrugsItems => new SelectList(_drugs, "ItemId", "Name");
 
-        public IEnumerable<SelectListItem> DietItems
-        {
-            get { return new SelectList(_diet, "ItemId", "Name"); }
-        }
+        public IEnumerable<SelectListItem> DietItems => new SelectList(_diet, "ItemId", "Name");
 
-        public IEnumerable<SelectListItem> DrinksItems
-        {
-            get { return new SelectList(_drinks, "ItemId", "Name"); }
-        }
+        public IEnumerable<SelectListItem> DrinksItems => new SelectList(_drinks, "ItemId", "Name");
 
-        public IEnumerable<SelectListItem> SmokesItems
-        {
-            get { return new SelectList(_smokes, "ItemId", "Name"); }
-        }
+        public IEnumerable<SelectListItem> SmokesItems => new SelectList(_smokes, "ItemId", "Name");
 
-        public IEnumerable<SelectListItem> ReligionItems
-        {
-            get { return new SelectList(_religion, "ItemId", "Name"); }
-        }
+        public IEnumerable<SelectListItem> ReligionItems => new SelectList(_religion, "ItemId", "Name");
 
-        public IEnumerable<SelectListItem> EthnicityItems
-        {
-            get { return new SelectList(_ethnicity, "ItemId", "Name"); }
-        }
+        public IEnumerable<SelectListItem> EthnicityItems => new SelectList(_ethnicity, "ItemId", "Name");
 
-        public IEnumerable<SelectListItem> EducationItems
-        {
-            get { return new SelectList(_education, "ItemId", "Name"); }
-        }
+        public IEnumerable<SelectListItem> EducationItems => new SelectList(_education, "ItemId", "Name");
 
-        public IEnumerable<SelectListItem> HairColorItems
-        {
-            get { return new SelectList(_hairColor, "ItemId", "Name"); }
-        }
+        public IEnumerable<SelectListItem> HairColorItems => new SelectList(_hairColor, "ItemId", "Name");
 
-        public IEnumerable<SelectListItem> EyeColorItems
-        {
-            get { return new SelectList(_eyeColor, "ItemId", "Name"); }
-        }
+        public IEnumerable<SelectListItem> EyeColorItems => new SelectList(_eyeColor, "ItemId", "Name");
 
-        public IEnumerable<SelectListItem> BodyTypeItems
-        {
-            get { return new SelectList(_bodyType, "ItemId", "Name"); }
-        }
+        public IEnumerable<SelectListItem> BodyTypeItems => new SelectList(_bodyType, "ItemId", "Name");
 
-        public IEnumerable<SelectListItem> WeightItems
-        {
-            get { return new SelectList(_weight, "ItemId", "Name"); }
-        }
+        public IEnumerable<SelectListItem> WeightItems => new SelectList(_weight, "ItemId", "Name");
 
-        public IEnumerable<SelectListItem> HeightItems
-        {
-            get { return new SelectList(_height, "ItemId", "Name"); }
-        }
+        public IEnumerable<SelectListItem> HeightItems => new SelectList(_height, "ItemId", "Name");
 
-        public IEnumerable<SelectListItem> LanguagesItems
-        {
-            get { return new SelectList(_languages, "ItemId", "Name"); }
-        }
+        public IEnumerable<SelectListItem> LanguagesItems => new SelectList(_languages, "ItemId", "Name");
 
-        public IEnumerable<SelectListItem> GenderItems
-        {
-            get { return new SelectList(_gender, "ItemId", "Name"); }
-        }
+        public IEnumerable<SelectListItem> GenderItems => new SelectList(_gender, "ItemId", "Name");
 
-        public IEnumerable<SelectListItem> AgeItems
-        {
-            get { return new SelectList(_age, "ItemId", "Name"); }
-        }
+        public IEnumerable<SelectListItem> AgeItems => new SelectList(_age, "ItemId", "Name");
 
-        public IEnumerable<SelectListItem> LookingForItems
-        {
-            get { return new SelectList(_lookingFor, "ItemId", "Name"); }
-        }
+        public IEnumerable<SelectListItem> LookingForItems => new SelectList(_lookingFor, "ItemId", "Name");
 
-        public IEnumerable<SelectListItem> MaritalStatusItems
-        {
-            get { return new SelectList(_maritalStatus, "ItemId", "Name"); }
-        }
-
-
+        public IEnumerable<SelectListItem> MaritalStatusItems => new SelectList(_maritalStatus, "ItemId", "Name");
     }
 
     
