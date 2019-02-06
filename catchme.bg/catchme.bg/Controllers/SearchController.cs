@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using catchme.bg.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace catchme.bg.Controllers
@@ -10,7 +11,8 @@ namespace catchme.bg.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            var model = new SearchViewModel();
+            return View(model);
         }
     }
 }

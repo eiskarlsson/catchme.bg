@@ -11,6 +11,7 @@ namespace catchme.bg.Models
         //https://stackoverflow.com/questions/40555543/how-do-i-implement-a-checkbox-list-in-asp-net-core
 
         private List<Pets> _pets1;
+        private IEnumerable<Filter> _petsFilter;
 
         private List<Pets> _pets
         {
@@ -24,7 +25,11 @@ namespace catchme.bg.Models
             }
         }
 
-        public Filter[] Filters { get; set; }
+        public IEnumerable<Filter> PetsFilter
+        {
+            get => _pets.Select(u=> new Filter(){ Id=u.ItemId, Name = u.Name, Selected = false});
+            set => _petsFilter = value;
+        }
 
         public class Filter
         {

@@ -1,4 +1,4 @@
-﻿
+﻿@model catchme.bg.Models.SearchViewModel
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,3 +6,18 @@
 
 <h2>Index</h2>
 
+
+<form asp-action="Index" asp-controller="Search" method="get">
+    <ul>
+        @for (var i = 0; i < Model.PetsFilter.Count(); i++)
+        {
+            <li>
+                <input type="checkbox" asp-for="@Model.PetsFilter.ElementAt(i).Selected" />
+                <label asp-for="@Model.PetsFilter.ElementAt(i).Selected">@Model.PetsFilter.ElementAt(i).Name</label>
+                <input type="hidden" asp-for="@Model.PetsFilter.ElementAt(i).Id" />
+                <input type="hidden" asp-for="@Model.PetsFilter.ElementAt(i).Name" />
+            </li>
+        }
+    </ul>
+    <button type="submit" name="action">Filter</button>
+</form>
