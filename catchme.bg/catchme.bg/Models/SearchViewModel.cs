@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using catchme.bg.Areas.Identity.Data;
 using catchme.bg.Data;
 
 namespace catchme.bg.Models
@@ -9,11 +10,13 @@ namespace catchme.bg.Models
     public class SearchViewModel
     {
         //https://stackoverflow.com/questions/40555543/how-do-i-implement-a-checkbox-list-in-asp-net-core
+        public List<Profile> Profiles { get; set; }
+        public List<CatchmebgUser> Users { get; set; }
+
 
         private List<Pets> _pets1;
-        private IEnumerable<Filter> _petsFilter;
 
-        private List<Pets> _pets
+        public List<Pets> Pets
         {
             get
             {
@@ -25,10 +28,10 @@ namespace catchme.bg.Models
             }
         }
 
-        public IEnumerable<Filter> PetsFilter
+        public List<Filter> PetsFilter
         {
-            get => _pets.Select(u=> new Filter(){ Id=u.ItemId, Name = u.Name, Selected = false});
-            set => _petsFilter = value;
+            get;//Pets.Select(u => new Filter() { Id = u.ItemId, Name = u.Name });
+            set;
         }
 
         public class Filter

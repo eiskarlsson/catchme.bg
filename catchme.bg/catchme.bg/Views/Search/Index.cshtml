@@ -7,17 +7,34 @@
 <h2>Index</h2>
 
 
-<form asp-action="Index" asp-controller="Search" method="get">
+@using (Html.BeginForm("Index", "Search", FormMethod.Post, new {@class = "", enctype = "multipart/form-data"}))
+{
+
+    @Html.HiddenFor(m=>m.Profiles)
+    @Html.HiddenFor(m=>m.Users)
     <ul>
         @for (var i = 0; i < Model.PetsFilter.Count(); i++)
         {
             <li>
-                <input type="checkbox" asp-for="@Model.PetsFilter.ElementAt(i).Selected" />
-                <label asp-for="@Model.PetsFilter.ElementAt(i).Selected">@Model.PetsFilter.ElementAt(i).Name</label>
-                <input type="hidden" asp-for="@Model.PetsFilter.ElementAt(i).Id" />
-                <input type="hidden" asp-for="@Model.PetsFilter.ElementAt(i).Name" />
+                @Html.CheckBoxFor(m => m.PetsFilter[i].Selected)
+                @Html.LabelFor(m => m.PetsFilter[i].Selected, @Model.PetsFilter.ElementAt(i).Name)
+                @Html.HiddenFor(m => m.PetsFilter[i].Id)
+                @Html.HiddenFor(m => m.PetsFilter[i].Name)
             </li>
         }
     </ul>
     <button type="submit" name="action">Filter</button>
-</form>
+    <table>
+        <tr>
+            <th>Username</th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model.Users)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.UserName)</td>
+                <td></td>
+            </tr>
+        }
+    </table>
+}
