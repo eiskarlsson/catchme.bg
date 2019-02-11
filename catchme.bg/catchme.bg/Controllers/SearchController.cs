@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using catchme.bg.Areas.Identity.Data;
 using catchme.bg.Data;
 using catchme.bg.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -31,10 +32,15 @@ namespace catchme.bg.Controllers
         public IActionResult Index()
         {
             var model = new SearchViewModel();
-
-            model.Users = _bgcontext.Users.ToList();
-
+            
             model.Profiles = _context.Profiles.ToList();
+
+            model.Users = new List<CatchmebgUser>();
+
+            foreach (var item in model.Profiles)
+            {
+                model.Users.Add(_bgcontext.Users.FirstOrDefault(u => u.Id == item.ProfileUserId));
+            }
 
             model.PetsFilter = model.Pets.Select(u => new Filter() { Id = u.ItemId, Name = u.Name, Selected = false }).ToList();
 
@@ -48,27 +54,30 @@ namespace catchme.bg.Controllers
         {
             if (ModelState.IsValid)
             {
+                model.Profiles = _context.Profiles.ToList();
+
                 if (model.PetsFilter.Any(u => u.Selected))
                 {
                     model.Profiles.Clear();
-                }
-
-                foreach (var item in model.PetsFilter)
-                {
-                    if (item.Selected)
+                    foreach (var item in model.PetsFilter)
                     {
-                        model.Profiles.AddRange(_context.Profiles.Where(u => u.SelectedPets.Value == item.Id));
+                        if (item.Selected)
+                        {
+                            model.Profiles.AddRange(_context.Profiles.Where(u => u.SelectedPets.Value == item.Id));
+                        }
                     }
                 }
 
                 if (model.PetsFilter.Any(u => u.Selected))
                 {
                     model.Users.Clear();
-                    foreach (var item in model.Profiles)
-                    {
-                        model.Users.Add(_bgcontext.Users.FirstOrDefault(u => u.Id == item.ProfileUserId));
-                    }
                 }
+
+                foreach (var item in model.Profiles)
+                {
+                    model.Users.Add(_bgcontext.Users.FirstOrDefault(u => u.Id == item.ProfileUserId));
+                }
+
             }
 
             return View(model);
