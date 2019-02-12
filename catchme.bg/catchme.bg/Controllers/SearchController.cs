@@ -5,7 +5,10 @@ using System.Threading.Tasks;
 using catchme.bg.Areas.Identity.Data;
 using catchme.bg.Data;
 using catchme.bg.Models;
+using Kendo.Mvc.Extensions;
+using Kendo.Mvc.UI;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using static catchme.bg.Models.SearchViewModel;
 
@@ -18,8 +21,6 @@ namespace catchme.bg.Controllers
         public catchmebgContext _bgcontext { get; set; }
 
         public CatchmeContext _context { get; set; }
-
-        //private List<Profile> FilteredProfiles { get; set; }
 
         public SearchController(catchmebgContext bgcontext, CatchmeContext context, IHostingEnvironment environment)
         {
@@ -37,6 +38,8 @@ namespace catchme.bg.Controllers
 
             model.Users = new List<CatchmebgUser>();
 
+           
+
             foreach (var item in model.Profiles)
             {
                 model.Users.Add(_bgcontext.Users.FirstOrDefault(u => u.Id == item.ProfileUserId));
@@ -45,8 +48,12 @@ namespace catchme.bg.Controllers
             model.PetsFilter = model.Pets.Select(u => new Filter() { Id = u.ItemId, Name = u.Name, Selected = false }).ToList();
 
 
-
             return View(model);
+        }
+
+        private List<CatchmebgUser> GetUsers(List<CatchmebgUser> users)
+        {
+            return users.ToList();
         }
 
         [HttpPost]
@@ -77,10 +84,14 @@ namespace catchme.bg.Controllers
                 {
                     model.Users.Add(_bgcontext.Users.FirstOrDefault(u => u.Id == item.ProfileUserId));
                 }
-
             }
 
             return View(model);
+        }
+
+        public IActionResult Users_Read([DataSourceRequest] DataSourceRequest request, List<CatchmebgUser> users)
+        {
+            return Json(GetUsers(users).ToDataSourceResult(request));
         }
     }
 }
