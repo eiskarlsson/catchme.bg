@@ -1,19 +1,24 @@
 ﻿@using catchme.bg.Areas.Identity.Data
 @using catchme.bg.Controllers
+@using X.PagedList
+@using X.PagedList.Mvc.Core
 @model catchme.bg.Models.SearchViewModel
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<!-- import the included stylesheet for some (very basic) default styling -->
+<link href="/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
 <h2>Index</h2>
 
 
-@using (Html.BeginForm("Index", "Search", FormMethod.Post, new {@class = "", enctype = "multipart/form-data"}))
+@using (Html.BeginForm("Index", "Search", FormMethod.Post, new { @class = "", enctype = "multipart/form-data" }))
 {
 
-    @Html.HiddenFor(m=>m.Profiles)
-    @Html.HiddenFor(m=>m.Users)
+    @Html.HiddenFor(m => m.Profiles)
+    @Html.HiddenFor(m => m.Users)
     <ul>
         @for (var i = 0; i < Model.PetsFilter.Count(); i++)
         {
@@ -31,7 +36,7 @@
             <th>Username</th>
             <th></th>
         </tr>
-        @foreach (var item in Model.Users)
+        @foreach (var item in Model.OnePageOfUsers)
         {
             <tr>
                 <td>@Html.DisplayFor(modelItem => item.UserName)</td>
@@ -39,24 +44,6 @@
             </tr>
         }
     </table>
-    @(Html.Kendo().Grid<CatchmebgUser>()
-          .Name("grid")
-          .Columns(columns =>
-          {
-              columns.Bound(c => c.UserName).Width(140);
-              columns.Bound(c => c.Email).Width(190);
-          })
-          .HtmlAttributes(new { style = "height: 380px;" })
-          .Scrollable()
-          .Groupable()
-          .Sortable()
-          .Pageable(pageable => pageable
-              .Refresh(true)
-              .PageSizes(true)
-              .ButtonCount(5))
-          .DataSource(dataSource => dataSource
-              .Ajax()
-              .Read(read => read.Action("Users_Read", "Search", new { users = @Model.Users }))
-          )
-          )
+    <!-- output a paging control that lets the user navigation to the previous page, next page, etc -->
+    @Html.PagedListPager((IPagedList)Model.OnePageOfUsers, page => Url.Action("Index", new{ page } ))
 }

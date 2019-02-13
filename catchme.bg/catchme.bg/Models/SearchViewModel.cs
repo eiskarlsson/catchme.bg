@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using catchme.bg.Areas.Identity.Data;
 using catchme.bg.Data;
+using X.PagedList;
 
 namespace catchme.bg.Models
 {
@@ -12,6 +13,9 @@ namespace catchme.bg.Models
         //https://stackoverflow.com/questions/40555543/how-do-i-implement-a-checkbox-list-in-asp-net-core
         public List<Profile> Profiles { get; set; }
         public List<CatchmebgUser> Users { get; set; }
+        public int? Page { get; set; }
+
+        public IPagedList<CatchmebgUser> OnePageOfUsers { get; set; }
 
 
         private List<Pets> _pets1;

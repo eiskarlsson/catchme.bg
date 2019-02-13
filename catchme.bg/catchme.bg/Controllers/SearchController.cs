@@ -10,6 +10,7 @@ using Kendo.Mvc.UI;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
+using X.PagedList;
 using static catchme.bg.Models.SearchViewModel;
 
 namespace catchme.bg.Controllers
@@ -30,7 +31,7 @@ namespace catchme.bg.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index(int? page)
         {
             var model = new SearchViewModel();
             
@@ -47,17 +48,20 @@ namespace catchme.bg.Controllers
 
             model.PetsFilter = model.Pets.Select(u => new Filter() { Id = u.ItemId, Name = u.Name, Selected = false }).ToList();
 
+            var pageNumber = page ?? 1;
+
+            model.OnePageOfUsers = model.Users.ToPagedList(pageNumber, 2);
 
             return View(model);
         }
 
-        private List<CatchmebgUser> GetUsers(List<CatchmebgUser> users)
-        {
-            return users.ToList();
-        }
+        //private List<CatchmebgUser> GetUsers(List<CatchmebgUser> users)
+        //{
+        //    return users.ToList();
+        //}
 
         [HttpPost]
-        public IActionResult Index([Bind] SearchViewModel model)
+        public IActionResult Index([Bind] SearchViewModel model, int? page)
         {
             if (ModelState.IsValid)
             {
@@ -86,12 +90,16 @@ namespace catchme.bg.Controllers
                 }
             }
 
+            var pageNumber = page ?? 1;
+
+            model.OnePageOfUsers = model.Users.ToPagedList(pageNumber, 2);
+
             return View(model);
         }
 
-        public IActionResult Users_Read([DataSourceRequest] DataSourceRequest request, List<CatchmebgUser> users)
-        {
-            return Json(GetUsers(users).ToDataSourceResult(request));
-        }
+        //public IActionResult Users_Read([DataSourceRequest] DataSourceRequest request, List<CatchmebgUser> users)
+        //{
+        //    return Json(GetUsers(users).ToDataSourceResult(request));
+        //}
     }
 }
