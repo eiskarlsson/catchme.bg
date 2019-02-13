@@ -13,6 +13,8 @@ using Microsoft.Extensions.Hosting;
 using X.PagedList;
 using static catchme.bg.Models.SearchViewModel;
 
+//https://stackoverflow.com/questions/39212140/how-can-i-pass-some-objects-in-viewbag-to-the-action-preserve-search-sort-an/39215048#39215048
+
 namespace catchme.bg.Controllers
 {
     public class SearchController : Controller
@@ -34,12 +36,12 @@ namespace catchme.bg.Controllers
         public IActionResult Index(int? page)
         {
             var model = new SearchViewModel();
-            
+
             model.Profiles = _context.Profiles.ToList();
 
             model.Users = new List<CatchmebgUser>();
 
-           
+
 
             foreach (var item in model.Profiles)
             {
@@ -54,11 +56,6 @@ namespace catchme.bg.Controllers
 
             return View(model);
         }
-
-        //private List<CatchmebgUser> GetUsers(List<CatchmebgUser> users)
-        //{
-        //    return users.ToList();
-        //}
 
         [HttpPost]
         public IActionResult Index([Bind] SearchViewModel model, int? page)
@@ -97,9 +94,6 @@ namespace catchme.bg.Controllers
             return View(model);
         }
 
-        //public IActionResult Users_Read([DataSourceRequest] DataSourceRequest request, List<CatchmebgUser> users)
-        //{
-        //    return Json(GetUsers(users).ToDataSourceResult(request));
-        //}
+
     }
 }

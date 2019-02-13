@@ -1,5 +1,8 @@
 ﻿@using catchme.bg.Areas.Identity.Data
 @using catchme.bg.Controllers
+@using catchme.bg.Models
+@using Microsoft.AspNetCore.Mvc.Rendering
+@using Microsoft.AspNetCore.Routing
 @using X.PagedList
 @using X.PagedList.Mvc.Core
 @model catchme.bg.Models.SearchViewModel
@@ -8,15 +11,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!-- import the included stylesheet for some (very basic) default styling -->
-<link href="/Content/PagedList.css" rel="stylesheet" type="text/css" />
-
 <h2>Index</h2>
 
-
-@using (Html.BeginForm("Index", "Search", FormMethod.Post, new { @class = "", enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Index", "Search", FormMethod.Post, new { @class = "", enctype = "multipart/form-data", id = "searchForm" }))
 {
-
     @Html.HiddenFor(m => m.Profiles)
     @Html.HiddenFor(m => m.Users)
     <ul>
@@ -45,5 +43,8 @@
         }
     </table>
     <!-- output a paging control that lets the user navigation to the previous page, next page, etc -->
-    @Html.PagedListPager((IPagedList)Model.OnePageOfUsers, page => Url.Action("Index", new{ page } ))
+    @Html.PagedListPager((IPagedList)Model.OnePageOfUsers, page => Url.Action("Index", new { page = page}), 
+        new PagedListRenderOptions {
+            LiElementClasses = new string[] { "page-item" },
+            PageClasses = new string[] { "page-link" }})
 }
