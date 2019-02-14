@@ -23,8 +23,9 @@
             <li>
                 @Html.CheckBoxFor(m => m.PetsFilter[i].Selected)
                 @Html.LabelFor(m => m.PetsFilter[i].Selected, @Model.PetsFilter.ElementAt(i).Name)
-                @Html.HiddenFor(m => m.PetsFilter[i].Id)
+                @Html.HiddenFor(m => m.PetsFilter[i].ItemId)
                 @Html.HiddenFor(m => m.PetsFilter[i].Name)
+                @Html.HiddenFor(m=>m.PetsFilter[i].FilterUserId)
             </li>
         }
     </ul>

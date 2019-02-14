@@ -50,6 +50,8 @@ namespace catchme.bg.Data
 
         public virtual DbSet<Profile> Profiles { get; set; }
 
+        public virtual DbSet<PetsFilter> PetsFilter { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -61,6 +63,9 @@ namespace catchme.bg.Data
                 entity.Property(e => e.UserNameTo).IsRequired().HasMaxLength(256).IsUnicode(true);
             });
             modelBuilder.Entity<Profile>()
+                .Property(p => p.ID)
+                .ValueGeneratedOnAdd();
+            modelBuilder.Entity<PetsFilter>()
                 .Property(p => p.ID)
                 .ValueGeneratedOnAdd();
         }

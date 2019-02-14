@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using catchme.bg.Areas.Identity.Data;
 using catchme.bg.Data;
 using catchme.bg.Models;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
@@ -17,6 +19,7 @@ using static catchme.bg.Models.SearchViewModel;
 
 namespace catchme.bg.Controllers
 {
+    [Authorize]
     public class SearchController : Controller
     {
         private readonly IHostingEnvironment _environment;
@@ -24,6 +27,23 @@ namespace catchme.bg.Controllers
         public catchmebgContext _bgcontext { get; set; }
 
         public CatchmeContext _context { get; set; }
+
+        protected CatchmebgUser CurrentUser
+        {
+            get
+            {
+                if (User.Identity.IsAuthenticated)
+                {
+                    userId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                }
+
+                return userId != null ? _bgcontext.Users.FirstOrDefault(x => x.Id == userId) : null;
+            }
+            set => _currentUser = value;
+        }
+
+        protected string userId;
+        private CatchmebgUser _currentUser;
 
         public SearchController(catchmebgContext bgcontext, CatchmeContext context, IHostingEnvironment environment)
         {
@@ -41,15 +61,12 @@ namespace catchme.bg.Controllers
 
             model.Users = new List<CatchmebgUser>();
 
+            model.PetsFilter = !_context.PetsFilter.Any() ? model.Pets.Select(u => new PetsFilter()
+                { ItemId = u.ItemId, Name = u.Name, FilterUserId = CurrentUser.Id, Selected=false}).ToList() 
+                : _context.PetsFilter.Where(u=>u.FilterUserId==CurrentUser.Id).ToList();
 
-
-            foreach (var item in model.Profiles)
-            {
-                model.Users.Add(_bgcontext.Users.FirstOrDefault(u => u.Id == item.ProfileUserId));
-            }
-
-            model.PetsFilter = model.Pets.Select(u => new Filter() { Id = u.ItemId, Name = u.Name, Selected = false }).ToList();
-
+            FilterUsers(model);
+            
             var pageNumber = page ?? 1;
 
             model.OnePageOfUsers = model.Users.ToPagedList(pageNumber, 2);
@@ -64,27 +81,25 @@ namespace catchme.bg.Controllers
             {
                 model.Profiles = _context.Profiles.ToList();
 
-                if (model.PetsFilter.Any(u => u.Selected))
+                FilterUsers(model);
+
+                foreach (var petsFilter in model.PetsFilter)
                 {
-                    model.Profiles.Clear();
-                    foreach (var item in model.PetsFilter)
+                    var currentPetsFilter = _context.PetsFilter.FirstOrDefault(u =>
+                        u.FilterUserId == CurrentUser.Id && u.ItemId == petsFilter.ItemId);
+                    if (currentPetsFilter==null)
                     {
-                        if (item.Selected)
-                        {
-                            model.Profiles.AddRange(_context.Profiles.Where(u => u.SelectedPets.Value == item.Id));
-                        }
+                        _context.PetsFilter.Add(petsFilter);
+                    }
+                    else
+                    {
+                        currentPetsFilter.Selected = petsFilter.Selected;
+                        _context.PetsFilter.Update(currentPetsFilter);
                     }
                 }
-
-                if (model.PetsFilter.Any(u => u.Selected))
-                {
-                    model.Users.Clear();
-                }
-
-                foreach (var item in model.Profiles)
-                {
-                    model.Users.Add(_bgcontext.Users.FirstOrDefault(u => u.Id == item.ProfileUserId));
-                }
+                
+                _context.SaveChanges();
+                
             }
 
             var pageNumber = page ?? 1;
@@ -94,6 +109,25 @@ namespace catchme.bg.Controllers
             return View(model);
         }
 
+        private void FilterUsers(SearchViewModel model)
+        {
+            if (model.PetsFilter.Any(u => u.Selected))
+            {
+                model.Profiles.Clear();
+                foreach (var item in model.PetsFilter)
+                {
+                    if (item.Selected)
+                    {
+                        model.Profiles.AddRange(_context.Profiles.Where(u => u.SelectedPets.Value == item.ItemId));
+                    }
+                }
+            }
+
+            foreach (var item in model.Profiles)
+            {
+                model.Users.Add(_bgcontext.Users.FirstOrDefault(u => u.Id == item.ProfileUserId));
+            }
+        }
 
     }
 }

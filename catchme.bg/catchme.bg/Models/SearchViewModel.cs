@@ -32,18 +32,18 @@ namespace catchme.bg.Models
             }
         }
 
-        public List<Filter> PetsFilter
+        public List<PetsFilter> PetsFilter
         {
             get;//Pets.Select(u => new Filter() { Id = u.ItemId, Name = u.Name });
             set;
         }
 
-        public class Filter
-        {
-            public int Id { get; set; }
-            public string Name { get; set; }
-            public bool Selected { get; set; }
-        }
+        //public class Filter
+        //{
+        //    public int Id { get; set; }
+        //    public string Name { get; set; }
+        //    public bool Selected { get; set; }
+        //}
 
     }
 }
