@@ -51,8 +51,25 @@ namespace catchme.bg.Data
         public virtual DbSet<Profile> Profiles { get; set; }
 
         public virtual DbSet<PetsFilter> PetsFilter { get; set; }
-
-
+        public virtual DbSet<ChildrenFilter> ChildrenFilter { get; set; }
+        public virtual DbSet<DrugsFilter> DrugsFilter { get; set; }
+        public virtual DbSet<DietFilter> DietFilter { get; set; }
+        public virtual DbSet<DrinksFilter> DrinksFilter { get; set; }
+        public virtual DbSet<SmokesFilter> SmokesFilter { get; set; }
+        public virtual DbSet<ReligionFilter> ReligionFilter { get; set; }
+        public virtual DbSet<EthnicityFilter> EthnicityFilter { get; set; }
+        public virtual DbSet<EducationFilter> EducationFilter { get; set; }
+        public virtual DbSet<HairColorFilter> HairColorFilter { get; set; }
+        public virtual DbSet<EyeColorFilter> EyeColorFilter { get; set; }
+        public virtual DbSet<BodyTypeFilter> BodyTypeFilter { get; set; }
+        public virtual DbSet<WeightFilter> WeightFilter { get; set; }
+        public virtual DbSet<HeightFilter> HeightFilter { get; set; }
+        public virtual DbSet<LanguagesFilter> LanguagesFilter { get; set; }
+        public virtual DbSet<GenderFilter> GenderFilter { get; set; }
+        public virtual DbSet<AgeFilter> AgeFilter { get; set; }
+        public virtual DbSet<LookingForFilter> LookingForFilter { get; set; }
+        public virtual DbSet<MaritalStatusFilter> MaritalStatusFilter { get; set; }
+       
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -66,6 +83,60 @@ namespace catchme.bg.Data
                 .Property(p => p.ID)
                 .ValueGeneratedOnAdd();
             modelBuilder.Entity<PetsFilter>()
+                .Property(p => p.ID)
+                .ValueGeneratedOnAdd();
+            modelBuilder.Entity<ChildrenFilter>()
+                .Property(p => p.ID)
+                .ValueGeneratedOnAdd();
+            modelBuilder.Entity<DrugsFilter>()
+                .Property(p => p.ID)
+                .ValueGeneratedOnAdd();
+            modelBuilder.Entity<DietFilter>()
+                .Property(p => p.ID)
+                .ValueGeneratedOnAdd();
+            modelBuilder.Entity<DrinksFilter>()
+                .Property(p => p.ID)
+                .ValueGeneratedOnAdd();
+            modelBuilder.Entity<SmokesFilter>()
+                .Property(p => p.ID)
+                .ValueGeneratedOnAdd();
+            modelBuilder.Entity<ReligionFilter>()
+                .Property(p => p.ID)
+                .ValueGeneratedOnAdd();
+            modelBuilder.Entity<EthnicityFilter>()
+                .Property(p => p.ID)
+                .ValueGeneratedOnAdd();
+            modelBuilder.Entity<EducationFilter>()
+                .Property(p => p.ID)
+                .ValueGeneratedOnAdd();
+            modelBuilder.Entity<HairColorFilter>()
+                .Property(p => p.ID)
+                .ValueGeneratedOnAdd();
+            modelBuilder.Entity<EyeColorFilter>()
+                .Property(p => p.ID)
+                .ValueGeneratedOnAdd();
+            modelBuilder.Entity<BodyTypeFilter>()
+                .Property(p => p.ID)
+                .ValueGeneratedOnAdd();
+            modelBuilder.Entity<WeightFilter>()
+                .Property(p => p.ID)
+                .ValueGeneratedOnAdd();
+            modelBuilder.Entity<HeightFilter>()
+                .Property(p => p.ID)
+                .ValueGeneratedOnAdd();
+            modelBuilder.Entity<LanguagesFilter>()
+                .Property(p => p.ID)
+                .ValueGeneratedOnAdd();
+            modelBuilder.Entity<GenderFilter>()
+                .Property(p => p.ID)
+                .ValueGeneratedOnAdd();
+            modelBuilder.Entity<AgeFilter>()
+                .Property(p => p.ID)
+                .ValueGeneratedOnAdd();
+            modelBuilder.Entity<LookingForFilter>()
+                .Property(p => p.ID)
+                .ValueGeneratedOnAdd();
+            modelBuilder.Entity<MaritalStatusFilter>()
                 .Property(p => p.ID)
                 .ValueGeneratedOnAdd();
         }
@@ -83,4 +154,6 @@ namespace catchme.bg.Data
             }
         }
     }
+
+    
 }
