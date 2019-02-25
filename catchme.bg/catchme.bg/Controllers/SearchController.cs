@@ -65,6 +65,10 @@ namespace catchme.bg.Controllers
                 { ItemId = u.ItemId, Name = u.Name, FilterUserId = CurrentUser.Id, Selected=false}).ToList() 
                 : _context.PetsFilter.Where(u=>u.FilterUserId==CurrentUser.Id).ToList();
 
+            model.AgeFilter = !_context.AgeFilter.Any() ? new AgeFilter()
+                { ItemId = 0, Name = "Select Age", FilterUserId = CurrentUser.Id, Selected = false }
+                : _context.AgeFilter.FirstOrDefault(u => u.FilterUserId == CurrentUser.Id);
+
             FilterUsers(model);
             
             var pageNumber = page ?? 1;
@@ -82,6 +86,18 @@ namespace catchme.bg.Controllers
                 model.Profiles = _context.Profiles.ToList();
 
                 FilterUsers(model);
+
+                var currentAgeFilter = _context.AgeFilter.FirstOrDefault(u =>
+                    u.FilterUserId == CurrentUser.Id && u.ItemId == model.AgeFilter.ItemId);
+                if (currentAgeFilter == null)
+                {
+                    _context.AgeFilter.Add(model.AgeFilter);
+                }
+                else
+                {
+                    currentAgeFilter.ItemId = model.AgeFilter.ItemId;
+                    _context.AgeFilter.Update(currentAgeFilter);
+                }
 
                 foreach (var petsFilter in model.PetsFilter)
                 {
@@ -109,21 +125,52 @@ namespace catchme.bg.Controllers
             return View(model);
         }
 
+        //private void FilterUsers(SearchViewModel model)
+        //{
+        //    if (model.PetsFilter.Any(u => u.Selected))
+        //    {
+        //        model.Profiles.Clear();
+        //        foreach (var item in model.PetsFilter)
+        //        {
+        //            if (item.Selected)
+        //            {
+        //                model.Profiles.AddRange(_context.Profiles.Where(u => u.SelectedPets.Value == item.ItemId));
+        //            }
+        //        }
+        //    }
+
+        //    if(model.AgeFilter != null)
+        //    {
+        //        model.Profiles.AddRange(_context.Profiles.Where(u => u.SelectedAge.Value == model.AgeFilter.ItemId));
+        //    }
+
+        //    foreach (var item in model.Profiles)
+        //    {
+        //        model.Users.Add(_bgcontext.Users.FirstOrDefault(u => u.Id == item.ProfileUserId));
+        //    }
+        //}
+
         private void FilterUsers(SearchViewModel model)
         {
+            var query = model.Profiles;
             if (model.PetsFilter.Any(u => u.Selected))
             {
-                model.Profiles.Clear();
+                
                 foreach (var item in model.PetsFilter)
                 {
                     if (item.Selected)
                     {
-                        model.Profiles.AddRange(_context.Profiles.Where(u => u.SelectedPets.Value == item.ItemId));
+                        query = _context.Profiles.Where(u => u.SelectedPets.Value == item.ItemId).ToList();
                     }
                 }
             }
 
-            foreach (var item in model.Profiles)
+            if (model.AgeFilter != null)
+            {
+                query = query.Where(u => u.SelectedAge.Value == model.AgeFilter.ItemId).ToList();
+            }
+
+            foreach (var item in query)
             {
                 model.Users.Add(_bgcontext.Users.FirstOrDefault(u => u.Id == item.ProfileUserId));
             }

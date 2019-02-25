@@ -17,6 +17,7 @@
 {
     @Html.HiddenFor(m => m.Profiles)
     @Html.HiddenFor(m => m.Users)
+    @Html.HiddenFor(m => m.AgeFilter.FilterUserId)
     <ul>
         @for (var i = 0; i < Model.PetsFilter.Count(); i++)
         {
@@ -25,10 +26,17 @@
                 @Html.LabelFor(m => m.PetsFilter[i].Selected, @Model.PetsFilter.ElementAt(i).Name)
                 @Html.HiddenFor(m => m.PetsFilter[i].ItemId)
                 @Html.HiddenFor(m => m.PetsFilter[i].Name)
-                @Html.HiddenFor(m=>m.PetsFilter[i].FilterUserId)
+                @Html.HiddenFor(m => m.PetsFilter[i].FilterUserId)
             </li>
         }
     </ul>
+    <div class="form-group row">
+        @Html.LabelFor(m => m.AgeFilter.ItemId, "Age: ", htmlAttributes: new { @class = "col-sm-5 col-form-label" })
+        <div class="col-sm-5">
+            @Html.DropDownListFor(m => m.AgeFilter.ItemId, Model.AgeItems, "Select Age", new { @class = "form-control", id = "ageDDL" })
+            @Html.ValidationMessageFor(m => m.AgeFilter.ItemId, "", new { @class = "text-danger" })
+        </div>
+    </div>
     <button type="submit" name="action">Filter</button>
     <table>
         <tr>
@@ -44,7 +52,7 @@
         }
     </table>
     <!-- output a paging control that lets the user navigation to the previous page, next page, etc -->
-    @Html.PagedListPager((IPagedList)Model.OnePageOfUsers, page => Url.Action("Index", new { page = page}), 
+    @Html.PagedListPager((IPagedList)Model.OnePageOfUsers, page => Url.Action("Index", new { page = page}),
         new PagedListRenderOptions {
             LiElementClasses = new string[] { "page-item" },
             PageClasses = new string[] { "page-link" }})

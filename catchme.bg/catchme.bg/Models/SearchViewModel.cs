@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using catchme.bg.Areas.Identity.Data;
 using catchme.bg.Data;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using X.PagedList;
 
 namespace catchme.bg.Models
@@ -19,6 +20,7 @@ namespace catchme.bg.Models
 
 
         private List<Pets> _pets1;
+        private List<Age> _age1;
 
         public List<Pets> Pets
         {
@@ -32,18 +34,28 @@ namespace catchme.bg.Models
             }
         }
 
+        public List<Age> _age
+        {
+            get
+            {
+                using (CatchmeContext context = new CatchmeContext())
+                {
+                    _age1 = context.Age.OrderBy(x => int.Parse(x.Name)).ToList();
+                }
+                return _age1;
+            }
+
+        }
+
         public List<PetsFilter> PetsFilter
         {
             get;//Pets.Select(u => new Filter() { Id = u.ItemId, Name = u.Name });
             set;
         }
 
-        //public class Filter
-        //{
-        //    public int Id { get; set; }
-        //    public string Name { get; set; }
-        //    public bool Selected { get; set; }
-        //}
+        public AgeFilter AgeFilter { get; set; }
+
+        public IEnumerable<SelectListItem> AgeItems => new SelectList(_age, "ItemId", "Name");
 
     }
 }
