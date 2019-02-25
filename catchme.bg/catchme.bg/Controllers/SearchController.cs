@@ -88,7 +88,7 @@ namespace catchme.bg.Controllers
                 FilterUsers(model);
 
                 var currentAgeFilter = _context.AgeFilter.FirstOrDefault(u =>
-                    u.FilterUserId == CurrentUser.Id && u.ItemId == model.AgeFromFilter.ItemId);
+                    u.FilterUserId == CurrentUser.Id);
                 if (currentAgeFilter == null)
                 {
                     _context.AgeFilter.Add(model.AgeFromFilter);
