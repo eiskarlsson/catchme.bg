@@ -17,7 +17,7 @@
 {
     @Html.HiddenFor(m => m.Profiles)
     @Html.HiddenFor(m => m.Users)
-    @Html.HiddenFor(m => m.AgeFilter.FilterUserId)
+    @Html.HiddenFor(m => m.AgeFromFilter.FilterUserId)
     <ul>
         @for (var i = 0; i < Model.PetsFilter.Count(); i++)
         {
@@ -31,10 +31,10 @@
         }
     </ul>
     <div class="form-group row">
-        @Html.LabelFor(m => m.AgeFilter.ItemId, "Age: ", htmlAttributes: new { @class = "col-sm-5 col-form-label" })
+        @Html.LabelFor(m => m.AgeFromFilter.ItemId, "Age: ", htmlAttributes: new { @class = "col-sm-5 col-form-label" })
         <div class="col-sm-5">
-            @Html.DropDownListFor(m => m.AgeFilter.ItemId, Model.AgeItems, "Select Age", new { @class = "form-control", id = "ageDDL" })
-            @Html.ValidationMessageFor(m => m.AgeFilter.ItemId, "", new { @class = "text-danger" })
+            @Html.DropDownListFor(m => m.AgeFromFilter.ItemId, Model.AgeItems, "Select Age", new { @class = "form-control", id = "ageDDL" })
+            @Html.ValidationMessageFor(m => m.AgeFromFilter.ItemId, "", new { @class = "text-danger" })
         </div>
     </div>
     <button type="submit" name="action">Filter</button>

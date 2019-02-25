@@ -53,7 +53,9 @@ namespace catchme.bg.Models
             set;
         }
 
-        public AgeFilter AgeFilter { get; set; }
+        public AgeFilter AgeFromFilter { get; set; }
+
+        public AgeFilter AgeToFilter { get; set; }
 
         public IEnumerable<SelectListItem> AgeItems => new SelectList(_age, "ItemId", "Name");
 

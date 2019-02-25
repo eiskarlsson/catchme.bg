@@ -65,7 +65,7 @@ namespace catchme.bg.Controllers
                 { ItemId = u.ItemId, Name = u.Name, FilterUserId = CurrentUser.Id, Selected=false}).ToList() 
                 : _context.PetsFilter.Where(u=>u.FilterUserId==CurrentUser.Id).ToList();
 
-            model.AgeFilter = !_context.AgeFilter.Any() ? new AgeFilter()
+            model.AgeFromFilter = !_context.AgeFilter.Any() ? new AgeFilter()
                 { ItemId = 0, Name = "Select Age", FilterUserId = CurrentUser.Id, Selected = false }
                 : _context.AgeFilter.FirstOrDefault(u => u.FilterUserId == CurrentUser.Id);
 
@@ -88,14 +88,14 @@ namespace catchme.bg.Controllers
                 FilterUsers(model);
 
                 var currentAgeFilter = _context.AgeFilter.FirstOrDefault(u =>
-                    u.FilterUserId == CurrentUser.Id && u.ItemId == model.AgeFilter.ItemId);
+                    u.FilterUserId == CurrentUser.Id && u.ItemId == model.AgeFromFilter.ItemId);
                 if (currentAgeFilter == null)
                 {
-                    _context.AgeFilter.Add(model.AgeFilter);
+                    _context.AgeFilter.Add(model.AgeFromFilter);
                 }
                 else
                 {
-                    currentAgeFilter.ItemId = model.AgeFilter.ItemId;
+                    currentAgeFilter.ItemId = model.AgeFromFilter.ItemId;
                     _context.AgeFilter.Update(currentAgeFilter);
                 }
 
@@ -125,31 +125,7 @@ namespace catchme.bg.Controllers
             return View(model);
         }
 
-        //private void FilterUsers(SearchViewModel model)
-        //{
-        //    if (model.PetsFilter.Any(u => u.Selected))
-        //    {
-        //        model.Profiles.Clear();
-        //        foreach (var item in model.PetsFilter)
-        //        {
-        //            if (item.Selected)
-        //            {
-        //                model.Profiles.AddRange(_context.Profiles.Where(u => u.SelectedPets.Value == item.ItemId));
-        //            }
-        //        }
-        //    }
-
-        //    if(model.AgeFilter != null)
-        //    {
-        //        model.Profiles.AddRange(_context.Profiles.Where(u => u.SelectedAge.Value == model.AgeFilter.ItemId));
-        //    }
-
-        //    foreach (var item in model.Profiles)
-        //    {
-        //        model.Users.Add(_bgcontext.Users.FirstOrDefault(u => u.Id == item.ProfileUserId));
-        //    }
-        //}
-
+       
         private void FilterUsers(SearchViewModel model)
         {
             var query = model.Profiles;
@@ -165,9 +141,14 @@ namespace catchme.bg.Controllers
                 }
             }
 
-            if (model.AgeFilter != null)
+            if (model.AgeFromFilter != null)
             {
-                query = query.Where(u => u.SelectedAge.Value == model.AgeFilter.ItemId).ToList();
+                query = query.Where(u => u.SelectedAge.Value >= model.AgeFromFilter.ItemId).ToList();
+            }
+
+            if (model.AgeFromFilter != null)
+            {
+                query = query.Where(u => u.SelectedAge.Value >= model.AgeFromFilter.ItemId).ToList();
             }
 
             foreach (var item in query)
