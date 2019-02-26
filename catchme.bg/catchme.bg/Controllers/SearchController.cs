@@ -65,8 +65,12 @@ namespace catchme.bg.Controllers
                 { ItemId = u.ItemId, Name = u.Name, FilterUserId = CurrentUser.Id, Selected=false}).ToList() 
                 : _context.PetsFilter.Where(u=>u.FilterUserId==CurrentUser.Id).ToList();
 
-            model.AgeFromFilter = !_context.AgeFilter.Any() ? new AgeFilter()
-                { ItemId = 0, Name = "Select Age", FilterUserId = CurrentUser.Id, Selected = false }
+            model.AgeFromFilter = !_context.AgeFilter.Any(u => u.FilterUserId == CurrentUser.Id && u.Name == "From") ? new AgeFilter()
+                { ItemId = 0, Name = "From", FilterUserId = CurrentUser.Id, Selected = false }
+                : _context.AgeFilter.FirstOrDefault(u => u.FilterUserId == CurrentUser.Id);
+
+            model.AgeToFilter = !_context.AgeFilter.Any(u=>u.FilterUserId==CurrentUser.Id && u.Name=="To") ? new AgeFilter()
+                    { ItemId = 0, Name = "To", FilterUserId = CurrentUser.Id, Selected = false }
                 : _context.AgeFilter.FirstOrDefault(u => u.FilterUserId == CurrentUser.Id);
 
             FilterUsers(model);
@@ -87,16 +91,30 @@ namespace catchme.bg.Controllers
 
                 FilterUsers(model);
 
-                var currentAgeFilter = _context.AgeFilter.FirstOrDefault(u =>
-                    u.FilterUserId == CurrentUser.Id);
-                if (currentAgeFilter == null)
+                var currentAgeFromFilter = _context.AgeFilter.FirstOrDefault(u =>
+                    u.FilterUserId == CurrentUser.Id && u.Name=="From");
+                if (currentAgeFromFilter == null)
                 {
                     _context.AgeFilter.Add(model.AgeFromFilter);
                 }
                 else
                 {
-                    currentAgeFilter.ItemId = model.AgeFromFilter.ItemId;
-                    _context.AgeFilter.Update(currentAgeFilter);
+                    currentAgeFromFilter.ItemId = model.AgeFromFilter.ItemId;
+                    currentAgeFromFilter.Name = "From";
+                    _context.AgeFilter.Update(currentAgeFromFilter);
+                }
+
+                var currentAgeToFilter = _context.AgeFilter.FirstOrDefault(u =>
+                    u.FilterUserId == CurrentUser.Id && u.Name == "To");
+                if (currentAgeToFilter == null)
+                {
+                    _context.AgeFilter.Add(model.AgeToFilter);
+                }
+                else
+                {
+                    currentAgeToFilter.ItemId = model.AgeToFilter.ItemId;
+                    currentAgeToFilter.Name = "To";
+                    _context.AgeFilter.Update(currentAgeToFilter);
                 }
 
                 foreach (var petsFilter in model.PetsFilter)
@@ -146,9 +164,9 @@ namespace catchme.bg.Controllers
                 query = query.Where(u => u.SelectedAge.Value >= model.AgeFromFilter.ItemId).ToList();
             }
 
-            if (model.AgeFromFilter != null)
+            if (model.AgeToFilter != null)
             {
-                query = query.Where(u => u.SelectedAge.Value >= model.AgeFromFilter.ItemId).ToList();
+                query = query.Where(u => u.SelectedAge.Value <= model.AgeToFilter.ItemId).ToList();
             }
 
             foreach (var item in query)
