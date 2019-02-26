@@ -13,7 +13,7 @@
 
 <h2>Index</h2>
 
-@using (Html.BeginForm("Index", "Search", FormMethod.Post, new { @class = "", enctype = "multipart/form-data", id = "searchForm" }))
+@using (Html.BeginForm("Index", "Search", FormMethod.Post, new {@class = "", enctype = "multipart/form-data", id = "searchForm"}))
 {
     @Html.HiddenFor(m => m.Profiles)
     @Html.HiddenFor(m => m.Users)
@@ -21,6 +21,16 @@
     @Html.HiddenFor(m => m.AgeFromFilter.Name)
     @Html.HiddenFor(m => m.AgeToFilter.FilterUserId)
     @Html.HiddenFor(m => m.AgeToFilter.Name)
+
+    @Html.HiddenFor(m => m.WeightFromFilter.FilterUserId)
+    @Html.HiddenFor(m => m.WeightFromFilter.Name)
+    @Html.HiddenFor(m => m.WeightToFilter.FilterUserId)
+    @Html.HiddenFor(m => m.WeightToFilter.Name)
+
+    @Html.HiddenFor(m => m.HeightFromFilter.FilterUserId)
+    @Html.HiddenFor(m => m.HeightFromFilter.Name)
+    @Html.HiddenFor(m => m.HeightToFilter.FilterUserId)
+    @Html.HiddenFor(m => m.HeightToFilter.Name)
     <ul>
         @for (var i = 0; i < Model.PetsFilter.Count(); i++)
         {
@@ -34,17 +44,46 @@
         }
     </ul>
     <div class="form-group row">
-        @Html.LabelFor(m => m.AgeFromFilter.ItemId, "Age From: ", htmlAttributes: new { @class = "col-sm-5 col-form-label" })
+        @Html.LabelFor(m => m.AgeFromFilter.ItemId, "Age From: ", htmlAttributes: new {@class = "col-sm-5 col-form-label"})
         <div class="col-sm-5">
-            @Html.DropDownListFor(m => m.AgeFromFilter.ItemId, Model.AgeItems, "Select Age", new { @class = "form-control", id = "ageDDL" })
-            @Html.ValidationMessageFor(m => m.AgeFromFilter.ItemId, "", new { @class = "text-danger" })
+            @Html.DropDownListFor(m => m.AgeFromFilter.ItemId, Model.AgeItems, "Select Age", new {@class = "form-control", id = "ageDDL"})
+            @Html.ValidationMessageFor(m => m.AgeFromFilter.ItemId, "", new {@class = "text-danger"})
         </div>
     </div>
     <div class="form-group row">
-        @Html.LabelFor(m => m.AgeToFilter.ItemId, "Age To: ", htmlAttributes: new { @class = "col-sm-5 col-form-label" })
+        @Html.LabelFor(m => m.AgeToFilter.ItemId, "Age To: ", htmlAttributes: new {@class = "col-sm-5 col-form-label"})
         <div class="col-sm-5">
-            @Html.DropDownListFor(m => m.AgeToFilter.ItemId, Model.AgeItems, "Select Age", new { @class = "form-control", id = "ageDDL" })
-            @Html.ValidationMessageFor(m => m.AgeToFilter.ItemId, "", new { @class = "text-danger" })
+            @Html.DropDownListFor(m => m.AgeToFilter.ItemId, Model.AgeItems, "Select Age", new {@class = "form-control", id = "ageDDL"})
+            @Html.ValidationMessageFor(m => m.AgeToFilter.ItemId, "", new {@class = "text-danger"})
+        </div>
+    </div>
+    <div class="form-group row">
+        @Html.LabelFor(m => m.HeightFromFilter.ItemId, "Height From: ", htmlAttributes: new {@class = "col-sm-5 col-form-label"})
+        <div class="col-sm-5">
+            @Html.DropDownListFor(m => m.HeightFromFilter.ItemId, Model.HeightItems, "Select Height", new {@class = "form-control", id = "HeightDDL"})
+            @Html.ValidationMessageFor(m => m.HeightFromFilter.ItemId, "", new {@class = "text-danger"})
+        </div>
+    </div>
+    <div class="form-group row">
+        @Html.LabelFor(m => m.HeightToFilter.ItemId, "Height To: ", htmlAttributes: new {@class = "col-sm-5 col-form-label"})
+        <div class="col-sm-5">
+            @Html.DropDownListFor(m => m.HeightToFilter.ItemId, Model.HeightItems, "Select Height", new {@class = "form-control", id = "WeightDDL"})
+            @Html.ValidationMessageFor(m => m.HeightToFilter.ItemId, "", new {@class = "text-danger"})
+        </div>
+    </div>
+
+    <div class="form-group row">
+        @Html.LabelFor(m => m.WeightFromFilter.ItemId, "Weight From: ", htmlAttributes: new {@class = "col-sm-5 col-form-label"})
+        <div class="col-sm-5">
+            @Html.DropDownListFor(m => m.WeightFromFilter.ItemId, Model.WeightItems, "Select Weight", new {@class = "form-control", id = "HeightDDL"})
+            @Html.ValidationMessageFor(m => m.WeightFromFilter.ItemId, "", new {@class = "text-danger"})
+        </div>
+    </div>
+    <div class="form-group row">
+        @Html.LabelFor(m => m.WeightToFilter.ItemId, "Weight To: ", htmlAttributes: new {@class = "col-sm-5 col-form-label"})
+        <div class="col-sm-5">
+            @Html.DropDownListFor(m => m.WeightToFilter.ItemId, Model.WeightItems, "Select Weight", new {@class = "form-control", id = "WeightDDL"})
+            @Html.ValidationMessageFor(m => m.WeightToFilter.ItemId, "", new {@class = "text-danger"})
         </div>
     </div>
     <button type="submit" name="action">Filter</button>
@@ -62,8 +101,11 @@
         }
     </table>
     <!-- output a paging control that lets the user navigation to the previous page, next page, etc -->
-    @Html.PagedListPager((IPagedList)Model.OnePageOfUsers, page => Url.Action("Index", new { page = page}),
-        new PagedListRenderOptions {
-            LiElementClasses = new string[] { "page-item" },
-            PageClasses = new string[] { "page-link" }})
+    @Html.PagedListPager((IPagedList) Model.OnePageOfUsers, page => Url.Action("Index", new {page = page}),
+        new PagedListRenderOptions
+        {
+            LiElementClasses = new string[] {"page-item"},
+            PageClasses = new string[] {"page-link"}
+        })
+    /**/
 }
