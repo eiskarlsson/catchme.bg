@@ -261,7 +261,232 @@ namespace catchme.bg.Controllers
                         Context.PetsFilter.Update(currentPetsFilter);
                     }
                 }
-                
+
+                foreach (var genderFilter in model.GenderFilter)
+                {
+                    var currentGenderFilter = Context.GenderFilter.FirstOrDefault(u =>
+                        u.FilterUserId == CurrentUser.Id && u.ItemId == genderFilter.ItemId);
+                    if (currentGenderFilter == null)
+                    {
+                        Context.GenderFilter.Add(genderFilter);
+                    }
+                    else
+                    {
+                        currentGenderFilter.Selected = genderFilter.Selected;
+                        Context.GenderFilter.Update(currentGenderFilter);
+                    }
+                }
+
+                foreach (var childrenFilter in model.ChildrenFilter)
+                {
+                    var currentChildrenFilter = Context.ChildrenFilter.FirstOrDefault(u =>
+                        u.FilterUserId == CurrentUser.Id && u.ItemId == childrenFilter.ItemId);
+                    if (currentChildrenFilter == null)
+                    {
+                        Context.ChildrenFilter.Add(childrenFilter);
+                    }
+                    else
+                    {
+                        currentChildrenFilter.Selected = childrenFilter.Selected;
+                        Context.ChildrenFilter.Update(currentChildrenFilter);
+                    }
+                }
+
+                foreach (var drugsFilter in model.DrugsFilter)
+                {
+                    var currentDrugsFilter = Context.DrugsFilter.FirstOrDefault(u =>
+                        u.FilterUserId == CurrentUser.Id && u.ItemId == drugsFilter.ItemId);
+                    if (currentDrugsFilter == null)
+                    {
+                        Context.DrugsFilter.Add(drugsFilter);
+                    }
+                    else
+                    {
+                        currentDrugsFilter.Selected = drugsFilter.Selected;
+                        Context.DrugsFilter.Update(currentDrugsFilter);
+                    }
+                }
+
+                foreach (var dietFilter in model.DietFilter)
+                {
+                    var currentDietFilter = Context.DietFilter.FirstOrDefault(u =>
+                        u.FilterUserId == CurrentUser.Id && u.ItemId == dietFilter.ItemId);
+                    if (currentDietFilter == null)
+                    {
+                        Context.DietFilter.Add(dietFilter);
+                    }
+                    else
+                    {
+                        currentDietFilter.Selected = dietFilter.Selected;
+                        Context.DietFilter.Update(currentDietFilter);
+                    }
+                }
+
+                foreach (var drinksFilter in model.DrinksFilter)
+                {
+                    var currentDrinksFilter = Context.DrinksFilter.FirstOrDefault(u =>
+                        u.FilterUserId == CurrentUser.Id && u.ItemId == drinksFilter.ItemId);
+                    if (currentDrinksFilter == null)
+                    {
+                        Context.DrinksFilter.Add(drinksFilter);
+                    }
+                    else
+                    {
+                        currentDrinksFilter.Selected = drinksFilter.Selected;
+                        Context.DrinksFilter.Update(currentDrinksFilter);
+                    }
+                }
+
+                foreach (var smokesFilter in model.SmokesFilter)
+                {
+                    var currentSmokesFilter = Context.SmokesFilter.FirstOrDefault(u =>
+                        u.FilterUserId == CurrentUser.Id && u.ItemId == smokesFilter.ItemId);
+                    if (currentSmokesFilter == null)
+                    {
+                        Context.SmokesFilter.Add(smokesFilter);
+                    }
+                    else
+                    {
+                        currentSmokesFilter.Selected = smokesFilter.Selected;
+                        Context.SmokesFilter.Update(currentSmokesFilter);
+                    }
+                }
+
+                foreach (var religionFilter in model.ReligionFilter)
+                {
+                    var currentReligionFilter = Context.ReligionFilter.FirstOrDefault(u =>
+                        u.FilterUserId == CurrentUser.Id && u.ItemId == religionFilter.ItemId);
+                    if (currentReligionFilter == null)
+                    {
+                        Context.ReligionFilter.Add(religionFilter);
+                    }
+                    else
+                    {
+                        currentReligionFilter.Selected = religionFilter.Selected;
+                        Context.ReligionFilter.Update(currentReligionFilter);
+                    }
+                }
+
+                foreach (var ethnicityFilter in model.EthnicityFilter)
+                {
+                    var currentEthnicityFilter = Context.EthnicityFilter.FirstOrDefault(u =>
+                        u.FilterUserId == CurrentUser.Id && u.ItemId == ethnicityFilter.ItemId);
+                    if (currentEthnicityFilter == null)
+                    {
+                        Context.EthnicityFilter.Add(ethnicityFilter);
+                    }
+                    else
+                    {
+                        currentEthnicityFilter.Selected = ethnicityFilter.Selected;
+                        Context.EthnicityFilter.Update(currentEthnicityFilter);
+                    }
+                }
+
+                foreach (var educationFilter in model.EducationFilter)
+                {
+                    var currentEducationFilter = Context.EducationFilter.FirstOrDefault(u =>
+                        u.FilterUserId == CurrentUser.Id && u.ItemId == educationFilter.ItemId);
+                    if (currentEducationFilter == null)
+                    {
+                        Context.EducationFilter.Add(educationFilter);
+                    }
+                    else
+                    {
+                        currentEducationFilter.Selected = educationFilter.Selected;
+                        Context.EducationFilter.Update(currentEducationFilter);
+                    }
+                }
+
+                foreach (var hairColorFilter in model.HairColorFilter)
+                {
+                    var currentHairColorFilter = Context.HairColorFilter.FirstOrDefault(u =>
+                        u.FilterUserId == CurrentUser.Id && u.ItemId == hairColorFilter.ItemId);
+                    if (currentHairColorFilter == null)
+                    {
+                        Context.HairColorFilter.Add(hairColorFilter);
+                    }
+                    else
+                    {
+                        currentHairColorFilter.Selected = hairColorFilter.Selected;
+                        Context.HairColorFilter.Update(currentHairColorFilter);
+                    }
+                }
+
+                foreach (var eyeColorFilter in model.EyeColorFilter)
+                {
+                    var currentEyeColorFilter = Context.EyeColorFilter.FirstOrDefault(u =>
+                        u.FilterUserId == CurrentUser.Id && u.ItemId == eyeColorFilter.ItemId);
+                    if (currentEyeColorFilter == null)
+                    {
+                        Context.EyeColorFilter.Add(eyeColorFilter);
+                    }
+                    else
+                    {
+                        currentEyeColorFilter.Selected = eyeColorFilter.Selected;
+                        Context.EyeColorFilter.Update(currentEyeColorFilter);
+                    }
+                }
+
+                foreach (var bodyTypeFilter in model.BodyTypeFilter)
+                {
+                    var currentBodyTypeFilter = Context.BodyTypeFilter.FirstOrDefault(u =>
+                        u.FilterUserId == CurrentUser.Id && u.ItemId == bodyTypeFilter.ItemId);
+                    if (currentBodyTypeFilter == null)
+                    {
+                        Context.BodyTypeFilter.Add(bodyTypeFilter);
+                    }
+                    else
+                    {
+                        currentBodyTypeFilter.Selected = bodyTypeFilter.Selected;
+                        Context.BodyTypeFilter.Update(currentBodyTypeFilter);
+                    }
+                }
+
+                foreach (var languagesFilter in model.LanguagesFilter)
+                {
+                    var currentLanguagesFilter = Context.LanguagesFilter.FirstOrDefault(u =>
+                        u.FilterUserId == CurrentUser.Id && u.ItemId == languagesFilter.ItemId);
+                    if (currentLanguagesFilter == null)
+                    {
+                        Context.LanguagesFilter.Add(languagesFilter);
+                    }
+                    else
+                    {
+                        currentLanguagesFilter.Selected = languagesFilter.Selected;
+                        Context.LanguagesFilter.Update(currentLanguagesFilter);
+                    }
+                }
+
+                foreach (var lookingForFilter in model.LookingForFilter)
+                {
+                    var currentLookingForFilter = Context.LookingForFilter.FirstOrDefault(u =>
+                        u.FilterUserId == CurrentUser.Id && u.ItemId == lookingForFilter.ItemId);
+                    if (currentLookingForFilter == null)
+                    {
+                        Context.LookingForFilter.Add(lookingForFilter);
+                    }
+                    else
+                    {
+                        currentLookingForFilter.Selected = lookingForFilter.Selected;
+                        Context.LookingForFilter.Update(currentLookingForFilter);
+                    }
+                }
+
+                foreach (var maritalStatusFilter in model.MaritalStatusFilter)
+                {
+                    var currentMaritalStatusFilter = Context.MaritalStatusFilter.FirstOrDefault(u =>
+                        u.FilterUserId == CurrentUser.Id && u.ItemId == maritalStatusFilter.ItemId);
+                    if (currentMaritalStatusFilter == null)
+                    {
+                        Context.MaritalStatusFilter.Add(maritalStatusFilter);
+                    }
+                    else
+                    {
+                        currentMaritalStatusFilter.Selected = maritalStatusFilter.Selected;
+                        Context.MaritalStatusFilter.Update(currentMaritalStatusFilter);
+                    }
+                }
+
                 Context.SaveChanges();
                 
             }
@@ -288,6 +513,187 @@ namespace catchme.bg.Controllers
                     }
                 }
             }
+
+            if (model.ChildrenFilter.Any(u => u.Selected))
+            {
+
+                foreach (var item in model.ChildrenFilter)
+                {
+                    if (item.Selected)
+                    {
+                        query = Context.Profiles.Where(u => u.SelectedChildren.Value == item.ItemId).ToList();
+                    }
+                }
+            }
+
+            if (model.DrugsFilter.Any(u => u.Selected))
+            {
+
+                foreach (var item in model.DrugsFilter)
+                {
+                    if (item.Selected)
+                    {
+                        query = Context.Profiles.Where(u => u.SelectedDrugs.Value == item.ItemId).ToList();
+                    }
+                }
+            }
+
+            if (model.DietFilter.Any(u => u.Selected))
+            {
+
+                foreach (var item in model.DietFilter)
+                {
+                    if (item.Selected)
+                    {
+                        query = Context.Profiles.Where(u => u.SelectedDiet.Value == item.ItemId).ToList();
+                    }
+                }
+            }
+
+            if (model.DrinksFilter.Any(u => u.Selected))
+            {
+
+                foreach (var item in model.DrinksFilter)
+                {
+                    if (item.Selected)
+                    {
+                        query = Context.Profiles.Where(u => u.SelectedDrinks.Value == item.ItemId).ToList();
+                    }
+                }
+            }
+
+            if (model.SmokesFilter.Any(u => u.Selected))
+            {
+
+                foreach (var item in model.SmokesFilter)
+                {
+                    if (item.Selected)
+                    {
+                        query = Context.Profiles.Where(u => u.SelectedSmokes.Value == item.ItemId).ToList();
+                    }
+                }
+            }
+
+            if (model.ReligionFilter.Any(u => u.Selected))
+            {
+
+                foreach (var item in model.ReligionFilter)
+                {
+                    if (item.Selected)
+                    {
+                        query = Context.Profiles.Where(u => u.SelectedReligion.Value == item.ItemId).ToList();
+                    }
+                }
+            }
+
+            if (model.EthnicityFilter.Any(u => u.Selected))
+            {
+
+                foreach (var item in model.EthnicityFilter)
+                {
+                    if (item.Selected)
+                    {
+                        query = Context.Profiles.Where(u => u.SelectedEthnicity.Value == item.ItemId).ToList();
+                    }
+                }
+            }
+
+            if (model.EducationFilter.Any(u => u.Selected))
+            {
+
+                foreach (var item in model.EducationFilter)
+                {
+                    if (item.Selected)
+                    {
+                        query = Context.Profiles.Where(u => u.SelectedEducation.Value == item.ItemId).ToList();
+                    }
+                }
+            }
+
+            if (model.HairColorFilter.Any(u => u.Selected))
+            {
+
+                foreach (var item in model.HairColorFilter)
+                {
+                    if (item.Selected)
+                    {
+                        query = Context.Profiles.Where(u => u.SelectedHairColor.Value == item.ItemId).ToList();
+                    }
+                }
+            }
+
+            if (model.EyeColorFilter.Any(u => u.Selected))
+            {
+
+                foreach (var item in model.EyeColorFilter)
+                {
+                    if (item.Selected)
+                    {
+                        query = Context.Profiles.Where(u => u.SelectedEyeColor.Value == item.ItemId).ToList();
+                    }
+                }
+            }
+
+            if (model.BodyTypeFilter.Any(u => u.Selected))
+            {
+
+                foreach (var item in model.BodyTypeFilter)
+                {
+                    if (item.Selected)
+                    {
+                        query = Context.Profiles.Where(u => u.SelectedBodyType.Value == item.ItemId).ToList();
+                    }
+                }
+            }
+
+            if (model.LanguagesFilter.Any(u => u.Selected))
+            {
+
+                foreach (var item in model.LanguagesFilter)
+                {
+                    if (item.Selected)
+                    {
+                        query = Context.Profiles.Where(u => u.SelectedLanguages.Value == item.ItemId).ToList();
+                    }
+                }
+            }
+
+            if (model.GenderFilter.Any(u => u.Selected))
+            {
+
+                foreach (var item in model.GenderFilter)
+                {
+                    if (item.Selected)
+                    {
+                        query = Context.Profiles.Where(u => u.SelectedGender.Value == item.ItemId).ToList();
+                    }
+                }
+            }
+
+            if (model.LookingForFilter.Any(u => u.Selected))
+            {
+
+                foreach (var item in model.LookingForFilter)
+                {
+                    if (item.Selected)
+                    {
+                        query = Context.Profiles.Where(u => u.SelectedLookingFor.Value == item.ItemId).ToList();
+                    }
+                }
+            }
+
+            if (model.MaritalStatusFilter.Any(u => u.Selected))
+            {
+
+                foreach (var item in model.MaritalStatusFilter)
+                {
+                    if (item.Selected)
+                    {
+                        query = Context.Profiles.Where(u => u.SelectedMaritalStatus.Value == item.ItemId).ToList();
+                    }
+                }
+            }
+
 
             if (model.AgeFromFilter != null)
             {
