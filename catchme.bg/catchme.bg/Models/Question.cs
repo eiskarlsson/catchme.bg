@@ -10,7 +10,7 @@ namespace catchme.bg.Models
     public class Question : ExtensionMethods.IIdentifier
     {
         [FieldHidden]
-        public int ID { set; get; }
+        public int Id { set; get; }
 
         public int QuestionID { get; set; }
         public string QuestionText { set; get; }

@@ -34,8 +34,8 @@ namespace catchme.bg.Controllers
             // result is now an array of MbtiTest
             using (CatchmeContext context = new CatchmeContext())
             {
-                var firstQuestion = context.Questions.FirstOrDefault(u => u.ID == 1 && u.Language == "en");
-                var lastQuestion = context.Questions.FirstOrDefault(u => u.ID == 140 && u.Language == "bg");
+                var firstQuestion = context.Questions.FirstOrDefault(u => u.Id == 1 && u.Language == "en");
+                var lastQuestion = context.Questions.FirstOrDefault(u => u.Id == 140 && u.Language == "bg");
                 if (firstQuestion != null && lastQuestion != null)
                 {
                     return "Db seeded already!";

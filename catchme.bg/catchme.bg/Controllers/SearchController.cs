@@ -24,9 +24,9 @@ namespace catchme.bg.Controllers
     {
         private readonly IHostingEnvironment _environment;
 
-        public catchmebgContext _bgcontext { get; set; }
+        public catchmebgContext Bgcontext { get; set; }
 
-        public CatchmeContext _context { get; set; }
+        public CatchmeContext Context { get; set; }
 
         protected CatchmebgUser CurrentUser
         {
@@ -34,21 +34,21 @@ namespace catchme.bg.Controllers
             {
                 if (User.Identity.IsAuthenticated)
                 {
-                    userId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    UserId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
                 }
 
-                return userId != null ? _bgcontext.Users.FirstOrDefault(x => x.Id == userId) : null;
+                return UserId != null ? Bgcontext.Users.FirstOrDefault(x => x.Id == UserId) : null;
             }
             set => _currentUser = value;
         }
 
-        protected string userId;
+        protected string UserId;
         private CatchmebgUser _currentUser;
 
         public SearchController(catchmebgContext bgcontext, CatchmeContext context, IHostingEnvironment environment)
         {
-            _bgcontext = bgcontext;
-            _context = context;
+            Bgcontext = bgcontext;
+            Context = context;
             _environment = environment;
         }
 
@@ -57,37 +57,37 @@ namespace catchme.bg.Controllers
         {
             var model = new SearchViewModel();
 
-            model.Profiles = _context.Profiles.ToList();
+            model.Profiles = Context.Profiles.ToList();
 
             model.Users = new List<CatchmebgUser>();
 
-            model.PetsFilter = !_context.PetsFilter.Any() ? model.Pets.Select(u => new PetsFilter()
+            model.PetsFilter = !Context.PetsFilter.Any() ? model.Pets.Select(u => new PetsFilter()
                 { ItemId = u.ItemId, Name = u.Name, FilterUserId = CurrentUser.Id, Selected=false}).ToList() 
-                : _context.PetsFilter.Where(u=>u.FilterUserId==CurrentUser.Id).ToList();
+                : Context.PetsFilter.Where(u=>u.FilterUserId==CurrentUser.Id).ToList();
 
-            model.AgeFromFilter = !_context.AgeFilter.Any(u => u.FilterUserId == CurrentUser.Id && u.Name == "From") ? new AgeFilter()
+            model.AgeFromFilter = !Context.AgeFilter.Any(u => u.FilterUserId == CurrentUser.Id && u.Name == "From") ? new AgeFilter()
                 { ItemId = -1, Name = "From", FilterUserId = CurrentUser.Id, Selected = false }
-                : _context.AgeFilter.FirstOrDefault(u => u.FilterUserId == CurrentUser.Id && u.Name=="From");
+                : Context.AgeFilter.FirstOrDefault(u => u.FilterUserId == CurrentUser.Id && u.Name=="From");
 
-            model.AgeToFilter = !_context.AgeFilter.Any(u=>u.FilterUserId==CurrentUser.Id && u.Name=="To") ? new AgeFilter()
+            model.AgeToFilter = !Context.AgeFilter.Any(u=>u.FilterUserId==CurrentUser.Id && u.Name=="To") ? new AgeFilter()
                     { ItemId = -1, Name = "To", FilterUserId = CurrentUser.Id, Selected = false }
-                : _context.AgeFilter.FirstOrDefault(u => u.FilterUserId == CurrentUser.Id && u.Name == "To");
+                : Context.AgeFilter.FirstOrDefault(u => u.FilterUserId == CurrentUser.Id && u.Name == "To");
 
-            model.WeightFromFilter = !_context.WeightFilter.Any(u => u.FilterUserId == CurrentUser.Id && u.Name == "From") ? new WeightFilter()
+            model.WeightFromFilter = !Context.WeightFilter.Any(u => u.FilterUserId == CurrentUser.Id && u.Name == "From") ? new WeightFilter()
                     { ItemId = -1, Name = "From", FilterUserId = CurrentUser.Id, Selected = false }
-                : _context.WeightFilter.FirstOrDefault(u => u.FilterUserId == CurrentUser.Id && u.Name == "From");
+                : Context.WeightFilter.FirstOrDefault(u => u.FilterUserId == CurrentUser.Id && u.Name == "From");
 
-            model.WeightToFilter = !_context.WeightFilter.Any(u => u.FilterUserId == CurrentUser.Id && u.Name == "To") ? new WeightFilter()
+            model.WeightToFilter = !Context.WeightFilter.Any(u => u.FilterUserId == CurrentUser.Id && u.Name == "To") ? new WeightFilter()
                     { ItemId = -1, Name = "To", FilterUserId = CurrentUser.Id, Selected = false }
-                : _context.WeightFilter.FirstOrDefault(u => u.FilterUserId == CurrentUser.Id && u.Name == "To");
+                : Context.WeightFilter.FirstOrDefault(u => u.FilterUserId == CurrentUser.Id && u.Name == "To");
 
-            model.HeightFromFilter = !_context.HeightFilter.Any(u => u.FilterUserId == CurrentUser.Id && u.Name == "From") ? new HeightFilter()
+            model.HeightFromFilter = !Context.HeightFilter.Any(u => u.FilterUserId == CurrentUser.Id && u.Name == "From") ? new HeightFilter()
                     { ItemId = -1, Name = "From", FilterUserId = CurrentUser.Id, Selected = false }
-                : _context.HeightFilter.FirstOrDefault(u => u.FilterUserId == CurrentUser.Id && u.Name == "From");
+                : Context.HeightFilter.FirstOrDefault(u => u.FilterUserId == CurrentUser.Id && u.Name == "From");
 
-            model.HeightToFilter = !_context.HeightFilter.Any(u => u.FilterUserId == CurrentUser.Id && u.Name == "To") ? new HeightFilter()
+            model.HeightToFilter = !Context.HeightFilter.Any(u => u.FilterUserId == CurrentUser.Id && u.Name == "To") ? new HeightFilter()
                     { ItemId = -1, Name = "To", FilterUserId = CurrentUser.Id, Selected = false }
-                : _context.HeightFilter.FirstOrDefault(u => u.FilterUserId == CurrentUser.Id && u.Name == "To");
+                : Context.HeightFilter.FirstOrDefault(u => u.FilterUserId == CurrentUser.Id && u.Name == "To");
 
             FilterUsers(model);
             
@@ -103,106 +103,106 @@ namespace catchme.bg.Controllers
         {
             if (ModelState.IsValid)
             {
-                model.Profiles = _context.Profiles.ToList();
+                model.Profiles = Context.Profiles.ToList();
 
                 FilterUsers(model);
 
-                var currentAgeFromFilter = _context.AgeFilter.FirstOrDefault(u =>
+                var currentAgeFromFilter = Context.AgeFilter.FirstOrDefault(u =>
                     u.FilterUserId == CurrentUser.Id && u.Name=="From");
                 if (currentAgeFromFilter == null)
                 {
-                    _context.AgeFilter.Add(model.AgeFromFilter);
+                    Context.AgeFilter.Add(model.AgeFromFilter);
                 }
                 else
                 {
                     currentAgeFromFilter.ItemId = model.AgeFromFilter.ItemId;
                     currentAgeFromFilter.Name = "From";
-                    _context.AgeFilter.Update(currentAgeFromFilter);
+                    Context.AgeFilter.Update(currentAgeFromFilter);
                 }
 
-                var currentAgeToFilter = _context.AgeFilter.FirstOrDefault(u =>
+                var currentAgeToFilter = Context.AgeFilter.FirstOrDefault(u =>
                     u.FilterUserId == CurrentUser.Id && u.Name == "To");
                 if (currentAgeToFilter == null)
                 {
-                    _context.AgeFilter.Add(model.AgeToFilter);
+                    Context.AgeFilter.Add(model.AgeToFilter);
                 }
                 else
                 {
                     currentAgeToFilter.ItemId = model.AgeToFilter.ItemId;
                     currentAgeToFilter.Name = "To";
-                    _context.AgeFilter.Update(currentAgeToFilter);
+                    Context.AgeFilter.Update(currentAgeToFilter);
                 }
 
                 //---------------------------------------------------------------
-                var currentWeightFromFilter = _context.WeightFilter.FirstOrDefault(u =>
+                var currentWeightFromFilter = Context.WeightFilter.FirstOrDefault(u =>
                     u.FilterUserId == CurrentUser.Id && u.Name == "From");
                 if (currentWeightFromFilter == null)
                 {
-                    _context.WeightFilter.Add(model.WeightFromFilter);
+                    Context.WeightFilter.Add(model.WeightFromFilter);
                 }
                 else
                 {
                     currentWeightFromFilter.ItemId = model.WeightFromFilter.ItemId;
                     currentWeightFromFilter.Name = "From";
-                    _context.WeightFilter.Update(currentWeightFromFilter);
+                    Context.WeightFilter.Update(currentWeightFromFilter);
                 }
 
-                var currentWeightToFilter = _context.WeightFilter.FirstOrDefault(u =>
+                var currentWeightToFilter = Context.WeightFilter.FirstOrDefault(u =>
                     u.FilterUserId == CurrentUser.Id && u.Name == "To");
                 if (currentWeightToFilter == null)
                 {
-                    _context.WeightFilter.Add(model.WeightToFilter);
+                    Context.WeightFilter.Add(model.WeightToFilter);
                 }
                 else
                 {
                     currentWeightToFilter.ItemId = model.WeightToFilter.ItemId;
                     currentWeightToFilter.Name = "To";
-                    _context.WeightFilter.Update(currentWeightToFilter);
+                    Context.WeightFilter.Update(currentWeightToFilter);
                 }
 
-                var currentHeightFromFilter = _context.HeightFilter.FirstOrDefault(u =>
+                var currentHeightFromFilter = Context.HeightFilter.FirstOrDefault(u =>
                     u.FilterUserId == CurrentUser.Id && u.Name == "From");
                 if (currentHeightFromFilter == null)
                 {
-                    _context.HeightFilter.Add(model.HeightFromFilter);
+                    Context.HeightFilter.Add(model.HeightFromFilter);
                 }
                 else
                 {
                     currentHeightFromFilter.ItemId = model.HeightFromFilter.ItemId;
                     currentHeightFromFilter.Name = "From";
-                    _context.HeightFilter.Update(currentHeightFromFilter);
+                    Context.HeightFilter.Update(currentHeightFromFilter);
                 }
 
-                var currentHeightToFilter = _context.HeightFilter.FirstOrDefault(u =>
+                var currentHeightToFilter = Context.HeightFilter.FirstOrDefault(u =>
                     u.FilterUserId == CurrentUser.Id && u.Name == "To");
                 if (currentHeightToFilter == null)
                 {
-                    _context.HeightFilter.Add(model.HeightToFilter);
+                    Context.HeightFilter.Add(model.HeightToFilter);
                 }
                 else
                 {
                     currentHeightToFilter.ItemId = model.HeightToFilter.ItemId;
                     currentHeightToFilter.Name = "To";
-                    _context.HeightFilter.Update(currentHeightToFilter);
+                    Context.HeightFilter.Update(currentHeightToFilter);
                 }
                 //---------------------------------------------------------------
 
                 foreach (var petsFilter in model.PetsFilter)
                 {
-                    var currentPetsFilter = _context.PetsFilter.FirstOrDefault(u =>
+                    var currentPetsFilter = Context.PetsFilter.FirstOrDefault(u =>
                         u.FilterUserId == CurrentUser.Id && u.ItemId == petsFilter.ItemId);
                     if (currentPetsFilter==null)
                     {
-                        _context.PetsFilter.Add(petsFilter);
+                        Context.PetsFilter.Add(petsFilter);
                     }
                     else
                     {
                         currentPetsFilter.Selected = petsFilter.Selected;
-                        _context.PetsFilter.Update(currentPetsFilter);
+                        Context.PetsFilter.Update(currentPetsFilter);
                     }
                 }
                 
-                _context.SaveChanges();
+                Context.SaveChanges();
                 
             }
 
@@ -224,7 +224,7 @@ namespace catchme.bg.Controllers
                 {
                     if (item.Selected)
                     {
-                        query = _context.Profiles.Where(u => u.SelectedPets.Value == item.ItemId).ToList();
+                        query = Context.Profiles.Where(u => u.SelectedPets.Value == item.ItemId).ToList();
                     }
                 }
             }
@@ -261,7 +261,7 @@ namespace catchme.bg.Controllers
 
             foreach (var item in query)
             {
-                model.Users.Add(_bgcontext.Users.FirstOrDefault(u => u.Id == item.ProfileUserId));
+                model.Users.Add(Bgcontext.Users.FirstOrDefault(u => u.Id == item.ProfileUserId));
             }
         }
 

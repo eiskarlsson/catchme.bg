@@ -10,7 +10,7 @@ namespace catchme.bg
     {
         public interface IIdentifier
         {
-            int ID { get; set; }
+            int Id { get; set; }
         }
 
         public static bool IsNull<T>(this T t)
@@ -23,7 +23,7 @@ namespace catchme.bg
         {
             var local = context.Set<T>()
                 .Local
-                .FirstOrDefault(entry => entry.ID.Equals(entryId));
+                .FirstOrDefault(entry => entry.Id.Equals(entryId));
             if (!local.IsNull())
             {
                 context.Entry(local).State = EntityState.Detached;
