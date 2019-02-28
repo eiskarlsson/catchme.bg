@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -24,9 +25,9 @@ namespace catchme.bg.Controllers
     {
         private readonly IHostingEnvironment _environment;
 
-        public catchmebgContext Bgcontext { get; set; }
+        private catchmebgContext _bgcontext { get; set; }
 
-        public CatchmeContext Context { get; set; }
+        private CatchmeContext Context { get; set; }
 
         protected CatchmebgUser CurrentUser
         {
@@ -37,7 +38,7 @@ namespace catchme.bg.Controllers
                     UserId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
                 }
 
-                return UserId != null ? Bgcontext.Users.FirstOrDefault(x => x.Id == UserId) : null;
+                return UserId != null ? _bgcontext.Users.FirstOrDefault(x => x.Id == UserId) : null;
             }
             set => _currentUser = value;
         }
@@ -47,7 +48,7 @@ namespace catchme.bg.Controllers
 
         public SearchController(catchmebgContext bgcontext, CatchmeContext context, IHostingEnvironment environment)
         {
-            Bgcontext = bgcontext;
+            _bgcontext = bgcontext;
             Context = context;
             _environment = environment;
         }
@@ -727,7 +728,54 @@ namespace catchme.bg.Controllers
 
             foreach (var item in query)
             {
-                model.Users.Add(Bgcontext.Users.FirstOrDefault(u => u.Id == item.ProfileUserId));
+                model.Users.Add(_bgcontext.Users.FirstOrDefault(u => u.Id == item.ProfileUserId));
+            }
+        }
+
+        public FileContentResult UserPhotos(string username)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                //var userId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                //string username = TempData["username"].ToString();
+                // to get the user details to load user Image
+                var user = _bgcontext.Users.FirstOrDefault(x => x.UserName.ToLower() == username.ToLower());
+
+                if (user?.Id == null)
+                {
+                    string fileName = Path.Combine(_environment.ContentRootPath, @"~/images/noImg.png");
+
+                    byte[] imageData = null;
+                    FileInfo fileInfo = new FileInfo(fileName);
+                    long imageFileLength = fileInfo.Length;
+                    FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+                    BinaryReader br = new BinaryReader(fs);
+                    imageData = br.ReadBytes((int)imageFileLength);
+
+                    return File(imageData, "image/png");
+
+                }
+
+
+                if (user?.UserPhoto != null)
+                {
+                    return new FileContentResult(user.UserPhoto, "image/jpeg");
+                }
+
+                return null;
+            }
+            else
+            {
+                string fileName = Path.Combine(_environment.ContentRootPath, @"wwwroot\images\noImg.png");
+
+                byte[] imageData = null;
+                FileInfo fileInfo = new FileInfo(fileName);
+                long imageFileLength = fileInfo.Length;
+                FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+                BinaryReader br = new BinaryReader(fs);
+                imageData = br.ReadBytes((int)imageFileLength);
+                return File(imageData, "image/png");
+
             }
         }
 
