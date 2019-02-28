@@ -52,7 +52,7 @@ namespace catchme.bg.Models
         }
 
         //----------------------------------------------------------
-        private List<Children> Children
+        public List<Children> Children
         {
             get
             {
@@ -63,7 +63,7 @@ namespace catchme.bg.Models
                 return _children1;
             }
         }
-        private List<Drugs> Drugs
+        public List<Drugs> Drugs
         {
             get
             {
@@ -75,7 +75,7 @@ namespace catchme.bg.Models
             }
 
         }
-        private List<Diet> Diet
+        public List<Diet> Diet
         {
             get
             {
@@ -87,7 +87,7 @@ namespace catchme.bg.Models
             }
 
         }
-        private List<Drinks> Drinks
+        public List<Drinks> Drinks
         {
             get
             {
@@ -99,7 +99,7 @@ namespace catchme.bg.Models
             }
 
         }
-        private List<Smokes> Smokes
+        public List<Smokes> Smokes
         {
             get
             {
@@ -111,7 +111,7 @@ namespace catchme.bg.Models
             }
 
         }
-        private List<Religion> Religion
+        public List<Religion> Religion
         {
             get
             {
@@ -123,7 +123,7 @@ namespace catchme.bg.Models
             }
 
         }
-        private List<Ethnicity> Ethnicity
+        public List<Ethnicity> Ethnicity
         {
             get
             {
@@ -135,7 +135,7 @@ namespace catchme.bg.Models
             }
 
         }
-        private List<Education> Education
+        public List<Education> Education
         {
             get
             {
@@ -147,7 +147,7 @@ namespace catchme.bg.Models
             }
 
         }
-        private List<HairColor> HairColor
+        public List<HairColor> HairColor
         {
             get
             {
@@ -159,7 +159,7 @@ namespace catchme.bg.Models
             }
 
         }
-        private List<EyeColor> EyeColor
+        public List<EyeColor> EyeColor
         {
             get
             {
@@ -171,7 +171,7 @@ namespace catchme.bg.Models
             }
 
         }
-        private List<BodyType> BodyType
+        public List<BodyType> BodyType
         {
             get
             {
@@ -184,7 +184,7 @@ namespace catchme.bg.Models
 
         }
 
-        private List<Languages> Languages
+        public List<Languages> Languages
         {
             get
             {
@@ -196,7 +196,7 @@ namespace catchme.bg.Models
             }
 
         }
-        private List<Gender> Gender
+        public List<Gender> Gender
         {
             get
             {
@@ -209,7 +209,7 @@ namespace catchme.bg.Models
 
         }
 
-        private List<LookingFor> LookingFor
+        public List<LookingFor> LookingFor
         {
             get
             {
@@ -221,7 +221,7 @@ namespace catchme.bg.Models
             }
 
         }
-        private List<MaritalStatus> MaritalStatus
+        public List<MaritalStatus> MaritalStatus
         {
             get
             {
