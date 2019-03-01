@@ -785,7 +785,7 @@ namespace catchme.bg.Controllers
             return Json(GetUsers().ToDataSourceResult(request));
         }
 
-        private IEnumerable<CatchmebgUser> GetUsers()
+        private IEnumerable<ListUserItem> GetUsers()
         {
             var model = new SearchViewModel();
 
@@ -883,9 +883,9 @@ namespace catchme.bg.Controllers
 
             FilterUsers(model);
 
-            return model.Users;
+            return model.Users.Select(u=> new ListUserItem {Id=u.Id, UserName = u.UserName});
         }
 
-
+        
     }
 }
