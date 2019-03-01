@@ -730,7 +730,8 @@ namespace catchme.bg.Controllers
             {
                 model.Users.Add(_bgcontext.Users.FirstOrDefault(u => u.Id == item.ProfileUserId));
             }
-        }
+
+         }
 
         public FileContentResult UserPhotos(string username)
         {
@@ -778,6 +779,113 @@ namespace catchme.bg.Controllers
 
             }
         }
+
+        public IActionResult Users_Read([DataSourceRequest] DataSourceRequest request)
+        {
+            return Json(GetUsers().ToDataSourceResult(request));
+        }
+
+        private IEnumerable<CatchmebgUser> GetUsers()
+        {
+            var model = new SearchViewModel();
+
+            model.Profiles = Context.Profiles.ToList();
+
+            model.Users = new List<CatchmebgUser>();
+
+            model.PetsFilter = !Context.PetsFilter.Any() ? model.Pets.Select(u => new PetsFilter()
+            { ItemId = u.ItemId, Name = u.Name, FilterUserId = CurrentUser.Id, Selected = false }).ToList()
+                : Context.PetsFilter.Where(u => u.FilterUserId == CurrentUser.Id).ToList();
+
+            model.ChildrenFilter = !Context.ChildrenFilter.Any() ? model.Children.Select(u => new ChildrenFilter()
+            { ItemId = u.ItemId, Name = u.Name, FilterUserId = CurrentUser.Id, Selected = false }).ToList()
+                : Context.ChildrenFilter.Where(u => u.FilterUserId == CurrentUser.Id).ToList();
+
+            model.DrugsFilter = !Context.DrugsFilter.Any() ? model.Drugs.Select(u => new DrugsFilter()
+            { ItemId = u.ItemId, Name = u.Name, FilterUserId = CurrentUser.Id, Selected = false }).ToList()
+                : Context.DrugsFilter.Where(u => u.FilterUserId == CurrentUser.Id).ToList();
+
+            model.DietFilter = !Context.DietFilter.Any() ? model.Diet.Select(u => new DietFilter()
+            { ItemId = u.ItemId, Name = u.Name, FilterUserId = CurrentUser.Id, Selected = false }).ToList()
+                : Context.DietFilter.Where(u => u.FilterUserId == CurrentUser.Id).ToList();
+
+            model.DrinksFilter = !Context.DrinksFilter.Any() ? model.Drinks.Select(u => new DrinksFilter()
+            { ItemId = u.ItemId, Name = u.Name, FilterUserId = CurrentUser.Id, Selected = false }).ToList()
+                : Context.DrinksFilter.Where(u => u.FilterUserId == CurrentUser.Id).ToList();
+
+            model.SmokesFilter = !Context.SmokesFilter.Any() ? model.Smokes.Select(u => new SmokesFilter()
+            { ItemId = u.ItemId, Name = u.Name, FilterUserId = CurrentUser.Id, Selected = false }).ToList()
+                : Context.SmokesFilter.Where(u => u.FilterUserId == CurrentUser.Id).ToList();
+
+            model.ReligionFilter = !Context.ReligionFilter.Any() ? model.Religion.Select(u => new ReligionFilter()
+            { ItemId = u.ItemId, Name = u.Name, FilterUserId = CurrentUser.Id, Selected = false }).ToList()
+                : Context.ReligionFilter.Where(u => u.FilterUserId == CurrentUser.Id).ToList();
+
+            model.EthnicityFilter = !Context.EthnicityFilter.Any() ? model.Ethnicity.Select(u => new EthnicityFilter()
+            { ItemId = u.ItemId, Name = u.Name, FilterUserId = CurrentUser.Id, Selected = false }).ToList()
+                : Context.EthnicityFilter.Where(u => u.FilterUserId == CurrentUser.Id).ToList();
+
+            model.EducationFilter = !Context.EducationFilter.Any() ? model.Education.Select(u => new EducationFilter()
+            { ItemId = u.ItemId, Name = u.Name, FilterUserId = CurrentUser.Id, Selected = false }).ToList()
+                : Context.EducationFilter.Where(u => u.FilterUserId == CurrentUser.Id).ToList();
+
+            model.HairColorFilter = !Context.HairColorFilter.Any() ? model.HairColor.Select(u => new HairColorFilter()
+            { ItemId = u.ItemId, Name = u.Name, FilterUserId = CurrentUser.Id, Selected = false }).ToList()
+                : Context.HairColorFilter.Where(u => u.FilterUserId == CurrentUser.Id).ToList();
+
+            model.EyeColorFilter = !Context.EyeColorFilter.Any() ? model.EyeColor.Select(u => new EyeColorFilter()
+            { ItemId = u.ItemId, Name = u.Name, FilterUserId = CurrentUser.Id, Selected = false }).ToList()
+                : Context.EyeColorFilter.Where(u => u.FilterUserId == CurrentUser.Id).ToList();
+
+            model.BodyTypeFilter = !Context.BodyTypeFilter.Any() ? model.BodyType.Select(u => new BodyTypeFilter()
+            { ItemId = u.ItemId, Name = u.Name, FilterUserId = CurrentUser.Id, Selected = false }).ToList()
+                : Context.BodyTypeFilter.Where(u => u.FilterUserId == CurrentUser.Id).ToList();
+
+            model.LanguagesFilter = !Context.LanguagesFilter.Any() ? model.Languages.Select(u => new LanguagesFilter()
+            { ItemId = u.ItemId, Name = u.Name, FilterUserId = CurrentUser.Id, Selected = false }).ToList()
+                : Context.LanguagesFilter.Where(u => u.FilterUserId == CurrentUser.Id).ToList();
+
+            model.GenderFilter = !Context.GenderFilter.Any() ? model.Gender.Select(u => new GenderFilter()
+            { ItemId = u.ItemId, Name = u.Name, FilterUserId = CurrentUser.Id, Selected = false }).ToList()
+                : Context.GenderFilter.Where(u => u.FilterUserId == CurrentUser.Id).ToList();
+
+            model.LookingForFilter = !Context.LookingForFilter.Any() ? model.LookingFor.Select(u => new LookingForFilter()
+            { ItemId = u.ItemId, Name = u.Name, FilterUserId = CurrentUser.Id, Selected = false }).ToList()
+                : Context.LookingForFilter.Where(u => u.FilterUserId == CurrentUser.Id).ToList();
+
+            model.MaritalStatusFilter = !Context.MaritalStatusFilter.Any() ? model.MaritalStatus.Select(u => new MaritalStatusFilter()
+            { ItemId = u.ItemId, Name = u.Name, FilterUserId = CurrentUser.Id, Selected = false }).ToList()
+                : Context.MaritalStatusFilter.Where(u => u.FilterUserId == CurrentUser.Id).ToList();
+
+            model.AgeFromFilter = !Context.AgeFilter.Any(u => u.FilterUserId == CurrentUser.Id && u.Name == "From") ? new AgeFilter()
+            { ItemId = -1, Name = "From", FilterUserId = CurrentUser.Id, Selected = false }
+                : Context.AgeFilter.FirstOrDefault(u => u.FilterUserId == CurrentUser.Id && u.Name == "From");
+
+            model.AgeToFilter = !Context.AgeFilter.Any(u => u.FilterUserId == CurrentUser.Id && u.Name == "To") ? new AgeFilter()
+            { ItemId = -1, Name = "To", FilterUserId = CurrentUser.Id, Selected = false }
+                : Context.AgeFilter.FirstOrDefault(u => u.FilterUserId == CurrentUser.Id && u.Name == "To");
+
+            model.WeightFromFilter = !Context.WeightFilter.Any(u => u.FilterUserId == CurrentUser.Id && u.Name == "From") ? new WeightFilter()
+            { ItemId = -1, Name = "From", FilterUserId = CurrentUser.Id, Selected = false }
+                : Context.WeightFilter.FirstOrDefault(u => u.FilterUserId == CurrentUser.Id && u.Name == "From");
+
+            model.WeightToFilter = !Context.WeightFilter.Any(u => u.FilterUserId == CurrentUser.Id && u.Name == "To") ? new WeightFilter()
+            { ItemId = -1, Name = "To", FilterUserId = CurrentUser.Id, Selected = false }
+                : Context.WeightFilter.FirstOrDefault(u => u.FilterUserId == CurrentUser.Id && u.Name == "To");
+
+            model.HeightFromFilter = !Context.HeightFilter.Any(u => u.FilterUserId == CurrentUser.Id && u.Name == "From") ? new HeightFilter()
+            { ItemId = -1, Name = "From", FilterUserId = CurrentUser.Id, Selected = false }
+                : Context.HeightFilter.FirstOrDefault(u => u.FilterUserId == CurrentUser.Id && u.Name == "From");
+
+            model.HeightToFilter = !Context.HeightFilter.Any(u => u.FilterUserId == CurrentUser.Id && u.Name == "To") ? new HeightFilter()
+            { ItemId = -1, Name = "To", FilterUserId = CurrentUser.Id, Selected = false }
+                : Context.HeightFilter.FirstOrDefault(u => u.FilterUserId == CurrentUser.Id && u.Name == "To");
+
+            FilterUsers(model);
+
+            return model.Users;
+        }
+
 
     }
 }
