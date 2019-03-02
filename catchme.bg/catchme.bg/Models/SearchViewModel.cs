@@ -14,7 +14,7 @@ namespace catchme.bg.Models
         //https://stackoverflow.com/questions/40555543/how-do-i-implement-a-checkbox-list-in-asp-net-core
         public List<Profile> Profiles { get; set; }
         public List<CatchmebgUser> Users { get; set; }
-        public int? Page { get; set; }
+        //public int? Page { get; set; }
 
         public IPagedList<CatchmebgUser> OnePageOfUsers { get; set; }
 

@@ -501,12 +501,12 @@
         )
     </div>
     <button type="submit" name="action">Filter</button>
-    <table>
+    @*<table>
         <tr>
             <th>Username</th>
             <th></th>
-        </tr>
-        @foreach (var item in Model.OnePageOfUsers)
+        </tr>*@
+        @*@foreach (var item in Model.OnePageOfUsers)
         {
             <tr>
                 <td>@Html.DisplayFor(modelItem => item.UserName)</td>
@@ -516,15 +516,15 @@
                          border-radius: 100px;padding: 6px;box-shadow: 0px 0px 20px #888;" />
                 </td>
             </tr>
-        }
-    </table>
+        }*@
+    @*</table>*@
     <!-- output a paging control that lets the user navigation to the previous page, next page, etc -->
-    @Html.PagedListPager((IPagedList) Model.OnePageOfUsers, page => Url.Action("Index", new {page = page}),
+    @*@Html.PagedListPager((IPagedList) Model.OnePageOfUsers, page => Url.Action("Index", new {page = page}),
         new PagedListRenderOptions
         {
             LiElementClasses = new string[] {"page-item"},
             PageClasses = new string[] {"page-link"}
-        })
+        })*@
 
     <div class="demo-section k-content wide">
         @(Html.Kendo().ListView<ListUserItem>()

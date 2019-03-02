@@ -54,7 +54,7 @@ namespace catchme.bg.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index(int? page)
+        public IActionResult Index(/*int? page*/)
         {
             var model = new SearchViewModel();
 
@@ -152,9 +152,9 @@ namespace catchme.bg.Controllers
 
             FilterUsers(model);
             
-            var pageNumber = page ?? 1;
+            //var pageNumber = page ?? 1;
 
-            model.OnePageOfUsers = model.Users.ToPagedList(pageNumber, 2);
+            //model.OnePageOfUsers = model.Users.ToPagedList(pageNumber, 2);
 
             return View(model);
         }
