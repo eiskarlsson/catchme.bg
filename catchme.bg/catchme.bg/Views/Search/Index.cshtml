@@ -678,8 +678,10 @@
 }
 <script type="text/x-kendo-tmpl" id="template">
     <div class="product">
-        <img src='@Url.Action("UserPhotos", "Search")?username=#=UserName#'</img>
-        <h3>#:UserName#</h3>
-        <p>#:kendo.toString(UserName)#</p>
+        <a href='@Url.Action("Show", "Profile")?username=#=UserName#' target="_blank">
+            <img src='@Url.Action("UserPhotos", "Search")?username=#=UserName#'/>
+         </a>
+            @*<h3>#:UserName#</h3>
+            <p>#:kendo.toString(UserName)#</p>*@
     </div>
 </script>
