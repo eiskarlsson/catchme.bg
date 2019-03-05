@@ -2,46 +2,87 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div>
-    @(Html.Kendo().PanelBar()
-             .Name("IntroPanelBar")
-             .Items(items =>
-             {
-             items.Add()
-             .Text("ASP.NET Core")
-             .Selected(true)
-             .Expanded(true)
-             .Content(@<text>
-<p style="padding:1em 2em">
-Learn how to build ASP.NET apps that can run anywhere.
-<a target="_blank" href="http://go.microsoft.com/fwlink/?LinkID=525028&clcid=0x409">Learn More</a>
-</p>
-</text>);
-items.Add()
-.Text("Visual Studio")
-.Content(@<text>
-<p style="padding:1em 2em">
-There are powerful new features in Visual Studio for building modern web apps.
-<a target="_blank" href="http://go.microsoft.com/fwlink/?LinkID=525030&clcid=0x409">Learn More</a>
-</p>
-</text>);
-items.Add()
-.Text("Package Management")
-.Content(@<text>
-    <p style="padding:1em 2em">
-        Bring in libraries from NuGet, Bower, and npm, and automate tasks using Grunt or Gulp.
-        <a target="_blank" href="http://go.microsoft.com/fwlink/?LinkID=525029&clcid=0x409">Learn More</a>
-    </p>
-</text>);
-                                                                                                                                                                              })
-    )
+<style>
+    .carousel-caption {
+        background-color: transparent;
+        position: relative;
+        max-width: 550px;
+        bottom: 250px;
+        left: 50px;
+        padding: 0 0px;
+        margin: 0px 0 0;
+        text-align: left;
+    }
 
-    <h1>
-        Profile Image ..
+    .carousel .item {
+        height: 700px;
+    }
+</style>
 
-        <img src="@Url.Action("UserPhotos", "Home" )" style="width:160px;height:160px; background: #FFFFFF;margin: auto;-moz-border-radius: 60px;
-         border-radius: 100px;padding: 6px;box-shadow: 0px 0px 20px #888;" />
-    </h1>
-
-</div>
+<!--Carousel Wrapper-->
+    <div id="limbo-carousel" class="carousel slide carousel-fade" data-ride="carousel">
+        <!--Indicators-->
+        <ol class="carousel-indicators">
+            <li data-target="#limbo-carousel" data-slide-to="0" class="active"></li>
+            <li data-target="#limbo-carousel" data-slide-to="1"></li>
+            <li data-target="#limbo-carousel" data-slide-to="2"></li>
+        </ol>
+        <!--/.Indicators-->
+        <!--Slides-->
+        <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active">
+                <div class="view">
+                    <img class="d-block w-100" src="images/euWefIUgTOeD4Vgl6BZd_iStock_000010954699XSmall.jpg" alt="First slide">
+                    <div class="mask rgba-black-light"></div>
+                </div>
+                <div class="carousel-caption">
+                    <h3 class="h3-responsive">Limboworld.net</h3>
+                    <p class="lead">
+                        The Completely Free Social Website.
+                    </p>
+                    <a class="btn btn-large btn-primary" href=''>Sign up today</a>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <!--Mask color-->
+                <div class="view">
+                    <img class="d-block w-100" src="images/KySEsZUsQ7q5BWsfNEOt_2012-06-30 09.48.27.jpg" alt="Second slide">
+                    <div class="mask rgba-black-strong"></div>
+                </div>
+                <div class="carousel-caption">
+                    <h3 class="h3-responsive">Limboworld.net is just starting.</h3>
+                    <p>Sign-up below and be on your way to meeting great people</p>
+                    <a class="btn btn-large btn-primary" href="#">Learn more</a>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <!--Mask color-->
+                <div class="view">
+                    <img class="d-block w-100" src="images/xPtHAyT068LD0bobsjAw_2012-06-29 06.21.45.jpg" alt="Third slide">
+                    <div class="mask rgba-black-slight"></div>
+                </div>
+                <div class="carousel-caption">
+                    <h3 class="h3-responsive">Limboworld.net features the Myers-Briggs Type Indicator.</h3>
+                    <p>Would you like to find people, who match your personality type? You've come to the right place!</p>
+                    <a class="btn btn-large btn-primary" href="#">Sign-up Here</a>
+                </div>
+            </div>
+        </div>
+        <!--/.Slides-->
+        <!--Controls-->
+        <a class="carousel-control-prev" href="#limbo-carousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#limbo-carousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+        <!--/.Controls-->
+    </div>
+    <!--/.Carousel Wrapper-->
+@section scripts {
+   <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    
+}
 
