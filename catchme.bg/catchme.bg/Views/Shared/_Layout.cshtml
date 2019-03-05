@@ -31,45 +31,53 @@
     <div class="k-header">
         <div class="container">
             <div class="row">
-                <img src="~/images/earth-spinning-rotating-animation-40-2.gif" />
-                <h1><a asp-controller="Home" asp-action="Index">Limboworld.net</a></h1>
+                <div class="col-sm-1">
+                    <img src="~/images/earth-spinning-rotating-animation-40-2.gif" />
+                    
+                </div>
+                <div class="col-sm-9">
+                    <h1><a asp-controller="Home" asp-action="Index">Limboworld.net</a></h1>
+                </div>
+                    <div class="col-sm-2">
+                        <img src="@Url.Action("UserPhotos", "Home")" height="48" width="48" />
+                        <partial name="_LoginPartial" />
+                        <button id="configure" class="k-rpanel-toggle k-button k-primary btn-toggle"><span class="k-icon k-i-hbars"></span></button>
+                    </div>
+                </div>
             </div>
-        </div>
     </div>
     <div class="container menu-content">
         <div id="responsive-panel">
             @(Html.Kendo().Menu()
-                  .Name("Menu")
-                  .Items(items =>
-                  {
-                      items.Add()
-                          .Text("Home")
-                          .Action("Index", "Home");
-                      items.Add()
-                          .Text("Chat")
-                          .Action("Index", "Chat");
-                      items.Add()
-                          .Text("MBTI")
-                          .Action("Index", "Mbti");
-                      items.Add()
-                          .Text("Profile")
-                          .Action("Index", "Profile");
-                      items.Add()
-                          .Text("Search")
-                          .Action("Index", "Search");
-                      items.Add()
-                          .Text("About")
-                          .Action("About", "Home");
-                      items.Add()
-                          .Text("Contact")
-                          .Action("Contact", "Home");
-                  })
-                  )
+                          .Name("Menu")
+                          .Items(items =>
+                          {
+                              items.Add()
+                                  .Text("Home")
+                                  .Action("Index", "Home");
+                              items.Add()
+                                  .Text("Chat")
+                                  .Action("Index", "Chat");
+                              items.Add()
+                                  .Text("MBTI")
+                                  .Action("Index", "Mbti");
+                              items.Add()
+                                  .Text("Profile")
+                                  .Action("Index", "Profile");
+                              items.Add()
+                                  .Text("Search")
+                                  .Action("Index", "Search");
+                              items.Add()
+                                  .Text("About")
+                                  .Action("About", "Home");
+                              items.Add()
+                                  .Text("Contact")
+                                  .Action("Contact", "Home");
+                          })
+            )
             
         </div>
-        <img src="@Url.Action("UserPhotos", "Home" )" height="48" width="48" />
-        <partial name="_LoginPartial" />
-        <button id="configure" class="k-rpanel-toggle k-button k-primary btn-toggle"><span class="k-icon k-i-hbars"></span></button>
+        
     </div>
     <partial name="_CookieConsentPartial" />
     <div class="container body-content">
