@@ -17,72 +17,118 @@
     .carousel .item {
         height: 700px;
     }
+
+    .img-circle {
+        border-radius: 50%
+    }
 </style>
 
 <!--Carousel Wrapper-->
-    <div id="limbo-carousel" class="carousel slide carousel-fade" data-ride="carousel">
-        <!--Indicators-->
-        <ol class="carousel-indicators">
-            <li data-target="#limbo-carousel" data-slide-to="0" class="active"></li>
-            <li data-target="#limbo-carousel" data-slide-to="1"></li>
-            <li data-target="#limbo-carousel" data-slide-to="2"></li>
-        </ol>
-        <!--/.Indicators-->
-        <!--Slides-->
-        <div class="carousel-inner" role="listbox">
-            <div class="carousel-item active">
-                <div class="view">
-                    <img class="d-block w-100" src="images/euWefIUgTOeD4Vgl6BZd_iStock_000010954699XSmall.jpg" alt="First slide">
-                    <div class="mask rgba-black-light"></div>
-                </div>
-                <div class="carousel-caption">
-                    <h3 class="h3-responsive">Limboworld.net</h3>
-                    <p class="lead">
-                        The Completely Free Social Website.
-                    </p>
-                    <a class="btn btn-large btn-primary" href=''>Sign up today</a>
-                </div>
+<div id="limbo-carousel" class="carousel slide carousel-fade" data-ride="carousel">
+    <!--Indicators-->
+    <ol class="carousel-indicators">
+        <li data-target="#limbo-carousel" data-slide-to="0" class="active"></li>
+        <li data-target="#limbo-carousel" data-slide-to="1"></li>
+        <li data-target="#limbo-carousel" data-slide-to="2"></li>
+    </ol>
+    <!--/.Indicators-->
+    <!--Slides-->
+    <div class="carousel-inner" role="listbox">
+        <div class="carousel-item active">
+            <div class="view">
+                <img class="d-block w-100" src="images/euWefIUgTOeD4Vgl6BZd_iStock_000010954699XSmall.jpg" alt="First slide">
+                <div class="mask rgba-black-light"></div>
             </div>
-            <div class="carousel-item">
-                <!--Mask color-->
-                <div class="view">
-                    <img class="d-block w-100" src="images/KySEsZUsQ7q5BWsfNEOt_2012-06-30 09.48.27.jpg" alt="Second slide">
-                    <div class="mask rgba-black-strong"></div>
-                </div>
-                <div class="carousel-caption">
-                    <h3 class="h3-responsive">Limboworld.net is just starting.</h3>
-                    <p>Sign-up below and be on your way to meeting great people</p>
-                    <a class="btn btn-large btn-primary" href="#">Learn more</a>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <!--Mask color-->
-                <div class="view">
-                    <img class="d-block w-100" src="images/xPtHAyT068LD0bobsjAw_2012-06-29 06.21.45.jpg" alt="Third slide">
-                    <div class="mask rgba-black-slight"></div>
-                </div>
-                <div class="carousel-caption">
-                    <h3 class="h3-responsive">Limboworld.net features the Myers-Briggs Type Indicator.</h3>
-                    <p>Would you like to find people, who match your personality type? You've come to the right place!</p>
-                    <a class="btn btn-large btn-primary" href="#">Sign-up Here</a>
-                </div>
+            <div class="carousel-caption">
+                <h3 class="h3-responsive">Limboworld.net</h3>
+                <p class="lead">
+                    The Completely Free Social Website.
+                </p>
+                <a class="btn btn-lg btn-primary" href=''>Sign up today</a>
             </div>
         </div>
-        <!--/.Slides-->
-        <!--Controls-->
-        <a class="carousel-control-prev" href="#limbo-carousel" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#limbo-carousel" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
-        <!--/.Controls-->
+        <div class="carousel-item">
+            <!--Mask color-->
+            <div class="view">
+                <img class="d-block w-100" src="images/KySEsZUsQ7q5BWsfNEOt_2012-06-30 09.48.27.jpg" alt="Second slide">
+                <div class="mask rgba-black-strong"></div>
+            </div>
+            <div class="carousel-caption">
+                <h3 class="h3-responsive">Limboworld.net is just starting.</h3>
+                <p>Sign-up below and be on your way to meeting great people</p>
+                <a class="btn btn-large btn-primary" href="#">Learn more</a>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <!--Mask color-->
+            <div class="view">
+                <img class="d-block w-100" src="images/xPtHAyT068LD0bobsjAw_2012-06-29 06.21.45.jpg" alt="Third slide">
+                <div class="mask rgba-black-slight"></div>
+            </div>
+            <div class="carousel-caption">
+                <h3 class="h3-responsive">Limboworld.net features the Myers-Briggs Type Indicator.</h3>
+                <p>Would you like to find people, who match your personality type? You've come to the right place!</p>
+                <a class="btn btn-large btn-primary" href="#">Sign-up Here</a>
+            </div>
+        </div>
     </div>
-    <!--/.Carousel Wrapper-->
+    <!--/.Slides-->
+    <!--Controls-->
+    <a class="carousel-control-prev" href="#limbo-carousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#limbo-carousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+    <!--/.Controls-->
+</div>
+<!--/.Carousel Wrapper-->
+<div class="row">
+    <div class="col-sm">
+        <partial name="_LoginPartial" />
+    </div>
+    <div class="col-sm">
+        <h2>
+            Personality Test
+            <br>
+        </h2>
+
+        <p>
+            MBTI or Myers-Briggs Type Indicator provides an easy way to find out about
+            your personality and also that of other people. You have a chance to be
+            matched with only compatible people, but the final choice is yours.
+        </p>
+
+        <p>
+            <a class="btn btn-lg btn-primary" href=''>View details</a>
+        </p>
+    </div>
+    <!-- /.span4 -->
+    <div class="col-sm">
+        <h2>
+            Free Social Site
+        </h2>
+
+        <p>
+            Internet meetings can be fun, especially when it is free. There is no fee
+            associated with the use of this website. You are completely free to register,
+            explore or leave it as you wish. We hope you have a great time here.
+            <br>
+        </p>
+
+        <p>
+            <a class="btn btn-lg btn-primary" href=''>Start Search</a>
+        </p>
+    </div>
+</div>
+
+
+
+
 @section scripts {
-   <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-    
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+
 }
 
