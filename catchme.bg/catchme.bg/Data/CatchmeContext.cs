@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using catchme.bg.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
 namespace catchme.bg.Data
 {
@@ -149,8 +150,16 @@ namespace catchme.bg.Data
                     .SetBasePath(Directory.GetCurrentDirectory())
                     .AddJsonFile("appsettings.json")
                     .Build();
-                var connectionString = configuration.GetConnectionString("catchmebgContextConnection");
-                optionsBuilder.UseSqlServer(connectionString);
+                //var connectionString = configuration.GetConnectionString("catchmebgContextConnection");
+                optionsBuilder.UseMySql(
+                    "Server=localhost;Database=catchmebg;User=root;Password=limboworld;", // replace with your Connection String
+                    mySqlOptions =>
+                    {
+                        mySqlOptions.ServerVersion(new Version(5, 6, 34),
+                            ServerType.MySql); // replace with your Server Version and Type
+                    }
+                ); 
+                //.UseSqlServer(connectionString);
             }
         }
     }
