@@ -152,10 +152,10 @@ namespace catchme.bg.Data
                     .Build();
                 //var connectionString = configuration.GetConnectionString("catchmebgContextConnection");
                 optionsBuilder.UseMySql(
-                    "Server=localhost;Database=catchmebg;User=root;Password=limboworld;", // replace with your Connection String
+                    configuration.GetConnectionString("catchmebgContextConnection"), // replace with your Connection String
                     mySqlOptions =>
                     {
-                        mySqlOptions.ServerVersion(new Version(5, 6, 34),
+                        mySqlOptions.ServerVersion(new Version(5, 7, 24),
                             ServerType.MySql); // replace with your Server Version and Type
                     }
                 ); 

@@ -44,10 +44,10 @@ namespace catchme.bg
             //    options.UseSqlServer(Configuration.GetConnectionString("catchmebgContextConnection")));
 
             services.AddDbContext<CatchmeContext>( 
-                options => options.UseMySql("Server=localhost;Database=catchmebg;User=root;Password=limboworld;", // replace with your Connection String
+                options => options.UseMySql(Configuration.GetConnectionString("catchmebgContextConnection"), // replace with your Connection String
                     mySqlOptions =>
                     {
-                        mySqlOptions.ServerVersion(new Version(5, 6, 34), ServerType.MySql); // replace with your Server Version and Type
+                        mySqlOptions.ServerVersion(new Version(5, 7, 24), ServerType.MySql); // replace with your Server Version and Type
                     }
                 ));
 
