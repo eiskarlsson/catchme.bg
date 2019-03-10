@@ -2,7 +2,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using catchme.bg.Data;
@@ -10,22 +9,20 @@ using catchme.bg.Data;
 namespace catchme.bg.Migrations.Catchme
 {
     [DbContext(typeof(CatchmeContext))]
-    [Migration("20190214165250_AddPetsFilter")]
-    partial class AddPetsFilter
+    [Migration("20190310185044_CumulativeMigration")]
+    partial class CumulativeMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "2.1.8-servicing-32085")
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("catchme.bg.Models.Age", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("ItemId");
 
@@ -36,11 +33,29 @@ namespace catchme.bg.Migrations.Catchme
                     b.ToTable("Age");
                 });
 
+            modelBuilder.Entity("catchme.bg.Models.AgeFilter", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("FilterUserId")
+                        .IsRequired();
+
+                    b.Property<int>("ItemId");
+
+                    b.Property<string>("Name");
+
+                    b.Property<bool>("Selected");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("AgeFilter");
+                });
+
             modelBuilder.Entity("catchme.bg.Models.Answer", b =>
                 {
                     b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("QuestionID");
 
@@ -56,8 +71,7 @@ namespace catchme.bg.Migrations.Catchme
             modelBuilder.Entity("catchme.bg.Models.BodyType", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("ItemId");
 
@@ -68,11 +82,29 @@ namespace catchme.bg.Migrations.Catchme
                     b.ToTable("BodyType");
                 });
 
+            modelBuilder.Entity("catchme.bg.Models.BodyTypeFilter", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("FilterUserId")
+                        .IsRequired();
+
+                    b.Property<int>("ItemId");
+
+                    b.Property<string>("Name");
+
+                    b.Property<bool>("Selected");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("BodyTypeFilter");
+                });
+
             modelBuilder.Entity("catchme.bg.Models.Children", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("ItemId");
 
@@ -83,11 +115,29 @@ namespace catchme.bg.Migrations.Catchme
                     b.ToTable("Children");
                 });
 
+            modelBuilder.Entity("catchme.bg.Models.ChildrenFilter", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("FilterUserId")
+                        .IsRequired();
+
+                    b.Property<int>("ItemId");
+
+                    b.Property<string>("Name");
+
+                    b.Property<bool>("Selected");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("ChildrenFilter");
+                });
+
             modelBuilder.Entity("catchme.bg.Models.Diet", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("ItemId");
 
@@ -98,11 +148,29 @@ namespace catchme.bg.Migrations.Catchme
                     b.ToTable("Diet");
                 });
 
+            modelBuilder.Entity("catchme.bg.Models.DietFilter", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("FilterUserId")
+                        .IsRequired();
+
+                    b.Property<int>("ItemId");
+
+                    b.Property<string>("Name");
+
+                    b.Property<bool>("Selected");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("DietFilter");
+                });
+
             modelBuilder.Entity("catchme.bg.Models.Drinks", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("ItemId");
 
@@ -113,11 +181,29 @@ namespace catchme.bg.Migrations.Catchme
                     b.ToTable("Drinks");
                 });
 
+            modelBuilder.Entity("catchme.bg.Models.DrinksFilter", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("FilterUserId")
+                        .IsRequired();
+
+                    b.Property<int>("ItemId");
+
+                    b.Property<string>("Name");
+
+                    b.Property<bool>("Selected");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("DrinksFilter");
+                });
+
             modelBuilder.Entity("catchme.bg.Models.Drugs", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("ItemId");
 
@@ -128,11 +214,29 @@ namespace catchme.bg.Migrations.Catchme
                     b.ToTable("Drugs");
                 });
 
+            modelBuilder.Entity("catchme.bg.Models.DrugsFilter", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("FilterUserId")
+                        .IsRequired();
+
+                    b.Property<int>("ItemId");
+
+                    b.Property<string>("Name");
+
+                    b.Property<bool>("Selected");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("DrugsFilter");
+                });
+
             modelBuilder.Entity("catchme.bg.Models.Education", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("ItemId");
 
@@ -143,11 +247,29 @@ namespace catchme.bg.Migrations.Catchme
                     b.ToTable("Education");
                 });
 
+            modelBuilder.Entity("catchme.bg.Models.EducationFilter", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("FilterUserId")
+                        .IsRequired();
+
+                    b.Property<int>("ItemId");
+
+                    b.Property<string>("Name");
+
+                    b.Property<bool>("Selected");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("EducationFilter");
+                });
+
             modelBuilder.Entity("catchme.bg.Models.Ethnicity", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("ItemId");
 
@@ -158,11 +280,29 @@ namespace catchme.bg.Migrations.Catchme
                     b.ToTable("Ethnicity");
                 });
 
+            modelBuilder.Entity("catchme.bg.Models.EthnicityFilter", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("FilterUserId")
+                        .IsRequired();
+
+                    b.Property<int>("ItemId");
+
+                    b.Property<string>("Name");
+
+                    b.Property<bool>("Selected");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("EthnicityFilter");
+                });
+
             modelBuilder.Entity("catchme.bg.Models.EyeColor", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("ItemId");
 
@@ -173,11 +313,29 @@ namespace catchme.bg.Migrations.Catchme
                     b.ToTable("EyeColor");
                 });
 
+            modelBuilder.Entity("catchme.bg.Models.EyeColorFilter", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("FilterUserId")
+                        .IsRequired();
+
+                    b.Property<int>("ItemId");
+
+                    b.Property<string>("Name");
+
+                    b.Property<bool>("Selected");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("EyeColorFilter");
+                });
+
             modelBuilder.Entity("catchme.bg.Models.Gender", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("ItemId");
 
@@ -188,11 +346,29 @@ namespace catchme.bg.Migrations.Catchme
                     b.ToTable("Gender");
                 });
 
+            modelBuilder.Entity("catchme.bg.Models.GenderFilter", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("FilterUserId")
+                        .IsRequired();
+
+                    b.Property<int>("ItemId");
+
+                    b.Property<string>("Name");
+
+                    b.Property<bool>("Selected");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("GenderFilter");
+                });
+
             modelBuilder.Entity("catchme.bg.Models.HairColor", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("ItemId");
 
@@ -203,11 +379,29 @@ namespace catchme.bg.Migrations.Catchme
                     b.ToTable("HairColor");
                 });
 
+            modelBuilder.Entity("catchme.bg.Models.HairColorFilter", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("FilterUserId")
+                        .IsRequired();
+
+                    b.Property<int>("ItemId");
+
+                    b.Property<string>("Name");
+
+                    b.Property<bool>("Selected");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("HairColorFilter");
+                });
+
             modelBuilder.Entity("catchme.bg.Models.Height", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("ItemId");
 
@@ -218,11 +412,29 @@ namespace catchme.bg.Migrations.Catchme
                     b.ToTable("Height");
                 });
 
+            modelBuilder.Entity("catchme.bg.Models.HeightFilter", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("FilterUserId")
+                        .IsRequired();
+
+                    b.Property<int>("ItemId");
+
+                    b.Property<string>("Name");
+
+                    b.Property<bool>("Selected");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("HeightFilter");
+                });
+
             modelBuilder.Entity("catchme.bg.Models.Languages", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("ItemId");
 
@@ -233,11 +445,29 @@ namespace catchme.bg.Migrations.Catchme
                     b.ToTable("Languages");
                 });
 
+            modelBuilder.Entity("catchme.bg.Models.LanguagesFilter", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("FilterUserId")
+                        .IsRequired();
+
+                    b.Property<int>("ItemId");
+
+                    b.Property<string>("Name");
+
+                    b.Property<bool>("Selected");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("LanguagesFilter");
+                });
+
             modelBuilder.Entity("catchme.bg.Models.LookingFor", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("ItemId");
 
@@ -248,11 +478,29 @@ namespace catchme.bg.Migrations.Catchme
                     b.ToTable("LookingFor");
                 });
 
+            modelBuilder.Entity("catchme.bg.Models.LookingForFilter", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("FilterUserId")
+                        .IsRequired();
+
+                    b.Property<int>("ItemId");
+
+                    b.Property<string>("Name");
+
+                    b.Property<bool>("Selected");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("LookingForFilter");
+                });
+
             modelBuilder.Entity("catchme.bg.Models.MaritalStatus", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("ItemId");
 
@@ -263,11 +511,29 @@ namespace catchme.bg.Migrations.Catchme
                     b.ToTable("MaritalStatus");
                 });
 
+            modelBuilder.Entity("catchme.bg.Models.MaritalStatusFilter", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("FilterUserId")
+                        .IsRequired();
+
+                    b.Property<int>("ItemId");
+
+                    b.Property<string>("Name");
+
+                    b.Property<bool>("Selected");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("MaritalStatusFilter");
+                });
+
             modelBuilder.Entity("catchme.bg.Models.MessageDetail", b =>
                 {
                     b.Property<long>("MessageDetailId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Message");
 
@@ -281,8 +547,7 @@ namespace catchme.bg.Migrations.Catchme
             modelBuilder.Entity("catchme.bg.Models.Pets", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("ItemId");
 
@@ -296,8 +561,7 @@ namespace catchme.bg.Migrations.Catchme
             modelBuilder.Entity("catchme.bg.Models.PetsFilter", b =>
                 {
                     b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("FilterUserId")
                         .IsRequired();
@@ -317,8 +581,7 @@ namespace catchme.bg.Migrations.Catchme
                 {
                     b.Property<long>("PrivateMessageDetailId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("PrivateMessageDetailId")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnName("PrivateMessageDetailId");
 
                     b.Property<string>("Message");
 
@@ -340,8 +603,7 @@ namespace catchme.bg.Migrations.Catchme
             modelBuilder.Entity("catchme.bg.Models.Profile", b =>
                 {
                     b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("DateCreated");
 
@@ -422,9 +684,8 @@ namespace catchme.bg.Migrations.Catchme
 
             modelBuilder.Entity("catchme.bg.Models.Question", b =>
                 {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("AnswerText1");
 
@@ -436,7 +697,7 @@ namespace catchme.bg.Migrations.Catchme
 
                     b.Property<string>("QuestionText");
 
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
                     b.ToTable("Questions");
                 });
@@ -444,8 +705,7 @@ namespace catchme.bg.Migrations.Catchme
             modelBuilder.Entity("catchme.bg.Models.Religion", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("ItemId");
 
@@ -456,11 +716,29 @@ namespace catchme.bg.Migrations.Catchme
                     b.ToTable("Religion");
                 });
 
+            modelBuilder.Entity("catchme.bg.Models.ReligionFilter", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("FilterUserId")
+                        .IsRequired();
+
+                    b.Property<int>("ItemId");
+
+                    b.Property<string>("Name");
+
+                    b.Property<bool>("Selected");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("ReligionFilter");
+                });
+
             modelBuilder.Entity("catchme.bg.Models.Smokes", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("ItemId");
 
@@ -471,11 +749,29 @@ namespace catchme.bg.Migrations.Catchme
                     b.ToTable("Smokes");
                 });
 
+            modelBuilder.Entity("catchme.bg.Models.SmokesFilter", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("FilterUserId")
+                        .IsRequired();
+
+                    b.Property<int>("ItemId");
+
+                    b.Property<string>("Name");
+
+                    b.Property<bool>("Selected");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("SmokesFilter");
+                });
+
             modelBuilder.Entity("catchme.bg.Models.Weight", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("ItemId");
 
@@ -484,6 +780,25 @@ namespace catchme.bg.Migrations.Catchme
                     b.HasKey("Id");
 
                     b.ToTable("Weight");
+                });
+
+            modelBuilder.Entity("catchme.bg.Models.WeightFilter", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("FilterUserId")
+                        .IsRequired();
+
+                    b.Property<int>("ItemId");
+
+                    b.Property<string>("Name");
+
+                    b.Property<bool>("Selected");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("WeightFilter");
                 });
 #pragma warning restore 612, 618
         }

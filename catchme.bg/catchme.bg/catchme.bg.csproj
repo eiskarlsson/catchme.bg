@@ -7,6 +7,39 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Compile Remove="Migrations\20180819195713_CreateIdentitySchema.cs" />
+      <Compile Remove="Migrations\20180819195713_CreateIdentitySchema.Designer.cs" />
+      <Compile Remove="Migrations\20180901214152_AddUserPhotoField.cs" />
+      <Compile Remove="Migrations\20180901214152_AddUserPhotoField.Designer.cs" />
+      <Compile Remove="Migrations\20190110131044_RemoveCatchmebgUserTable.cs" />
+      <Compile Remove="Migrations\20190110131044_RemoveCatchmebgUserTable.Designer.cs" />
+      <Compile Remove="Migrations\Catchme\20180822213814_CreateMessageDetailSchema.cs" />
+      <Compile Remove="Migrations\Catchme\20180822213814_CreateMessageDetailSchema.Designer.cs" />
+      <Compile Remove="Migrations\Catchme\20180823213900_CreatePrivateMessageDetailSchema.cs" />
+      <Compile Remove="Migrations\Catchme\20180823213900_CreatePrivateMessageDetailSchema.Designer.cs" />
+      <Compile Remove="Migrations\Catchme\20181207111930_CreateQuestionsSchema.cs" />
+      <Compile Remove="Migrations\Catchme\20181207111930_CreateQuestionsSchema.Designer.cs" />
+      <Compile Remove="Migrations\Catchme\20181207132922_CreateQuestionsSchemaAddLanguage.cs" />
+      <Compile Remove="Migrations\Catchme\20181207132922_CreateQuestionsSchemaAddLanguage.Designer.cs" />
+      <Compile Remove="Migrations\Catchme\20181208194024_CreateQuestionsSchemaAddQuestionId.cs" />
+      <Compile Remove="Migrations\Catchme\20181208194024_CreateQuestionsSchemaAddQuestionId.Designer.cs" />
+      <Compile Remove="Migrations\Catchme\20181229204442_CreateProfiles.cs" />
+      <Compile Remove="Migrations\Catchme\20181229204442_CreateProfiles.Designer.cs" />
+      <Compile Remove="Migrations\Catchme\20190104105230_AddItemIdToProfiles.cs" />
+      <Compile Remove="Migrations\Catchme\20190104105230_AddItemIdToProfiles.Designer.cs" />
+      <Compile Remove="Migrations\Catchme\20190104192731_RenameUserProfileUserTableProfiles.cs" />
+      <Compile Remove="Migrations\Catchme\20190104192731_RenameUserProfileUserTableProfiles.Designer.cs" />
+      <Compile Remove="Migrations\Catchme\20190109133701_ProfileValueGeneratedOnAdd.cs" />
+      <Compile Remove="Migrations\Catchme\20190109133701_ProfileValueGeneratedOnAdd.Designer.cs" />
+      <Compile Remove="Migrations\Catchme\20190112132219_ProfileUserChangedToProfileUserId.cs" />
+      <Compile Remove="Migrations\Catchme\20190112132219_ProfileUserChangedToProfileUserId.Designer.cs" />
+      <Compile Remove="Migrations\Catchme\20190214165250_AddPetsFilter.cs" />
+      <Compile Remove="Migrations\Catchme\20190214165250_AddPetsFilter.Designer.cs" />
+      <Compile Remove="Migrations\Catchme\20190222182314_AddFiltersToDb.cs" />
+      <Compile Remove="Migrations\Catchme\20190222182314_AddFiltersToDb.Designer.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
       <Content Include="SeedData\MbtiTest.csv" />
     </ItemGroup>
 
@@ -14,7 +47,7 @@
         <PackageReference Include="FileHelpers" Version="3.3.0" />
         <PackageReference Include="Microsoft.AspNetCore.App" />
         <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.1.6" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.1.4">
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.1.8">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
         </PackageReference>

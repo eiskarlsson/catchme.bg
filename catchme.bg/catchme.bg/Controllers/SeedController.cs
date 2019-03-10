@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using catchme.bg.Data;
-using catchme.bg.Migrations.Catchme;
+//using catchme.bg.Migrations.Catchme;
 using catchme.bg.Models;
 using FileHelpers;
 using Microsoft.AspNetCore.Hosting;
