@@ -20,8 +20,11 @@ namespace catchme.bg.Models
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<CatchmebgUser>()
-                .Property(p => p.UserPhoto).HasMaxLength(1000000);
+            builder.Entity<CatchmebgUser>(entity =>
+            {
+                entity.Property(p => p.UserPhoto).HasMaxLength(1000000);
+                entity.Property(p => p.Mbti).HasMaxLength(10);
+            });
             // Customize the ASP.NET Identity model and override the defaults if needed.
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);

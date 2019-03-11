@@ -11,5 +11,8 @@ namespace catchme.bg.Areas.Identity.Data
         // Here we add a byte to Save the user Profile Picture
         [PersonalData]
         public byte[] UserPhoto { get; set; }
+
+        [PersonalData]
+        public string Mbti { get; set; }
     }
 }

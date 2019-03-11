@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using catchme.bg.Models;
 
 namespace catchme.bg.Migrations
 {
     [DbContext(typeof(catchmebgContext))]
-    partial class catchmebgContextModelSnapshot : ModelSnapshot
+    [Migration("20190311185717_AddMbtiToUser")]
+    partial class AddMbtiToUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,8 +38,7 @@ namespace catchme.bg.Migrations
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
 
-                    b.Property<string>("Mbti")
-                        .HasMaxLength(10);
+                    b.Property<string>("Mbti");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256);
