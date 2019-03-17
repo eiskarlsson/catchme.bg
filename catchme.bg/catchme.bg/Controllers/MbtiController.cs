@@ -204,6 +204,9 @@ namespace catchme.bg.Controllers
         public ActionResult ThankYou()
         {
             ViewBag.mbti_type = GetResult();
+            CurrentUser.Mbti = ViewBag.mbti_type;
+            _bgcontext.Users.Update(CurrentUser);
+            _bgcontext.SaveChanges();
             return View();
         }
 
