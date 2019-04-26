@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -499,7 +500,31 @@ namespace catchme.bg.Controllers
             return View(model);
         }
 
-       
+        private Dictionary<string, string> _dualityPairs;
+
+        private List<CatchmebgUser> GetCompatiblePartners(string userMbti)
+        {
+            _dualityPairs = new Dictionary<string, string>();
+
+            _dualityPairs.Add("ESTP", "INFP");
+            _dualityPairs.Add("ESFJ", "INTJ");
+            _dualityPairs.Add("ENTP", "ISFP");
+            _dualityPairs.Add("ENFJ", "ISTJ");
+
+            _dualityPairs.Add("ESTJ", "INFJ");
+            _dualityPairs.Add("ESFP", "INTP");
+            _dualityPairs.Add("ENTJ", "ISFJ");
+            _dualityPairs.Add("ENFP", "ISTP");
+            
+            Dictionary<string, string> dualityPairsInverse = _dualityPairs.ToDictionary((i) => i.Value, (i) => i.Key);
+
+            return _bgcontext.Users.Where(u => u.Mbti == _dualityPairs[userMbti] || u.Mbti== dualityPairsInverse[userMbti]).ToList();
+        }
+
+
+
+
+
         private void FilterUsers(SearchViewModel model)
         {
             var query = model.Profiles;
