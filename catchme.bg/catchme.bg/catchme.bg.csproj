@@ -37,6 +37,8 @@
       <Compile Remove="Migrations\Catchme\20190214165250_AddPetsFilter.Designer.cs" />
       <Compile Remove="Migrations\Catchme\20190222182314_AddFiltersToDb.cs" />
       <Compile Remove="Migrations\Catchme\20190222182314_AddFiltersToDb.Designer.cs" />
+      <Compile Remove="Migrations\Catchme\20190426213544_AddMbtiFilter.cs" />
+      <Compile Remove="Migrations\Catchme\20190426213544_AddMbtiFilter.Designer.cs" />
     </ItemGroup>
 
     <ItemGroup>

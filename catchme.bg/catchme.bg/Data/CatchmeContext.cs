@@ -70,7 +70,9 @@ namespace catchme.bg.Data
         public virtual DbSet<AgeFilter> AgeFilter { get; set; }
         public virtual DbSet<LookingForFilter> LookingForFilter { get; set; }
         public virtual DbSet<MaritalStatusFilter> MaritalStatusFilter { get; set; }
-       
+
+        public virtual DbSet<MbtiFilter> MbtiFilter { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -138,6 +140,9 @@ namespace catchme.bg.Data
                 .Property(p => p.ID)
                 .ValueGeneratedOnAdd();
             modelBuilder.Entity<MaritalStatusFilter>()
+                .Property(p => p.ID)
+                .ValueGeneratedOnAdd();
+            modelBuilder.Entity<MbtiFilter>()
                 .Property(p => p.ID)
                 .ValueGeneratedOnAdd();
         }
