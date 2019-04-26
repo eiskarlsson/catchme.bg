@@ -321,6 +321,8 @@ namespace catchme.bg.Models
 
         public List<MaritalStatusFilter> MaritalStatusFilter { get; set; }
 
+        public MbtiFilter MbtiFilter { get; set; }
+
 
 
 

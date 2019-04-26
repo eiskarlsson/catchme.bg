@@ -151,6 +151,10 @@ namespace catchme.bg.Controllers
                     { ItemId = -1, Name = "To", FilterUserId = CurrentUser.Id, Selected = false }
                 : Context.HeightFilter.FirstOrDefault(u => u.FilterUserId == CurrentUser.Id && u.Name == "To");
 
+            model.MbtiFilter = !Context.MbtiFilter.Any(u => u.FilterUserId == CurrentUser.Id && u.Name == "Mbti") ? new MbtiFilter()
+                    { ItemId = -1, Name = "Mbti", FilterUserId = CurrentUser.Id, Selected = false }
+                : Context.MbtiFilter.FirstOrDefault(u => u.FilterUserId == CurrentUser.Id && u.Name == "Mbti");
+
             FilterUsers(model);
             
             //var pageNumber = page ?? 1;
@@ -168,6 +172,19 @@ namespace catchme.bg.Controllers
                 model.Profiles = Context.Profiles.ToList();
 
                 FilterUsers(model);
+
+                var currentMbtiFilter = Context.MbtiFilter.FirstOrDefault(u =>
+                    u.FilterUserId == CurrentUser.Id && u.Name == "Mbti");
+                if (currentMbtiFilter == null)
+                {
+                    Context.MbtiFilter.Add(model.MbtiFilter);
+                }
+                else
+                {
+                    currentMbtiFilter.ItemId = model.MbtiFilter.ItemId;
+                    currentMbtiFilter.Name = "Mbti";
+                    Context.MbtiFilter.Update(currentMbtiFilter);
+                }
 
                 var currentAgeFromFilter = Context.AgeFilter.FirstOrDefault(u =>
                     u.FilterUserId == CurrentUser.Id && u.Name=="From");

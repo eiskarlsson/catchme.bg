@@ -98,7 +98,18 @@
     @Html.HiddenFor(m => m.HeightFromFilter.Name)
     @Html.HiddenFor(m => m.HeightToFilter.FilterUserId)
     @Html.HiddenFor(m => m.HeightToFilter.Name)
-    <div class="container">
+<div class="container">
+    <div class="row justify-content-sm-start">
+    <div class="col-sm">
+        <div class="form-group row">
+            @Html.CheckBoxFor(m => m.MbtiFilter.Selected, new { @class = "col-sm-1 form-control-sm", id = "mbtiCheck" })
+            @Html.LabelFor(m => m.MbtiFilter.Selected, "Personality Match", htmlAttributes: new { @class = "col-sm-3 col-form-label-sm" })
+            @Html.HiddenFor(m => m.MbtiFilter.ItemId)
+            @Html.HiddenFor(m => m.MbtiFilter.Name)
+            @Html.HiddenFor(m => m.MbtiFilter.FilterUserId)
+        </div>
+    </div>
+    </div>
         <div class="row justify-content-sm-start">
             <div class="col-sm">
 
@@ -117,7 +128,7 @@
                     @Html.DropDownListFor(m => m.HeightFromFilter.ItemId, Model.HeightItems, "Select Height", new { @class = "col-sm-3 form-control-sm", id = "HeightDDL" })
                     @Html.ValidationMessageFor(m => m.HeightFromFilter.ItemId, "", new { @class = "text-danger" })
 
-                    
+
                 </div>
 
             </div>
@@ -133,13 +144,15 @@
                 </div>
             </div>
 
+
+
         </div>
         <div class="row justify-content-sm-start">
 
             <div class="col-sm">
 
                 <div class="form-group">
-                   
+
 
                     @Html.LabelFor(m => m.AgeToFilter.ItemId, "Age To:", htmlAttributes: new { @class = "col-sm-4 col-form-label-sm" })
 
@@ -151,22 +164,22 @@
             <div class="col-sm">
 
                 <div class="form-group row">
-                    @Html.LabelFor(m => m.HeightToFilter.ItemId, "Height To:", htmlAttributes: new {@class = "col-sm-4 col-form-label-sm" })
+                    @Html.LabelFor(m => m.HeightToFilter.ItemId, "Height To:", htmlAttributes: new { @class = "col-sm-4 col-form-label-sm" })
 
-                    @Html.DropDownListFor(m => m.HeightToFilter.ItemId, Model.HeightItems, "Select Height", new {@class = "col-sm-3 form-control-sm", id = "WeightDDL"})
-                    @Html.ValidationMessageFor(m => m.HeightToFilter.ItemId, "", new {@class = "text-danger"})
+                    @Html.DropDownListFor(m => m.HeightToFilter.ItemId, Model.HeightItems, "Select Height", new { @class = "col-sm-3 form-control-sm", id = "WeightDDL" })
+                    @Html.ValidationMessageFor(m => m.HeightToFilter.ItemId, "", new { @class = "text-danger" })
                 </div>
 
             </div>
-        <div class="col-sm">
+            <div class="col-sm">
 
-        <div class="form-group row">
+                <div class="form-group row">
                     @Html.LabelFor(m => m.WeightToFilter.ItemId, "Weight To:", htmlAttributes: new { @class = "col-sm-4 col-form-label-sm" })
-                    
-                        @Html.DropDownListFor(m => m.WeightToFilter.ItemId, Model.WeightItems, "Select Weight", new { @class = "col-sm-3 form-control-sm", id = "WeightDDL" })
-                        @Html.ValidationMessageFor(m => m.WeightToFilter.ItemId, "", new { @class = "text-danger" })
-                    </div>
-                
+
+                    @Html.DropDownListFor(m => m.WeightToFilter.ItemId, Model.WeightItems, "Select Weight", new { @class = "col-sm-3 form-control-sm", id = "WeightDDL" })
+                    @Html.ValidationMessageFor(m => m.WeightToFilter.ItemId, "", new { @class = "text-danger" })
+                </div>
+
             </div>
         </div>
         <div class="row">
@@ -223,247 +236,260 @@
             </div>
         </div>
         @(Html.Kendo().PanelBar()
-                                                                                                          .Name("panelbar")
-                                                                                                          .ExpandMode(PanelBarExpandMode.Multiple)
-                                                                                                          .Items(panelbar =>
-                                                                                                          {
-                                                                                                              panelbar.Add().Text("Advanced Search")
-                                                                                                                  .Expanded(false)
-                                                                                                                  .Content(@<div style="padding: 10px;">
-                                                                                                                    <div class="row">
-                                                                                                                        <div class="col-sm">
-                                                                                                                            <fieldset class="border p-2">
-                                                                                                                                <legend class="w-auto">Children:</legend>
-                                                                                                                                <ul>
-                                                                                                                                    @for (var i = 0; i < Model.ChildrenFilter.Count(); i++)
-                                                                                                                                                {
-                                                                                                                                        <li>
-                                                                                                                                            @Html.CheckBoxFor(m => m.ChildrenFilter[i].Selected)
-                                                                                                                                            @Html.LabelFor(m => m.ChildrenFilter[i].Selected, @Model.ChildrenFilter.ElementAt(i).Name)
-                                                                                                                                            @Html.HiddenFor(m => m.ChildrenFilter[i].ItemId)
-                                                                                                                                            @Html.HiddenFor(m => m.ChildrenFilter[i].Name)
-                                                                                                                                            @Html.HiddenFor(m => m.ChildrenFilter[i].FilterUserId)
-                                                                                                                                        </li>
-                                                                                                                                                }
-                                                                                                                                    </ul>
-                                                                                                                            </fieldset>
-                                                                                                                        </div>
-                                                                                                                        <div class="col-sm">
-                                                                                                                            <fieldset class="border p-2">
-                                                                                                                                <legend class="w-auto">Drugs:</legend>
-                                                                                                                                <ul>
-                                                                                                                                    @for (var i = 0; i < Model.DrugsFilter.Count(); i++)
-                                                                                                                                                {
-                                                                                                                                        <li>
-                                                                                                                                            @Html.CheckBoxFor(m => m.DrugsFilter[i].Selected)
-                                                                                                                                            @Html.LabelFor(m => m.DrugsFilter[i].Selected, @Model.DrugsFilter.ElementAt(i).Name)
-                                                                                                                                            @Html.HiddenFor(m => m.DrugsFilter[i].ItemId)
-                                                                                                                                            @Html.HiddenFor(m => m.DrugsFilter[i].Name)
-                                                                                                                                            @Html.HiddenFor(m => m.DrugsFilter[i].FilterUserId)
-                                                                                                                                        </li>
-                                                                                                                                                }
-                                                                                                                                    </ul>
-                                                                                                                            </fieldset>
-                                                                                                                        </div>
-                                                                                                                        <div class="col-sm">
-                                                                                                                            <fieldset class="border p-2">
-                                                                                                                                <legend class="w-auto">Diet:</legend>
-                                                                                                                                <ul>
-                                                                                                                                    @for (var i = 0; i < Model.DietFilter.Count(); i++)
-                                                                                                                                                {
-                                                                                                                                        <li>
-                                                                                                                                            @Html.CheckBoxFor(m => m.DietFilter[i].Selected)
-                                                                                                                                            @Html.LabelFor(m => m.DietFilter[i].Selected, @Model.DietFilter.ElementAt(i).Name)
-                                                                                                                                            @Html.HiddenFor(m => m.DietFilter[i].ItemId)
-                                                                                                                                            @Html.HiddenFor(m => m.DietFilter[i].Name)
-                                                                                                                                            @Html.HiddenFor(m => m.DietFilter[i].FilterUserId)
-                                                                                                                                        </li>
-                                                                                                                                                }
-                                                                                                                                    </ul>
-                                                                                                                            </fieldset>
-                                                                                                                        </div>
-                                                                                                                    </div>
-                                                                                                                    <div class="row">
-                                                                                                                        <div class="col-sm">
-                                                                                                                            <fieldset class="border p-2">
-                                                                                                                                <legend class="w-auto">Drinks:</legend>
-                                                                                                                                <ul>
-                                                                                                                                    @for (var i = 0; i < Model.DrinksFilter.Count(); i++)
-                                                                                                                                                {
-                                                                                                                                        <li>
-                                                                                                                                            @Html.CheckBoxFor(m => m.DrinksFilter[i].Selected)
-                                                                                                                                            @Html.LabelFor(m => m.DrinksFilter[i].Selected, @Model.DrinksFilter.ElementAt(i).Name)
-                                                                                                                                            @Html.HiddenFor(m => m.DrinksFilter[i].ItemId)
-                                                                                                                                            @Html.HiddenFor(m => m.DrinksFilter[i].Name)
-                                                                                                                                            @Html.HiddenFor(m => m.DrinksFilter[i].FilterUserId)
-                                                                                                                                        </li>
-                                                                                                                                                }
-                                                                                                                                    </ul>
-                                                                                                                            </fieldset>
-                                                                                                                        </div>
-                                                                                                                        <div class="col-sm">
-                                                                                                                            <fieldset class="border p-2">
-                                                                                                                                <legend class="w-auto">Smokes:</legend>
-                                                                                                                                <ul>
-                                                                                                                                    @for (var i = 0; i < Model.SmokesFilter.Count(); i++)
-                                                                                                                                                {
-                                                                                                                                        <li>
-                                                                                                                                            @Html.CheckBoxFor(m => m.SmokesFilter[i].Selected)
-                                                                                                                                            @Html.LabelFor(m => m.SmokesFilter[i].Selected, @Model.SmokesFilter.ElementAt(i).Name)
-                                                                                                                                            @Html.HiddenFor(m => m.SmokesFilter[i].ItemId)
-                                                                                                                                            @Html.HiddenFor(m => m.SmokesFilter[i].Name)
-                                                                                                                                            @Html.HiddenFor(m => m.SmokesFilter[i].FilterUserId)
-                                                                                                                                        </li>
-                                                                                                                                                }
-                                                                                                                                    </ul>
-                                                                                                                            </fieldset>
-                                                                                                                        </div>
-                                                                                                                        <div class="col-sm">
-                                                                                                                            <fieldset class="border p-2">
-                                                                                                                                <legend class="w-auto">Religion:</legend>
-                                                                                                                                <ul>
-                                                                                                                                    @for (var i = 0; i < Model.ReligionFilter.Count(); i++)
-                                                                                                                                                {
-                                                                                                                                        <li>
-                                                                                                                                            @Html.CheckBoxFor(m => m.ReligionFilter[i].Selected)
-                                                                                                                                            @Html.LabelFor(m => m.ReligionFilter[i].Selected, @Model.ReligionFilter.ElementAt(i).Name)
-                                                                                                                                            @Html.HiddenFor(m => m.ReligionFilter[i].ItemId)
-                                                                                                                                            @Html.HiddenFor(m => m.ReligionFilter[i].Name)
-                                                                                                                                            @Html.HiddenFor(m => m.ReligionFilter[i].FilterUserId)
-                                                                                                                                        </li>
-                                                                                                                                                }
-                                                                                                                                    </ul>
-                                                                                                                            </fieldset>
-                                                                                                                        </div>
-                                                                                                                    </div>
-                                                                                                                    <div class="row">
-                                                                                                                        <div class="col-sm">
-                                                                                                                            <fieldset class="border p-2">
-                                                                                                                                <legend class="w-auto">Ethnicity:</legend>
-                                                                                                                                <ul>
-                                                                                                                                    @for (var i = 0; i < Model.EthnicityFilter.Count(); i++)
-                                                                                                                                                {
-                                                                                                                                        <li>
-                                                                                                                                            @Html.CheckBoxFor(m => m.EthnicityFilter[i].Selected)
-                                                                                                                                            @Html.LabelFor(m => m.EthnicityFilter[i].Selected, @Model.EthnicityFilter.ElementAt(i).Name)
-                                                                                                                                            @Html.HiddenFor(m => m.EthnicityFilter[i].ItemId)
-                                                                                                                                            @Html.HiddenFor(m => m.EthnicityFilter[i].Name)
-                                                                                                                                            @Html.HiddenFor(m => m.EthnicityFilter[i].FilterUserId)
-                                                                                                                                        </li>
-                                                                                                                                                }
-                                                                                                                                    </ul>
-                                                                                                                            </fieldset>
-                                                                                                                        </div>
-                                                                                                                        <div class="col-sm">
-                                                                                                                            <fieldset class="border p-2">
-                                                                                                                                <legend class="w-auto">Education:</legend>
-                                                                                                                                <ul>
-                                                                                                                                    @for (var i = 0; i < Model.EducationFilter.Count(); i++)
-                                                                                                                                                {
-                                                                                                                                        <li>
-                                                                                                                                            @Html.CheckBoxFor(m => m.EducationFilter[i].Selected)
-                                                                                                                                            @Html.LabelFor(m => m.EducationFilter[i].Selected, @Model.EducationFilter.ElementAt(i).Name)
-                                                                                                                                            @Html.HiddenFor(m => m.EducationFilter[i].ItemId)
-                                                                                                                                            @Html.HiddenFor(m => m.EducationFilter[i].Name)
-                                                                                                                                            @Html.HiddenFor(m => m.EducationFilter[i].FilterUserId)
-                                                                                                                                        </li>
-                                                                                                                                                }
-                                                                                                                                    </ul>
-                                                                                                                            </fieldset>
-                                                                                                                        </div>
-                                                                                                                        <div class="col-sm">
-                                                                                                                            <fieldset class="border p-2">
-                                                                                                                                <legend class="w-auto">HairColor:</legend>
-                                                                                                                                <ul>
-                                                                                                                                    @for (var i = 0; i < Model.HairColorFilter.Count(); i++)
-                                                                                                                                                {
-                                                                                                                                        <li>
-                                                                                                                                            @Html.CheckBoxFor(m => m.HairColorFilter[i].Selected)
-                                                                                                                                            @Html.LabelFor(m => m.HairColorFilter[i].Selected, @Model.HairColorFilter.ElementAt(i).Name)
-                                                                                                                                            @Html.HiddenFor(m => m.HairColorFilter[i].ItemId)
-                                                                                                                                            @Html.HiddenFor(m => m.HairColorFilter[i].Name)
-                                                                                                                                            @Html.HiddenFor(m => m.HairColorFilter[i].FilterUserId)
-                                                                                                                                        </li>
-                                                                                                                                                }
-                                                                                                                                    </ul>
-                                                                                                                            </fieldset>
-                                                                                                                        </div>
-                                                                                                                    </div>
-                                                                                                                    <div class="row">
-                                                                                                                        <div class="col-sm">
-                                                                                                                            <fieldset class="border p-2">
-                                                                                                                                <legend class="w-auto">Eye Color:</legend>
-                                                                                                                                <ul>
-                                                                                                                                    @for (var i = 0; i < Model.EyeColorFilter.Count(); i++)
-                                                                                                                                                {
-                                                                                                                                        <li>
-                                                                                                                                            @Html.CheckBoxFor(m => m.EyeColorFilter[i].Selected)
-                                                                                                                                            @Html.LabelFor(m => m.EyeColorFilter[i].Selected, @Model.EyeColorFilter.ElementAt(i).Name)
-                                                                                                                                            @Html.HiddenFor(m => m.EyeColorFilter[i].ItemId)
-                                                                                                                                            @Html.HiddenFor(m => m.EyeColorFilter[i].Name)
-                                                                                                                                            @Html.HiddenFor(m => m.EyeColorFilter[i].FilterUserId)
-                                                                                                                                        </li>
-                                                                                                                                                }
-                                                                                                                                    </ul>
-                                                                                                                            </fieldset>
-                                                                                                                        </div>
-                                                                                                                        <div class="col-sm">
-                                                                                                                            <fieldset class="border p-2">
-                                                                                                                                <legend class="w-auto">Body Type:</legend>
-                                                                                                                                <ul>
-                                                                                                                                    @for (var i = 0; i < Model.BodyTypeFilter.Count(); i++)
-                                                                                                                                                {
-                                                                                                                                        <li>
-                                                                                                                                            @Html.CheckBoxFor(m => m.BodyTypeFilter[i].Selected)
-                                                                                                                                            @Html.LabelFor(m => m.BodyTypeFilter[i].Selected, @Model.BodyTypeFilter.ElementAt(i).Name)
-                                                                                                                                            @Html.HiddenFor(m => m.BodyTypeFilter[i].ItemId)
-                                                                                                                                            @Html.HiddenFor(m => m.BodyTypeFilter[i].Name)
-                                                                                                                                            @Html.HiddenFor(m => m.BodyTypeFilter[i].FilterUserId)
-                                                                                                                                        </li>
-                                                                                                                                                }
-                                                                                                                                </ul>
-                                                                                                                            </fieldset>
-                                                                                                                        </div>
-                                                                                                                        <div class="col-sm">
-                                                                                                                            <fieldset class="border p-2">
-                                                                                                                                <legend class="w-auto">Languages:</legend>
-                                                                                                                                <ul>
-                                                                                                                                    @for (var i = 0; i < Model.LanguagesFilter.Count(); i++)
-                                                                                                                                                {
-                                                                                                                                        <li>
-                                                                                                                                            @Html.CheckBoxFor(m => m.LanguagesFilter[i].Selected)
-                                                                                                                                            @Html.LabelFor(m => m.LanguagesFilter[i].Selected, @Model.LanguagesFilter.ElementAt(i).Name)
-                                                                                                                                            @Html.HiddenFor(m => m.LanguagesFilter[i].ItemId)
-                                                                                                                                            @Html.HiddenFor(m => m.LanguagesFilter[i].Name)
-                                                                                                                                            @Html.HiddenFor(m => m.LanguagesFilter[i].FilterUserId)
-                                                                                                                                        </li>
-                                                                                                                                                }
-                                                                                                                                </ul>
-                                                                                                                            </fieldset>
-                                                                                                                        </div>
-                                                                                                                    </div>
-                                                                                                                    <div class="row">
-                                                                                                                        <div class="col-sm">
-                                                                                                                            <fieldset class="border p-2">
-                                                                                                                                <legend class="w-auto">Pets:</legend>
-                                                                                                                                <ul>
-                                                                                                                                    @for (var i = 0; i < Model.PetsFilter.Count(); i++)
-                                                                                                                                                {
-                                                                                                                                        <li>
-                                                                                                                                            @Html.CheckBoxFor(m => m.PetsFilter[i].Selected)
-                                                                                                                                            @Html.LabelFor(m => m.PetsFilter[i].Selected, @Model.PetsFilter.ElementAt(i).Name)
-                                                                                                                                            @Html.HiddenFor(m => m.PetsFilter[i].ItemId)
-                                                                                                                                            @Html.HiddenFor(m => m.PetsFilter[i].Name)
-                                                                                                                                            @Html.HiddenFor(m => m.PetsFilter[i].FilterUserId)
-                                                                                                                                        </li>
-                                                                                                                                                }
-                                                                                                                                </ul>
-                                                                                                                            </fieldset>
-                                                                                                                        </div>
-                                                                                                                    </div>
+              .Name("panelbar")
+              .ExpandMode(PanelBarExpandMode.Multiple)
+              .Items(panelbar =>
+              {
+                  panelbar.Add().Text("Advanced Search")
+                      .Expanded(false)
+                      .Content(@<div style="padding: 10px;">
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <fieldset class="border p-2">
+                                            <legend class="w-auto">Children:</legend>
+                                            <ul>
+                                                @for (var i = 0; i < Model.ChildrenFilter.Count(); i++)
+                                                                {
+                                                    <li>
+                                                        @Html.CheckBoxFor(m => m.ChildrenFilter[i].Selected)
+                                                        @Html.LabelFor(m => m.ChildrenFilter[i].Selected, @Model.ChildrenFilter.ElementAt(i).Name)
+                                                        @Html.HiddenFor(m => m.ChildrenFilter[i].ItemId)
+                                                        @Html.HiddenFor(m => m.ChildrenFilter[i].Name)
+                                                        @Html.HiddenFor(m => m.ChildrenFilter[i].FilterUserId)
+                                                    </li>
+                                                                }
+                                                /**/
+                                            </ul>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-sm">
+                                        <fieldset class="border p-2">
+                                            <legend class="w-auto">Drugs:</legend>
+                                            <ul>
+                                                @for (var i = 0; i < Model.DrugsFilter.Count(); i++)
+                                                                {
+                                                    <li>
+                                                        @Html.CheckBoxFor(m => m.DrugsFilter[i].Selected)
+                                                        @Html.LabelFor(m => m.DrugsFilter[i].Selected, @Model.DrugsFilter.ElementAt(i).Name)
+                                                        @Html.HiddenFor(m => m.DrugsFilter[i].ItemId)
+                                                        @Html.HiddenFor(m => m.DrugsFilter[i].Name)
+                                                        @Html.HiddenFor(m => m.DrugsFilter[i].FilterUserId)
+                                                    </li>
+                                                                }
+                                                /**/
+                                            </ul>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-sm">
+                                        <fieldset class="border p-2">
+                                            <legend class="w-auto">Diet:</legend>
+                                            <ul>
+                                                @for (var i = 0; i < Model.DietFilter.Count(); i++)
+                                                                {
+                                                    <li>
+                                                        @Html.CheckBoxFor(m => m.DietFilter[i].Selected)
+                                                        @Html.LabelFor(m => m.DietFilter[i].Selected, @Model.DietFilter.ElementAt(i).Name)
+                                                        @Html.HiddenFor(m => m.DietFilter[i].ItemId)
+                                                        @Html.HiddenFor(m => m.DietFilter[i].Name)
+                                                        @Html.HiddenFor(m => m.DietFilter[i].FilterUserId)
+                                                    </li>
+                                                                }
+                                                /**/
+                                            </ul>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <fieldset class="border p-2">
+                                            <legend class="w-auto">Drinks:</legend>
+                                            <ul>
+                                                @for (var i = 0; i < Model.DrinksFilter.Count(); i++)
+                                                                {
+                                                    <li>
+                                                        @Html.CheckBoxFor(m => m.DrinksFilter[i].Selected)
+                                                        @Html.LabelFor(m => m.DrinksFilter[i].Selected, @Model.DrinksFilter.ElementAt(i).Name)
+                                                        @Html.HiddenFor(m => m.DrinksFilter[i].ItemId)
+                                                        @Html.HiddenFor(m => m.DrinksFilter[i].Name)
+                                                        @Html.HiddenFor(m => m.DrinksFilter[i].FilterUserId)
+                                                    </li>
+                                                                }
+                                                /**/
+                                            </ul>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-sm">
+                                        <fieldset class="border p-2">
+                                            <legend class="w-auto">Smokes:</legend>
+                                            <ul>
+                                                @for (var i = 0; i < Model.SmokesFilter.Count(); i++)
+                                                                {
+                                                    <li>
+                                                        @Html.CheckBoxFor(m => m.SmokesFilter[i].Selected)
+                                                        @Html.LabelFor(m => m.SmokesFilter[i].Selected, @Model.SmokesFilter.ElementAt(i).Name)
+                                                        @Html.HiddenFor(m => m.SmokesFilter[i].ItemId)
+                                                        @Html.HiddenFor(m => m.SmokesFilter[i].Name)
+                                                        @Html.HiddenFor(m => m.SmokesFilter[i].FilterUserId)
+                                                    </li>
+                                                                }
+                                                /**/
+                                            </ul>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-sm">
+                                        <fieldset class="border p-2">
+                                            <legend class="w-auto">Religion:</legend>
+                                            <ul>
+                                                @for (var i = 0; i < Model.ReligionFilter.Count(); i++)
+                                                                {
+                                                    <li>
+                                                        @Html.CheckBoxFor(m => m.ReligionFilter[i].Selected)
+                                                        @Html.LabelFor(m => m.ReligionFilter[i].Selected, @Model.ReligionFilter.ElementAt(i).Name)
+                                                        @Html.HiddenFor(m => m.ReligionFilter[i].ItemId)
+                                                        @Html.HiddenFor(m => m.ReligionFilter[i].Name)
+                                                        @Html.HiddenFor(m => m.ReligionFilter[i].FilterUserId)
+                                                    </li>
+                                                                }
+                                                /**/
+                                            </ul>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <fieldset class="border p-2">
+                                            <legend class="w-auto">Ethnicity:</legend>
+                                            <ul>
+                                                @for (var i = 0; i < Model.EthnicityFilter.Count(); i++)
+                                                                {
+                                                    <li>
+                                                        @Html.CheckBoxFor(m => m.EthnicityFilter[i].Selected)
+                                                        @Html.LabelFor(m => m.EthnicityFilter[i].Selected, @Model.EthnicityFilter.ElementAt(i).Name)
+                                                        @Html.HiddenFor(m => m.EthnicityFilter[i].ItemId)
+                                                        @Html.HiddenFor(m => m.EthnicityFilter[i].Name)
+                                                        @Html.HiddenFor(m => m.EthnicityFilter[i].FilterUserId)
+                                                    </li>
+                                                                }
+                                                /**/
+                                            </ul>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-sm">
+                                        <fieldset class="border p-2">
+                                            <legend class="w-auto">Education:</legend>
+                                            <ul>
+                                                @for (var i = 0; i < Model.EducationFilter.Count(); i++)
+                                                                {
+                                                    <li>
+                                                        @Html.CheckBoxFor(m => m.EducationFilter[i].Selected)
+                                                        @Html.LabelFor(m => m.EducationFilter[i].Selected, @Model.EducationFilter.ElementAt(i).Name)
+                                                        @Html.HiddenFor(m => m.EducationFilter[i].ItemId)
+                                                        @Html.HiddenFor(m => m.EducationFilter[i].Name)
+                                                        @Html.HiddenFor(m => m.EducationFilter[i].FilterUserId)
+                                                    </li>
+                                                                }
+                                                /**/
+                                            </ul>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-sm">
+                                        <fieldset class="border p-2">
+                                            <legend class="w-auto">HairColor:</legend>
+                                            <ul>
+                                                @for (var i = 0; i < Model.HairColorFilter.Count(); i++)
+                                                                {
+                                                    <li>
+                                                        @Html.CheckBoxFor(m => m.HairColorFilter[i].Selected)
+                                                        @Html.LabelFor(m => m.HairColorFilter[i].Selected, @Model.HairColorFilter.ElementAt(i).Name)
+                                                        @Html.HiddenFor(m => m.HairColorFilter[i].ItemId)
+                                                        @Html.HiddenFor(m => m.HairColorFilter[i].Name)
+                                                        @Html.HiddenFor(m => m.HairColorFilter[i].FilterUserId)
+                                                    </li>
+                                                                }
+                                                /**/
+                                            </ul>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <fieldset class="border p-2">
+                                            <legend class="w-auto">Eye Color:</legend>
+                                            <ul>
+                                                @for (var i = 0; i < Model.EyeColorFilter.Count(); i++)
+                                                                {
+                                                    <li>
+                                                        @Html.CheckBoxFor(m => m.EyeColorFilter[i].Selected)
+                                                        @Html.LabelFor(m => m.EyeColorFilter[i].Selected, @Model.EyeColorFilter.ElementAt(i).Name)
+                                                        @Html.HiddenFor(m => m.EyeColorFilter[i].ItemId)
+                                                        @Html.HiddenFor(m => m.EyeColorFilter[i].Name)
+                                                        @Html.HiddenFor(m => m.EyeColorFilter[i].FilterUserId)
+                                                    </li>
+                                                                }
+                                                /**/
+                                            </ul>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-sm">
+                                        <fieldset class="border p-2">
+                                            <legend class="w-auto">Body Type:</legend>
+                                            <ul>
+                                                @for (var i = 0; i < Model.BodyTypeFilter.Count(); i++)
+                                                                {
+                                                    <li>
+                                                        @Html.CheckBoxFor(m => m.BodyTypeFilter[i].Selected)
+                                                        @Html.LabelFor(m => m.BodyTypeFilter[i].Selected, @Model.BodyTypeFilter.ElementAt(i).Name)
+                                                        @Html.HiddenFor(m => m.BodyTypeFilter[i].ItemId)
+                                                        @Html.HiddenFor(m => m.BodyTypeFilter[i].Name)
+                                                        @Html.HiddenFor(m => m.BodyTypeFilter[i].FilterUserId)
+                                                    </li>
+                                                                }
+                                                /**/
+                                            </ul>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-sm">
+                                        <fieldset class="border p-2">
+                                            <legend class="w-auto">Languages:</legend>
+                                            <ul>
+                                                @for (var i = 0; i < Model.LanguagesFilter.Count(); i++)
+                                                                {
+                                                    <li>
+                                                        @Html.CheckBoxFor(m => m.LanguagesFilter[i].Selected)
+                                                        @Html.LabelFor(m => m.LanguagesFilter[i].Selected, @Model.LanguagesFilter.ElementAt(i).Name)
+                                                        @Html.HiddenFor(m => m.LanguagesFilter[i].ItemId)
+                                                        @Html.HiddenFor(m => m.LanguagesFilter[i].Name)
+                                                        @Html.HiddenFor(m => m.LanguagesFilter[i].FilterUserId)
+                                                    </li>
+                                                                }
+                                                /**/
+                                            </ul>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <fieldset class="border p-2">
+                                            <legend class="w-auto">Pets:</legend>
+                                            <ul>
+                                                @for (var i = 0; i < Model.PetsFilter.Count(); i++)
+                                                                {
+                                                    <li>
+                                                        @Html.CheckBoxFor(m => m.PetsFilter[i].Selected)
+                                                        @Html.LabelFor(m => m.PetsFilter[i].Selected, @Model.PetsFilter.ElementAt(i).Name)
+                                                        @Html.HiddenFor(m => m.PetsFilter[i].ItemId)
+                                                        @Html.HiddenFor(m => m.PetsFilter[i].Name)
+                                                        @Html.HiddenFor(m => m.PetsFilter[i].FilterUserId)
+                                                    </li>
+                                                                }
+                                                /**/
+                                            </ul>
+                                        </fieldset>
+                                    </div>
+                                </div>
 
-                                                                                                                </div>);
-                                                                                                                                                                                                                  })
+                            </div>);
+     })
         )
     </div>
     <button type="submit" name="action" class="btn-primary btn-block">Filter</button>
@@ -520,15 +546,15 @@
     </div>
 
 
-}
-<script type="text/x-kendo-tmpl" id="template">
-    <div class="product">
+    }
+    <script type="text/x-kendo-tmpl" id="template">
+        <div class="product">
 
-        <img src='@Url.Action("UserPhotos", "Search")?username=#=UserName#' />
-        
-        <a href='@Url.Action("Show", "Profile")?username=#=UserName#' target="_blank">
-            <h3>#:UserName#</h3>
-            <p>#:kendo.toString(UserName)#</p>
-        </a>
-    </div>
-</script>
+            <img src='@Url.Action("UserPhotos", "Search")?username=#=UserName#' />
+
+            <a href='@Url.Action("Show", "Profile")?username=#=UserName#' target="_blank">
+                <h3>#:UserName#</h3>
+                <p>#:kendo.toString(UserName)#</p>
+            </a>
+        </div>
+    </script>
