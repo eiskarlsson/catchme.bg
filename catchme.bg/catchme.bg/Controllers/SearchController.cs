@@ -518,6 +518,8 @@ namespace catchme.bg.Controllers
         }
 
         private Dictionary<string, string> _dualityPairs;
+        private Dictionary<string, string> _activityPairs;
+        private Dictionary<string, string> _mirrorPairs;
 
         private List<CatchmebgUser> GetCompatiblePartners(string userMbti)
         {
@@ -535,7 +537,36 @@ namespace catchme.bg.Controllers
 
             Dictionary<string, string> dualityPairsInverse = _dualityPairs.ToDictionary((i) => i.Value, (i) => i.Key);
 
-            return _bgcontext.Users.Where(u => u.Mbti == _dualityPairs[userMbti] || u.Mbti == dualityPairsInverse[userMbti]).ToList();
+            _activityPairs = new Dictionary<string, string>();
+
+            _activityPairs.Add("ENTP", "ESFJ");
+            _activityPairs.Add("ISFP", "INTJ");
+            _activityPairs.Add("ENFJ", "ESTP");
+            _activityPairs.Add("ISTJ", "INFP");
+
+            _activityPairs.Add("ESFP", "ENTJ");
+            _activityPairs.Add("INTP", "ISFJ");
+            _activityPairs.Add("ESTJ", "ENFP");
+            _activityPairs.Add("INFJ", "ISTP");
+            Dictionary<string, string> activityPairsInverse = _activityPairs.ToDictionary((i) => i.Value, (i) => i.Key);
+
+            _mirrorPairs = new Dictionary<string, string>();
+
+            _mirrorPairs.Add("ENTP", "INTJ");
+            _mirrorPairs.Add("ISFP", "ESFJ");
+            _mirrorPairs.Add("ENFJ", "INFP");
+            _mirrorPairs.Add("ISTJ", "ESTP");
+
+            _mirrorPairs.Add("ESFP", "ISFJ");
+            _mirrorPairs.Add("INTP", "ENTJ");
+            _mirrorPairs.Add("ESTJ", "ISTP");
+            _mirrorPairs.Add("INFJ", "ENFP");
+
+            Dictionary<string, string> mirrorPairsInverse = _mirrorPairs.ToDictionary((i) => i.Value, (i) => i.Key);
+
+            return _bgcontext.Users.Where(u => u.Mbti == _dualityPairs[userMbti] || u.Mbti == dualityPairsInverse[userMbti] 
+                                                                                 || u.Mbti == _activityPairs[userMbti] || u.Mbti == activityPairsInverse[userMbti]
+                                                                                 || u.Mbti == _mirrorPairs[userMbti] || u.Mbti == mirrorPairsInverse[userMbti]).ToList();
         }
 
 
