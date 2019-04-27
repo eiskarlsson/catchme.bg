@@ -523,6 +523,11 @@ namespace catchme.bg.Controllers
 
         private List<CatchmebgUser> GetCompatiblePartners(string userMbti)
         {
+            if (String.IsNullOrEmpty(userMbti))
+            {
+                return null;
+            }
+
             _dualityPairs = new Dictionary<string, string>();
 
             _dualityPairs.Add("ESTP", "INFP");
@@ -799,7 +804,7 @@ namespace catchme.bg.Controllers
                 query = query.Where(u => u.SelectedHeight.Value <= model.HeightToFilter.ItemId).ToList();
             }
 
-            if (model.MbtiFilter != null && model.MbtiFilter.Selected)
+            if (model.MbtiFilter != null && model.MbtiFilter.Selected && !String.IsNullOrEmpty(CurrentUser.Mbti))
             {
                 model.Users.AddRange(GetCompatiblePartners(CurrentUser.Mbti));
 
