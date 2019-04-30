@@ -32,19 +32,21 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-1">
-                    <img src="~/images/earth-spinning-rotating-animation-40-2.gif" />
-                    
+                    <a href="@Url.Action("", "Home", "Index")">
+                        <img src="~/images/earth-spinning-rotating-animation-40-2.gif"/>
+                    </a>
+
                 </div>
                 <div class="col-sm-9">
                     <h1><a asp-controller="Home" asp-action="Index">Limboworld.net</a></h1>
                 </div>
-                    <div class="col-sm-2">
-                        <img src="@Url.Action("UserPhotos", "Home")" height="48" width="48" />
-                        <partial name="_LoginPartial" />
-                        <button id="configure" class="k-rpanel-toggle k-button k-primary btn-toggle"><span class="k-icon k-i-hbars"></span></button>
-                    </div>
+                <div class="col-sm-2">
+                    <img src="@Url.Action("UserPhotos", "Home")" height="48" width="48" />
+                    <partial name="_LoginPartial" />
+                    <button id="configure" class="k-rpanel-toggle k-button k-primary btn-toggle"><span class="k-icon k-i-hbars"></span></button>
                 </div>
             </div>
+        </div>
     </div>
     <div class="container menu-content">
         <div id="responsive-panel">
@@ -75,13 +77,13 @@
                                   .Action("Contact", "Home");
                           })
             )
-            
+
         </div>
-        
+
     </div>
     <partial name="_CookieConsentPartial" />
     <div class="container body-content">
-        
+
         @RenderBody()
         <footer class="footer">
             <span class="text-muted">Copyright © @DateTime.Now.Year Limboworld.net Corporation and/or its subsidiaries or affiliates.</span>
