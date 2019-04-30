@@ -17,6 +17,7 @@ namespace catchme.bg.Controllers
     /// Based on the SO Question: https://stackoverflow.com/questions/39062061/post-list-of-list-of-model-object-to-controller-in-asp-net-mvc
     /// </summary>
     [Authorize]
+    [Area("Main")]
     public class MbtiController : Controller
     {
         public catchmebgContext _bgcontext { get; set; }

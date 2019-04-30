@@ -19,6 +19,7 @@ namespace catchme.bg.Controllers
 {
     [Authorize]
     [AutoValidateAntiforgeryToken]
+    [Area("Main")]
     public class ProfileController : Controller
     {
         private readonly IHostingEnvironment _environment;

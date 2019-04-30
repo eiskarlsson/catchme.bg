@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace catchme.bg.Controllers
 {
     [Authorize]
+    [Area("Main")]
     public class ChatController : Controller
     {
         // GET: /<controller>/

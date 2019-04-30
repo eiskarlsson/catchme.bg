@@ -12,6 +12,7 @@ using System.Security.Claims;
 
 namespace catchme.bg.Controllers
 {
+    [Area("Main")]
     public class HomeController : Controller
     {
         private readonly IHostingEnvironment _environment;

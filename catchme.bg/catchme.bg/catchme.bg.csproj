@@ -64,6 +64,15 @@
       <Folder Include="Areas\Identity\Services\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Content Update="Areas\Main\Views\_ViewImports.cshtml">
+        <Pack>$(IncludeRazorContentInPack)</Pack>
+      </Content>
+      <Content Update="Areas\Main\Views\_ViewStart.cshtml">
+        <Pack>$(IncludeRazorContentInPack)</Pack>
+      </Content>
+    </ItemGroup>
+
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
         <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
     </PropertyGroup>

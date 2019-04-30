@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace catchme.bg.Controllers
 {
+    [Area("Main")]
     public class SeedController : Controller
     {
         private IHostingEnvironment _env;

@@ -22,6 +22,7 @@ using static catchme.bg.Models.SearchViewModel;
 namespace catchme.bg.Controllers
 {
     [Authorize]
+    [Area("Main")]
     public class SearchController : Controller
     {
         private readonly IHostingEnvironment _environment;
