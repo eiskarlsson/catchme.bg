@@ -62,13 +62,23 @@
 
     <ItemGroup>
       <Folder Include="Areas\Identity\Services\" />
+      <Folder Include="Controllers\" />
     </ItemGroup>
 
     <ItemGroup>
+      <Content Update="Areas\Identity\_ViewImports.cshtml">
+        <Pack>$(IncludeRazorContentInPack)</Pack>
+      </Content>
+      <Content Update="Areas\Identity\_ViewStart.cshtml">
+        <Pack>$(IncludeRazorContentInPack)</Pack>
+      </Content>
       <Content Update="Areas\Main\Views\_ViewImports.cshtml">
         <Pack>$(IncludeRazorContentInPack)</Pack>
       </Content>
       <Content Update="Areas\Main\Views\_ViewStart.cshtml">
+        <Pack>$(IncludeRazorContentInPack)</Pack>
+      </Content>
+      <Content Update="Areas\_ViewImports.cshtml">
         <Pack>$(IncludeRazorContentInPack)</Pack>
       </Content>
     </ItemGroup>

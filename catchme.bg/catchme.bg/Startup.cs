@@ -116,12 +116,11 @@ namespace catchme.bg
                     areaName: "Main",
                     template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
-                routes.MapAreaRoute(
-                    name: "IdentityArea",
-                    areaName: "Identity",
-                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
 
-                
+
             });
 
         }
