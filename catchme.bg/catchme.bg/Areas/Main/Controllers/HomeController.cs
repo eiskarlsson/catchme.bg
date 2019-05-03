@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
-using catchme.bg.Areas.Identity.Data;
-using catchme.bg.Data;
+using System.Security.Claims;
 using catchme.bg.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
-using System.Security.Claims;
 
-namespace catchme.bg.Controllers
+namespace catchme.bg.Areas.Main.Controllers
 {
     [Area("Main")]
     public class HomeController : Controller

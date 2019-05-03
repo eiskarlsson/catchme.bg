@@ -111,13 +111,13 @@ namespace catchme.bg
 
             app.UseMvc(routes =>
             {
-                routes.MapAreaRoute(
-                    name: "MainArea",
-                    areaName: "Main",
+                routes.MapRoute(
+                    name: "areas",
                     template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
-                routes.MapRoute(
+                routes.MapAreaRoute(
                     name: "default",
+                    areaName: "Main",
                     template: "{controller=Home}/{action=Index}/{id?}");
 
 

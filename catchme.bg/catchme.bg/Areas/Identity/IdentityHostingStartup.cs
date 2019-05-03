@@ -32,6 +32,8 @@ namespace catchme.bg.Areas.Identity
 
                 services.AddDefaultIdentity<CatchmebgUser>()
                     .AddEntityFrameworkStores<catchmebgContext>();
+
+
             });
         }
     }
