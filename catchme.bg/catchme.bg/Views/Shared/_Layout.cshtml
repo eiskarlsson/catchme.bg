@@ -32,8 +32,6 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-1">
-                    <a asp-area="Main" asp-controller="Home" asp-action="Index">MainIndex</a>
-                    <a href="@Url.Action("Index", "Home", new {area="Main"})">Alabala</a>
                     <a asp-area="Main" asp-controller="Home" asp-action="Index">
 
                         <img src="~/images/earth-spinning-rotating-animation-40-2.gif" />
@@ -44,7 +42,7 @@
                     <h1><a asp-area="Main" asp-controller="Home" asp-action="Index">Limboworld.net</a></h1>
                 </div>
                 <div class="col-sm-2">
-                    <img src="@Url.Action("UserPhotos", "Home")" height="48" width="48" />
+                    <img src="@Url.Action("UserPhotos", "Home", new { area = "Main" })" height="48" width="48" />
                     <partial name="_LoginPartial" />
                     <button id="configure" class="k-rpanel-toggle k-button k-primary btn-toggle"><span class="k-icon k-i-hbars"></span></button>
                 </div>
@@ -62,22 +60,22 @@
                                   .Action("Index", "Home", new { area = "Main" });
                               items.Add()
                                   .Text("Chat")
-                                  .Action("Index", "Chat");
+                                  .Action("Index", "Chat", new { area = "Main" });
                               items.Add()
                                   .Text("MBTI")
-                                  .Action("Index", "Mbti");
+                                  .Action("Index", "Mbti", new { area = "Main" });
                               items.Add()
                                   .Text("Profile")
-                                  .Action("Index", "Profile");
+                                  .Action("Index", "Profile", new { area = "Main" });
                               items.Add()
                                   .Text("Search")
-                                  .Action("Index", "Search");
+                                  .Action("Index", "Search", new { area = "Main" });
                               items.Add()
                                   .Text("About")
-                                  .Action("About", "Home");
+                                  .Action("About", "Home", new { area = "Main" });
                               items.Add()
                                   .Text("Contact")
-                                  .Action("Contact", "Home");
+                                  .Action("Contact", "Home", new { area = "Main" });
                           })
             )
 
