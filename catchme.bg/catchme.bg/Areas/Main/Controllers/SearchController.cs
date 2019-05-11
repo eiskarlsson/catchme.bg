@@ -570,9 +570,10 @@ namespace catchme.bg.Controllers
 
             Dictionary<string, string> mirrorPairsInverse = _mirrorPairs.ToDictionary((i) => i.Value, (i) => i.Key);
 
-            return _bgcontext.Users.Where(u => u.Mbti == _dualityPairs[userMbti] || u.Mbti == dualityPairsInverse[userMbti] 
-                                                                                 || u.Mbti == _activityPairs[userMbti] || u.Mbti == activityPairsInverse[userMbti]
-                                                                                 || u.Mbti == _mirrorPairs[userMbti] || u.Mbti == mirrorPairsInverse[userMbti]).ToList();
+            return _bgcontext.Users.Where(u => u.Mbti == _dualityPairs.GetValueOrDefault(userMbti, String.Empty) || u.Mbti == dualityPairsInverse.GetValueOrDefault(userMbti, String.Empty)
+                                                                                 || u.Mbti == _activityPairs.GetValueOrDefault(userMbti, String.Empty) || u.Mbti == activityPairsInverse.GetValueOrDefault(userMbti, String.Empty)
+                                                                                 || u.Mbti == _mirrorPairs.GetValueOrDefault(userMbti, String.Empty) || u.Mbti == mirrorPairsInverse.GetValueOrDefault(userMbti, String.Empty))
+                                    .Where(u => u.Id != CurrentUser.Id).ToList();
         }
 
 
@@ -969,11 +970,38 @@ namespace catchme.bg.Controllers
             { ItemId = -1, Name = "To", FilterUserId = CurrentUser.Id, Selected = false }
                 : Context.HeightFilter.FirstOrDefault(u => u.FilterUserId == CurrentUser.Id && u.Name == "To");
 
+            model.MbtiFilter = !Context.MbtiFilter.Any() ?  new MbtiFilter()
+                    { ItemId = -1, Name = "Mbti", FilterUserId = CurrentUser.Id, Selected = false }
+                : Context.MbtiFilter.FirstOrDefault(u => u.FilterUserId == CurrentUser.Id);
+
             FilterUsers(model);
 
             return model.Users.Select(u => new ListUserItem { Id = u.Id, UserName = u.UserName });
         }
 
 
+
+    }
+
+    public static class ExtensionMethods
+    {
+        public static TValue GetValueOrDefault<TKey, TValue>
+        (this IDictionary<TKey, TValue> dictionary,
+            TKey key,
+            TValue defaultValue)
+        {
+            TValue value;
+            return dictionary.TryGetValue(key, out value) ? value : defaultValue;
+        }
+
+        public static TValue GetValueOrDefault<TKey, TValue>
+        (this IDictionary<TKey, TValue> dictionary,
+            TKey key,
+            Func<TValue> defaultValueProvider)
+        {
+            TValue value;
+            return dictionary.TryGetValue(key, out value) ? value
+                : defaultValueProvider();
+        }
     }
 }
