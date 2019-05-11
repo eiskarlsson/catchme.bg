@@ -94,7 +94,6 @@ namespace catchme.bg
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseAuthentication();
-            app.UseMvc();
             app.UseFileServer();
 
             app.UseSignalR(routes =>
