@@ -54,6 +54,7 @@ namespace catchme.bg.Controllers
             var answers = _context.Answers.Where(u => u.UserName == CurrentUser.UserName);
             if (answers.Any())
             {
+                ViewBag.mbti_type = GetResult();
                 return View();
             }
             else
