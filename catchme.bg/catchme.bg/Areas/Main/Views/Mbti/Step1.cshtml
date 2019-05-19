@@ -7,31 +7,33 @@
 
 <h4>MBTI Questions 1-25/70</h4>
 <hr />
-
+@*<div asp-validation-summary="All" class="text-danger"></div>*@
 <div>
 
     @using (Html.BeginForm("Step1", "Mbti", FormMethod.Post, new { @class = "" }))
     {
         @Html.TextBoxFor(m => m.UserName, new { @class = "hidden", @readonly = "readonly" })
-        for (int i = 0; i < Model.Questions.Count(u => u.Language == "bg"); i++)
+        for (int i = 0; i < Model.Questions.Count(u => u.Language == "en"); i++)
         {
-    <div class="row no-gutters">
-        <div class="col-sm-4">
-            @Html.DisplayFor(m => m.Questions[i].QuestionText, new { @class = "badge badge-info", @readonly = "readonly" })
-        </div>
-        <div class="col-sm-1">
-            @Html.RadioButtonFor(m => m.Answers[i].SelectedAnswer, 1, new { @class = "form-control" })
-        </div>
-        <div class="col-sm-3">
-            @Html.DisplayFor(m => m.Questions[i].AnswerText1, new { @class = "form-control", @readonly = "readonly" })
-        </div>
-        <div class="col-sm-1">
-            @Html.RadioButtonFor(m => m.Answers[i].SelectedAnswer, 2, new { @class = "form-control" })
-        </div>
-        <div class="col-sm-3">
-            @Html.DisplayFor(m => m.Questions[i].AnswerText2, new { @class = "form-control", @readonly = "readonly" })
-        </div>
-    </div>
+            <div class="row no-gutters">
+                <div class="col-sm-4">
+                    @Html.DisplayFor(m => m.Questions[i].QuestionText, new { @class = "badge badge-info", @readonly = "readonly" })
+                    <span asp-validation-for="Answers[i].SelectedAnswer" class="text-danger"></span>
+                </div>
+                <div class="col-sm-1">
+                    @Html.RadioButtonFor(m => m.Answers[i].SelectedAnswer, 1, new { @class = "form-control" })
+                    
+                </div>
+                <div class="col-sm-3">
+                    @Html.DisplayFor(m => m.Questions[i].AnswerText1, new { @class = "form-control", @readonly = "readonly" })
+                </div>
+                <div class="col-sm-1">
+                    @Html.RadioButtonFor(m => m.Answers[i].SelectedAnswer, 2, new { @class = "form-control" })
+                </div>
+                <div class="col-sm-3">
+                    @Html.DisplayFor(m => m.Questions[i].AnswerText2, new { @class = "form-control", @readonly = "readonly" })
+                </div>
+            </div>
             @Html.TextBoxFor(m => m.Answers[i].ID, new { @class = "hidden", @readonly = "readonly" })
 
             @Html.TextBoxFor(m => m.Answers[i].QuestionID, new { @class = "hidden", @readonly = "readonly" })
@@ -45,3 +47,5 @@
 
 
 </div>
+
+
