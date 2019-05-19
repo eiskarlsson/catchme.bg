@@ -78,8 +78,12 @@ namespace catchme.bg
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, catchmebgContext db1, CatchmeContext db2)
         {
+            // run the migrations before other code
+            db1.Database.Migrate();
+            db2.Database.Migrate();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
