@@ -9,3 +9,117 @@
 
 <h3>Your MBTI Type is:</h3>
 <p><h3>@ViewBag.mbti_type</h3></p>
+@{
+    switch (@ViewBag.mbti_type)
+    {
+        case "ISTJ":
+            // Use the text block below to separate html elements from code
+            <text>
+                <h1>Introverted, Sensing, Thinking, Judging</h1>
+                <a href="https://en.wikipedia.org/wiki/ISTJ">ISTJ</a>
+            </text>
+            break;  // Always break each case
+        case "ISFJ":
+            <text>
+                <h1>Introverted, Sensing, Feeling, Judging</h1>
+                <a href="https://en.wikipedia.org/wiki/ISFJ">ISFJ</a>
+            </text>
+            break;
+        case "INFJ":
+            // Use the text block below to separate html elements from code
+            <text>
+                <h1>Introverted, Intuitive, Feeling, Judging</h1>
+                <a href="https://en.wikipedia.org/wiki/INFJ">INFJ</a>
+            </text>
+            break;  // Always break each case
+        case "INTJ":
+            <text>
+                <h1>Introverted, Intuitive, Thinking Judging</h1>
+                <a href="https://en.wikipedia.org/wiki/INTJ">INTJ</a>
+            </text>
+            break;
+        case "ISTP":
+            // Use the text block below to separate html elements from code
+            <text>
+                <h1>Introverted, Sensing, Thinking, Perceiving</h1>
+                <a href="https://en.wikipedia.org/wiki/ISTP">ISTP</a>
+            </text>
+            break;  // Always break each case
+        case "ISFP":
+            <text>
+                <h1>Introverted, Sensing, Feeling, Perceiving</h1>
+                <a href="https://en.wikipedia.org/wiki/ISFP">ISFP</a>
+            </text>
+            break;
+        case "INFP":
+            // Use the text block below to separate html elements from code
+            <text>
+                <h1>Introverted, Intuitive, Feeling, Perceiving</h1>
+                <a href="https://en.wikipedia.org/wiki/INFP">INFP</a>
+            </text>
+            break;  // Always break each case
+        case "INTP":
+            <text>
+                <h1>Introverted, Intuitive, Thinking, Perceiving</h1>
+                <a href="https://en.wikipedia.org/wiki/INTP">INTP</a>
+            </text>
+            break;
+        case "ESTP":
+            // Use the text block below to separate html elements from code
+            <text>
+                <h1>Extraverted, Sensing, Thinking, Perceiving</h1>
+                <a href="https://en.wikipedia.org/wiki/ESTP">ESTP</a>
+            </text>
+            break;  // Always break each case
+        case "ESFP":
+            <text>
+                <h1>Extraverted, Sensing, Feeling, Perceiving</h1>
+                <a href="https://en.wikipedia.org/wiki/ESFP">ESFP</a>
+            </text>
+            break;
+        case "ENFP":
+            // Use the text block below to separate html elements from code
+            <text>
+                <h1>Extraverted, Intuitive, Feeling, Perceiving</h1>
+                <a href="https://en.wikipedia.org/wiki/ENFP">ENFP</a>
+            </text>
+            break;  // Always break each case
+        case "ENTP":
+            <text>
+                <h1>Extraverted, Intuitive, Thinking, Perceiving</h1>
+                <a href="https://en.wikipedia.org/wiki/ENTP">ENTP</a>
+            </text>
+            break;
+        case "ESTJ":
+            // Use the text block below to separate html elements from code
+            <text>
+                <h1>Extraverted, Sensing, Thinking, Judging</h1>
+                <a href="https://en.wikipedia.org/wiki/ESTJ">ESTJ</a>
+            </text>
+            break;  // Always break each case
+        case "ESFJ":
+            <text>
+                <h1>Extraverted, Sensing, Feeling, Judging</h1>
+                <a href="https://en.wikipedia.org/wiki/ESFJ">ESFJ</a>
+            </text>
+            break;
+        case "ENFJ":
+            // Use the text block below to separate html elements from code
+            <text>
+                <h1>Extraverted, Intuitive, Feeling, Judging</h1>
+                <a href="https://en.wikipedia.org/wiki/ENFJ">ENFJ</a>
+            </text>
+            break;  // Always break each case
+        case "ENTJ":
+            <text>
+                <h1>Extraverted, Intuitive, Thinking, Judging</h1>
+                <a href="https://en.wikipedia.org/wiki/ENTJ">ENTJ</a>
+            </text>
+            break;
+        default:
+            <text>
+                <h1>Mbti type not found!</h1>
+            </text>
+            break;
+    }
+}
