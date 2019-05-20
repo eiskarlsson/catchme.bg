@@ -77,7 +77,7 @@
       <Content Update="Areas\_ViewImports.cshtml">
         <Pack>$(IncludeRazorContentInPack)</Pack>
       </Content>
-    </ItemGroup>
+     </ItemGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
         <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
