@@ -110,14 +110,14 @@ namespace catchme.bg.Controllers
            SeedEyeColor(new List<string>() { "Brown", "Blue", "Green", "Red" });
            SeedGender(new List<string>() { "Woman", "Man", "Transgender" });
            SeedHairColor(new List<string>() { "Brown", "Black", "Blonde", "Red", "Grey" });
-           SeedHeight(Enumerable.Range(10, 300).Select(i => i.ToString()).ToList<string>());
+           SeedHeight(Enumerable.Range(100, 200).Select(i => i.ToString()).ToList<string>());
            SeedLanguages(new List<string>() { "One", "Two", "Three", "More than three" });
            SeedLookingFor(new List<string>() { "Woman", "Man", "Couple" });
            SeedMaritalStatus(new List<string>() { "Single", "Divorced", "Married" });
            SeedPets(new List<string>() { "No pets", "Doesn't want pets", "Wants pets", "Has pets" });
            SeedReligion(new List<string>() { "Doesn't believe", "Believer", "Christian", "Buddhist", "Muslim", "Taoist", "Judaist", "Other" });
            SeedSmokes(new List<string>() { "Smokes", "Doesn't smoke" });
-           SeedWeight(Enumerable.Range(10, 300).Select(i => i.ToString()).ToList<string>());
+           SeedWeight(Enumerable.Range(50, 200).Select(i => i.ToString()).ToList<string>());
            return "Profile Tables Seeded!";
         }
 
