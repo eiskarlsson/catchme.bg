@@ -12,6 +12,7 @@
 
     @using (Html.BeginForm("Step1", "Mbti", FormMethod.Post, new { @class = "" }))
     {
+        @Html.AntiForgeryToken()
         @Html.TextBoxFor(m => m.UserName, new { @class = "hidden", @readonly = "readonly" })
         for (int i = 0; i < Model.Questions.Count(u => u.Language == "en"); i++)
         {
@@ -22,7 +23,7 @@
                 </div>
                 <div class="col-sm-1">
                     @Html.RadioButtonFor(m => m.Answers[i].SelectedAnswer, 1, new { @class = "form-control" })
-                    
+
                 </div>
                 <div class="col-sm-3">
                     @Html.DisplayFor(m => m.Questions[i].AnswerText1, new { @class = "form-control", @readonly = "readonly" })

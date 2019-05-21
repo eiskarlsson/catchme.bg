@@ -166,6 +166,7 @@ namespace catchme.bg.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Index([Bind] SearchViewModel model, int? page)
         {
             if (ModelState.IsValid)

@@ -135,6 +135,7 @@ namespace catchme.bg.Controllers
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Step1([Bind] Evaluation model)
         {
             if (ModelState.IsValid)
@@ -166,6 +167,7 @@ namespace catchme.bg.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Step2([Bind] Evaluation model)
         {
             if (ModelState.IsValid)
@@ -196,6 +198,7 @@ namespace catchme.bg.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Step3([Bind] Evaluation model)
         {
             if (ModelState.IsValid)
