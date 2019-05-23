@@ -42,10 +42,13 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="SeedData\MbtiTest.csv" />
+      <Content Include="SeedData\MbtiTest.csv">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="BuildBundlerMinifier" Version="2.9.406" />
         <PackageReference Include="FileHelpers" Version="3.3.0" />
         <PackageReference Include="Microsoft.AspNetCore.App" />
         <PackageReference Include="Microsoft.AspNetCore.Cryptography.Internal" Version="2.1.1" />
