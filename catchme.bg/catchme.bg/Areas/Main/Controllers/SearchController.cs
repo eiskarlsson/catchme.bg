@@ -834,7 +834,9 @@ namespace catchme.bg.Controllers
 
                 if (user?.Id == null)
                 {
-                    string fileName = Path.Combine(_environment.ContentRootPath, @"~/images/noImg.png");
+                    var separator = Path.DirectorySeparatorChar;
+                    var path = $"wwwroot{separator}images{separator}noImg.png";
+                    string fileName = Path.Combine(_environment.ContentRootPath, path);
 
                     byte[] imageData = null;
                     FileInfo fileInfo = new FileInfo(fileName);
@@ -842,7 +844,6 @@ namespace catchme.bg.Controllers
                     FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
                     BinaryReader br = new BinaryReader(fs);
                     imageData = br.ReadBytes((int)imageFileLength);
-
                     return File(imageData, "image/png");
 
                 }
@@ -857,7 +858,9 @@ namespace catchme.bg.Controllers
             }
             else
             {
-                string fileName = Path.Combine(_environment.ContentRootPath, @"wwwroot\images\noImg.png");
+                var separator = Path.DirectorySeparatorChar;
+                var path = $"wwwroot{separator}images{separator}noImg.png";
+                string fileName = Path.Combine(_environment.ContentRootPath, path);
 
                 byte[] imageData = null;
                 FileInfo fileInfo = new FileInfo(fileName);
