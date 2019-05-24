@@ -40,3 +40,10 @@ body {
     display: none;
 }
 
+.limboLink {
+    color: white;
+}
+
+.limboLink:hover {
+    color: red;
+}
