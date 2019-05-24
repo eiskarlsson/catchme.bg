@@ -128,10 +128,16 @@
                         AddUser(connection, allUsers[i].connectionId, allUsers[i].userName, privateMessages);
                     }
 
-                    // Add Existing Messages
+                    // Add Existing Public Messages
                     for (i = 0; i < messages.length; i++) {
 
                         AddMessage(messages[i].userName, messages[i].message);
+                    }
+
+                    // Add Existing Private Messages
+                    for (i = 0; i < privateMessages.length; i++) {
+
+                        AddMessage(privateMessages[i].userName, messages[i].message);
                     }
 
                     
