@@ -59,8 +59,6 @@ namespace catchme.bg
                 // https://github.com/aspnet/Announcements/issues/194
                 .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
 
-
-
             services.Configure<IdentityOptions>(options =>
                 {
                     // Default User settings.
