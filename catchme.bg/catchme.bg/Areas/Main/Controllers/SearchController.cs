@@ -832,7 +832,7 @@ namespace catchme.bg.Controllers
                 // to get the user details to load user Image
                 var user = _bgcontext.Users.FirstOrDefault(x => x.UserName.ToLower() == username.ToLower());
 
-                if (user?.Id == null)
+                if (user?.Id == null || user?.UserPhoto == null)
                 {
                     var separator = Path.DirectorySeparatorChar;
                     var path = $"wwwroot{separator}images{separator}noImg.png";
@@ -847,14 +847,10 @@ namespace catchme.bg.Controllers
                     return File(imageData, "image/png");
 
                 }
-
-
-                if (user?.UserPhoto != null)
+                else
                 {
-                    return new FileContentResult(user.UserPhoto, "image/jpeg");
+                     return new FileContentResult(user.UserPhoto, "image/jpeg");
                 }
-
-                return null;
             }
             else
             {

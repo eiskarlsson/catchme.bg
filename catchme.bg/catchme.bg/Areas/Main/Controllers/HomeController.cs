@@ -50,8 +50,10 @@ namespace catchme.bg.Areas.Main.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var userId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                // to get the user details to load user Image
+                var user = _context.Users.FirstOrDefault(x => x.Id == userId);
 
-                if (userId == null)
+                if (userId == null || user?.UserPhoto == null)
                 {
                     var separator = Path.DirectorySeparatorChar;
                     var path = $"wwwroot{separator}images{separator}noImg.png";
@@ -66,15 +68,11 @@ namespace catchme.bg.Areas.Main.Controllers
                     return File(imageData, "image/png");
 
                 }
-                // to get the user details to load user Image
-                var user = _context.Users.FirstOrDefault(x => x.Id == userId);
-
-                if (user?.UserPhoto != null)
+                else
                 {
                     return new FileContentResult(user.UserPhoto, "image/jpeg");
                 }
-
-                return null;
+               
             }
             else
             {
@@ -93,6 +91,6 @@ namespace catchme.bg.Areas.Main.Controllers
             }
         }
 
-        
+
     }
 }
