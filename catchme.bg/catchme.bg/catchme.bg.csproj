@@ -61,6 +61,7 @@
         <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="2.1.6" />
         <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
         <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.1.4" />
+        <PackageReference Include="Serilog.Extensions.Logging.File" Version="1.1.0" />
         <PackageReference Include="Telerik.UI.for.AspNet.Core" Version="2018.2.516" />
         <PackageReference Include="X.PagedList" Version="7.6.0" />
     </ItemGroup>
@@ -68,6 +69,7 @@
     <ItemGroup>
       <Folder Include="Areas\Identity\Services\" />
       <Folder Include="Controllers\" />
+      <Folder Include="wwwroot\data\" />
     </ItemGroup>
 
     <ItemGroup>
@@ -81,6 +83,12 @@
         <Pack>$(IncludeRazorContentInPack)</Pack>
       </Content>
      </ItemGroup>
+
+    <ItemGroup>
+      <None Update="StartMyApp.sh">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
         <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>

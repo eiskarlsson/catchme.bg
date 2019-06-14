@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using catchme.bg.Areas.Identity.Data;
 using catchme.bg.Data;
 using catchme.bg.Models;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -68,6 +70,13 @@ namespace catchme.bg
                     
                 });
 
+            var separator = Path.DirectorySeparatorChar;
+            var path = $"wwwroot{separator}data{separator}";
+            
+            services.AddDataProtection()
+                .SetApplicationName("Limboworld.net")
+                .PersistKeysToFileSystem(new DirectoryInfo(path));
+
             services.AddSignalR();
 
             // Add Kendo UI services to the services container
@@ -98,6 +107,7 @@ namespace catchme.bg
             app.UseCookiePolicy();
             app.UseAuthentication();
             app.UseFileServer();
+            app.UseWebSockets();
 
             app.UseSignalR(routes =>
             {
