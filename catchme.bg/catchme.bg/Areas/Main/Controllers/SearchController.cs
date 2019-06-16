@@ -46,6 +46,7 @@ namespace catchme.bg.Controllers
             set => _currentUser = value;
         }
 
+
         protected string UserId;
         private CatchmebgUser _currentUser;
 
@@ -65,67 +66,67 @@ namespace catchme.bg.Controllers
 
             model.Users = new List<CatchmebgUser>();
 
-            model.PetsFilter = !Context.PetsFilter.Any() ? model.Pets.Select(u => new PetsFilter()
+            model.PetsFilter = !Context.PetsFilter.Any(u => u.FilterUserId == CurrentUser.Id) ? model.Pets.Select(u => new PetsFilter()
             { ItemId = u.ItemId, Name = u.Name, FilterUserId = CurrentUser.Id, Selected = false }).ToList()
                 : Context.PetsFilter.Where(u => u.FilterUserId == CurrentUser.Id).ToList();
 
-            model.ChildrenFilter = !Context.ChildrenFilter.Any() ? model.Children.Select(u => new ChildrenFilter()
+            model.ChildrenFilter = !Context.ChildrenFilter.Any(u => u.FilterUserId == CurrentUser.Id) ? model.Children.Select(u => new ChildrenFilter()
             { ItemId = u.ItemId, Name = u.Name, FilterUserId = CurrentUser.Id, Selected = false }).ToList()
                 : Context.ChildrenFilter.Where(u => u.FilterUserId == CurrentUser.Id).ToList();
 
-            model.DrugsFilter = !Context.DrugsFilter.Any() ? model.Drugs.Select(u => new DrugsFilter()
+            model.DrugsFilter = !Context.DrugsFilter.Any(u => u.FilterUserId == CurrentUser.Id) ? model.Drugs.Select(u => new DrugsFilter()
             { ItemId = u.ItemId, Name = u.Name, FilterUserId = CurrentUser.Id, Selected = false }).ToList()
                 : Context.DrugsFilter.Where(u => u.FilterUserId == CurrentUser.Id).ToList();
 
-            model.DietFilter = !Context.DietFilter.Any() ? model.Diet.Select(u => new DietFilter()
+            model.DietFilter = !Context.DietFilter.Any(u => u.FilterUserId == CurrentUser.Id) ? model.Diet.Select(u => new DietFilter()
             { ItemId = u.ItemId, Name = u.Name, FilterUserId = CurrentUser.Id, Selected = false }).ToList()
                 : Context.DietFilter.Where(u => u.FilterUserId == CurrentUser.Id).ToList();
 
-            model.DrinksFilter = !Context.DrinksFilter.Any() ? model.Drinks.Select(u => new DrinksFilter()
+            model.DrinksFilter = !Context.DrinksFilter.Any(u => u.FilterUserId == CurrentUser.Id) ? model.Drinks.Select(u => new DrinksFilter()
             { ItemId = u.ItemId, Name = u.Name, FilterUserId = CurrentUser.Id, Selected = false }).ToList()
                 : Context.DrinksFilter.Where(u => u.FilterUserId == CurrentUser.Id).ToList();
 
-            model.SmokesFilter = !Context.SmokesFilter.Any() ? model.Smokes.Select(u => new SmokesFilter()
+            model.SmokesFilter = !Context.SmokesFilter.Any(u => u.FilterUserId == CurrentUser.Id) ? model.Smokes.Select(u => new SmokesFilter()
             { ItemId = u.ItemId, Name = u.Name, FilterUserId = CurrentUser.Id, Selected = false }).ToList()
                 : Context.SmokesFilter.Where(u => u.FilterUserId == CurrentUser.Id).ToList();
 
-            model.ReligionFilter = !Context.ReligionFilter.Any() ? model.Religion.Select(u => new ReligionFilter()
+            model.ReligionFilter = !Context.ReligionFilter.Any(u => u.FilterUserId == CurrentUser.Id) ? model.Religion.Select(u => new ReligionFilter()
             { ItemId = u.ItemId, Name = u.Name, FilterUserId = CurrentUser.Id, Selected = false }).ToList()
                 : Context.ReligionFilter.Where(u => u.FilterUserId == CurrentUser.Id).ToList();
 
-            model.EthnicityFilter = !Context.EthnicityFilter.Any() ? model.Ethnicity.Select(u => new EthnicityFilter()
+            model.EthnicityFilter = !Context.EthnicityFilter.Any(u => u.FilterUserId == CurrentUser.Id) ? model.Ethnicity.Select(u => new EthnicityFilter()
             { ItemId = u.ItemId, Name = u.Name, FilterUserId = CurrentUser.Id, Selected = false }).ToList()
                 : Context.EthnicityFilter.Where(u => u.FilterUserId == CurrentUser.Id).ToList();
 
-            model.EducationFilter = !Context.EducationFilter.Any() ? model.Education.Select(u => new EducationFilter()
+            model.EducationFilter = !Context.EducationFilter.Any(u => u.FilterUserId == CurrentUser.Id) ? model.Education.Select(u => new EducationFilter()
             { ItemId = u.ItemId, Name = u.Name, FilterUserId = CurrentUser.Id, Selected = false }).ToList()
                 : Context.EducationFilter.Where(u => u.FilterUserId == CurrentUser.Id).ToList();
 
-            model.HairColorFilter = !Context.HairColorFilter.Any() ? model.HairColor.Select(u => new HairColorFilter()
+            model.HairColorFilter = !Context.HairColorFilter.Any(u => u.FilterUserId == CurrentUser.Id) ? model.HairColor.Select(u => new HairColorFilter()
             { ItemId = u.ItemId, Name = u.Name, FilterUserId = CurrentUser.Id, Selected = false }).ToList()
                 : Context.HairColorFilter.Where(u => u.FilterUserId == CurrentUser.Id).ToList();
 
-            model.EyeColorFilter = !Context.EyeColorFilter.Any() ? model.EyeColor.Select(u => new EyeColorFilter()
+            model.EyeColorFilter = !Context.EyeColorFilter.Any(u => u.FilterUserId == CurrentUser.Id) ? model.EyeColor.Select(u => new EyeColorFilter()
             { ItemId = u.ItemId, Name = u.Name, FilterUserId = CurrentUser.Id, Selected = false }).ToList()
                 : Context.EyeColorFilter.Where(u => u.FilterUserId == CurrentUser.Id).ToList();
 
-            model.BodyTypeFilter = !Context.BodyTypeFilter.Any() ? model.BodyType.Select(u => new BodyTypeFilter()
+            model.BodyTypeFilter = !Context.BodyTypeFilter.Any(u => u.FilterUserId == CurrentUser.Id) ? model.BodyType.Select(u => new BodyTypeFilter()
             { ItemId = u.ItemId, Name = u.Name, FilterUserId = CurrentUser.Id, Selected = false }).ToList()
                 : Context.BodyTypeFilter.Where(u => u.FilterUserId == CurrentUser.Id).ToList();
 
-            model.LanguagesFilter = !Context.LanguagesFilter.Any() ? model.Languages.Select(u => new LanguagesFilter()
+            model.LanguagesFilter = !Context.LanguagesFilter.Any(u => u.FilterUserId == CurrentUser.Id) ? model.Languages.Select(u => new LanguagesFilter()
             { ItemId = u.ItemId, Name = u.Name, FilterUserId = CurrentUser.Id, Selected = false }).ToList()
                 : Context.LanguagesFilter.Where(u => u.FilterUserId == CurrentUser.Id).ToList();
 
-            model.GenderFilter = !Context.GenderFilter.Any() ? model.Gender.Select(u => new GenderFilter()
+            model.GenderFilter = !Context.GenderFilter.Any(u => u.FilterUserId == CurrentUser.Id) ? model.Gender.Select(u => new GenderFilter()
             { ItemId = u.ItemId, Name = u.Name, FilterUserId = CurrentUser.Id, Selected = false }).ToList()
                 : Context.GenderFilter.Where(u => u.FilterUserId == CurrentUser.Id).ToList();
 
-            model.LookingForFilter = !Context.LookingForFilter.Any() ? model.LookingFor.Select(u => new LookingForFilter()
+            model.LookingForFilter = !Context.LookingForFilter.Any(u => u.FilterUserId == CurrentUser.Id) ? model.LookingFor.Select(u => new LookingForFilter()
             { ItemId = u.ItemId, Name = u.Name, FilterUserId = CurrentUser.Id, Selected = false }).ToList()
                 : Context.LookingForFilter.Where(u => u.FilterUserId == CurrentUser.Id).ToList();
 
-            model.MaritalStatusFilter = !Context.MaritalStatusFilter.Any() ? model.MaritalStatus.Select(u => new MaritalStatusFilter()
+            model.MaritalStatusFilter = !Context.MaritalStatusFilter.Any(u => u.FilterUserId == CurrentUser.Id) ? model.MaritalStatus.Select(u => new MaritalStatusFilter()
             { ItemId = u.ItemId, Name = u.Name, FilterUserId = CurrentUser.Id, Selected = false }).ToList()
                 : Context.MaritalStatusFilter.Where(u => u.FilterUserId == CurrentUser.Id).ToList();
 
@@ -273,12 +274,7 @@ namespace catchme.bg.Controllers
                 {
                     var currentPetsFilter = Context.PetsFilter.FirstOrDefault(u =>
                         u.FilterUserId == CurrentUser.Id && u.ItemId == petsFilter.ItemId);
-                    if (petsFilter == null)
-                    {
-                        Context.PetsFilter.Remove(petsFilter);
-                        
-                    }
-                    else
+                    if (currentPetsFilter != null)
                     {
                         currentPetsFilter.Selected = petsFilter.Selected;
                         Context.PetsFilter.Update(currentPetsFilter);
@@ -289,12 +285,7 @@ namespace catchme.bg.Controllers
                 {
                     var currentGenderFilter = Context.GenderFilter.FirstOrDefault(u =>
                         u.FilterUserId == CurrentUser.Id && u.ItemId == genderFilter.ItemId);
-                    if (genderFilter == null)
-                    {
-                        Context.GenderFilter.Remove(genderFilter);
-                        
-                    }
-                    else
+                    if (currentGenderFilter != null)
                     {
                         currentGenderFilter.Selected = genderFilter.Selected;
                         Context.GenderFilter.Update(currentGenderFilter);
@@ -305,12 +296,7 @@ namespace catchme.bg.Controllers
                 {
                     var currentChildrenFilter = Context.ChildrenFilter.FirstOrDefault(u =>
                         u.FilterUserId == CurrentUser.Id && u.ItemId == childrenFilter.ItemId);
-                    if (childrenFilter == null)
-                    {
-                        Context.ChildrenFilter.Remove(childrenFilter);
-                        
-                    }
-                    else
+                    if (currentChildrenFilter != null)
                     {
                         currentChildrenFilter.Selected = childrenFilter.Selected;
                         Context.ChildrenFilter.Update(currentChildrenFilter);
@@ -321,12 +307,7 @@ namespace catchme.bg.Controllers
                 {
                     var currentDrugsFilter = Context.DrugsFilter.FirstOrDefault(u =>
                         u.FilterUserId == CurrentUser.Id && u.ItemId == drugsFilter.ItemId);
-                    if (drugsFilter == null)
-                    {
-                        Context.DrugsFilter.Remove(drugsFilter);
-                       
-                    }
-                    else
+                    if (currentDrugsFilter != null)
                     {
                         currentDrugsFilter.Selected = drugsFilter.Selected;
                         Context.DrugsFilter.Update(currentDrugsFilter);
@@ -337,12 +318,7 @@ namespace catchme.bg.Controllers
                 {
                     var currentDietFilter = Context.DietFilter.FirstOrDefault(u =>
                         u.FilterUserId == CurrentUser.Id && u.ItemId == dietFilter.ItemId);
-                    if (dietFilter == null)
-                    {
-                        Context.DietFilter.Remove(dietFilter);
-                        
-                    }
-                    else
+                    if (currentDietFilter != null)
                     {
                         currentDietFilter.Selected = dietFilter.Selected;
                         Context.DietFilter.Update(currentDietFilter);
@@ -353,12 +329,7 @@ namespace catchme.bg.Controllers
                 {
                     var currentDrinksFilter = Context.DrinksFilter.FirstOrDefault(u =>
                         u.FilterUserId == CurrentUser.Id && u.ItemId == drinksFilter.ItemId);
-                    if (drinksFilter == null)
-                    {
-                        Context.DrinksFilter.Remove(drinksFilter);
-                        
-                    }
-                    else
+                    if (currentDrinksFilter != null)
                     {
                         currentDrinksFilter.Selected = drinksFilter.Selected;
                         Context.DrinksFilter.Update(currentDrinksFilter);
@@ -369,12 +340,7 @@ namespace catchme.bg.Controllers
                 {
                     var currentSmokesFilter = Context.SmokesFilter.FirstOrDefault(u =>
                         u.FilterUserId == CurrentUser.Id && u.ItemId == smokesFilter.ItemId);
-                    if (smokesFilter == null)
-                    {
-                        Context.SmokesFilter.Remove(smokesFilter);
-                        
-                    }
-                    else
+                    if (currentSmokesFilter != null)
                     {
                         currentSmokesFilter.Selected = smokesFilter.Selected;
                         Context.SmokesFilter.Update(currentSmokesFilter);
@@ -385,12 +351,7 @@ namespace catchme.bg.Controllers
                 {
                     var currentReligionFilter = Context.ReligionFilter.FirstOrDefault(u =>
                         u.FilterUserId == CurrentUser.Id && u.ItemId == religionFilter.ItemId);
-                    if (religionFilter == null)
-                    {
-                        Context.ReligionFilter.Remove(religionFilter);
-                        
-                    }
-                    else
+                    if (currentReligionFilter != null)
                     {
                         currentReligionFilter.Selected = religionFilter.Selected;
                         Context.ReligionFilter.Update(currentReligionFilter);
@@ -401,12 +362,7 @@ namespace catchme.bg.Controllers
                 {
                     var currentEthnicityFilter = Context.EthnicityFilter.FirstOrDefault(u =>
                         u.FilterUserId == CurrentUser.Id && u.ItemId == ethnicityFilter.ItemId);
-                    if (ethnicityFilter == null)
-                    {
-                        Context.EthnicityFilter.Remove(ethnicityFilter);
-                        
-                    }
-                    else
+                    if (currentEthnicityFilter != null)
                     {
                         currentEthnicityFilter.Selected = ethnicityFilter.Selected;
                         Context.EthnicityFilter.Update(currentEthnicityFilter);
@@ -417,12 +373,7 @@ namespace catchme.bg.Controllers
                 {
                     var currentEducationFilter = Context.EducationFilter.FirstOrDefault(u =>
                         u.FilterUserId == CurrentUser.Id && u.ItemId == educationFilter.ItemId);
-                    if (educationFilter == null)
-                    {
-                        Context.EducationFilter.Remove(educationFilter);
-                        
-                    }
-                    else
+                    if (currentEducationFilter != null)
                     {
                         currentEducationFilter.Selected = educationFilter.Selected;
                         Context.EducationFilter.Update(currentEducationFilter);
@@ -433,12 +384,7 @@ namespace catchme.bg.Controllers
                 {
                     var currentHairColorFilter = Context.HairColorFilter.FirstOrDefault(u =>
                         u.FilterUserId == CurrentUser.Id && u.ItemId == hairColorFilter.ItemId);
-                    if (hairColorFilter == null)
-                    {
-                        Context.HairColorFilter.Remove(hairColorFilter);
-                        
-                    }
-                    else
+                    if (currentHairColorFilter != null)
                     {
                         currentHairColorFilter.Selected = hairColorFilter.Selected;
                         Context.HairColorFilter.Update(currentHairColorFilter);
@@ -449,12 +395,7 @@ namespace catchme.bg.Controllers
                 {
                     var currentEyeColorFilter = Context.EyeColorFilter.FirstOrDefault(u =>
                         u.FilterUserId == CurrentUser.Id && u.ItemId == eyeColorFilter.ItemId);
-                    if (eyeColorFilter == null)
-                    {
-                        Context.EyeColorFilter.Remove(eyeColorFilter);
-                        
-                    }
-                    else
+                    if (currentEyeColorFilter != null)
                     {
                         currentEyeColorFilter.Selected = eyeColorFilter.Selected;
                         Context.EyeColorFilter.Update(currentEyeColorFilter);
@@ -465,12 +406,7 @@ namespace catchme.bg.Controllers
                 {
                     var currentBodyTypeFilter = Context.BodyTypeFilter.FirstOrDefault(u =>
                         u.FilterUserId == CurrentUser.Id && u.ItemId == bodyTypeFilter.ItemId);
-                    if (bodyTypeFilter == null)
-                    {
-                        Context.BodyTypeFilter.Remove(bodyTypeFilter);
-                        
-                    }
-                    else
+                    if (currentBodyTypeFilter != null)
                     {
                         currentBodyTypeFilter.Selected = bodyTypeFilter.Selected;
                         Context.BodyTypeFilter.Update(currentBodyTypeFilter);
@@ -481,12 +417,7 @@ namespace catchme.bg.Controllers
                 {
                     var currentLanguagesFilter = Context.LanguagesFilter.FirstOrDefault(u =>
                         u.FilterUserId == CurrentUser.Id && u.ItemId == languagesFilter.ItemId);
-                    if (languagesFilter == null)
-                    {
-                        Context.LanguagesFilter.Remove(languagesFilter);
-                        
-                    }
-                    else
+                    if (currentLanguagesFilter != null)
                     {
                         currentLanguagesFilter.Selected = languagesFilter.Selected;
                         Context.LanguagesFilter.Update(currentLanguagesFilter);
@@ -497,12 +428,7 @@ namespace catchme.bg.Controllers
                 {
                     var currentLookingForFilter = Context.LookingForFilter.FirstOrDefault(u =>
                         u.FilterUserId == CurrentUser.Id && u.ItemId == lookingForFilter.ItemId);
-                    if (lookingForFilter == null)
-                    {
-                        Context.LookingForFilter.Remove(lookingForFilter);
-                        
-                    }
-                    else
+                    if (currentLookingForFilter != null)
                     {
                         currentLookingForFilter.Selected = lookingForFilter.Selected;
                         Context.LookingForFilter.Update(currentLookingForFilter);
@@ -513,12 +439,7 @@ namespace catchme.bg.Controllers
                 {
                     var currentMaritalStatusFilter = Context.MaritalStatusFilter.FirstOrDefault(u =>
                         u.FilterUserId == CurrentUser.Id && u.ItemId == maritalStatusFilter.ItemId);
-                    if (maritalStatusFilter == null)
-                    {
-                        Context.MaritalStatusFilter.Remove(maritalStatusFilter);
-                        
-                    }
-                    else
+                    if (currentMaritalStatusFilter != null)
                     {
                         currentMaritalStatusFilter.Selected = maritalStatusFilter.Selected;
                         Context.MaritalStatusFilter.Update(currentMaritalStatusFilter);
