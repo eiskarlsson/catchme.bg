@@ -179,95 +179,111 @@ namespace catchme.bg.Controllers
 
                 var currentMbtiFilter = Context.MbtiFilter.FirstOrDefault(u =>
                     u.FilterUserId == CurrentUser.Id && u.Name == "Mbti");
-                if (model.MbtiFilter == null && currentMbtiFilter != null)
+                if (currentMbtiFilter != null)
                 {
-                    Context.MbtiFilter.Remove(currentMbtiFilter);
-                    
+                    currentMbtiFilter.FilterUserId = CurrentUser.Id;
+                    currentMbtiFilter.ItemId = -1;
+                    currentMbtiFilter.Selected = model.MbtiFilter.Selected;
+
                 }
                 else
                 {
                     currentMbtiFilter = new MbtiFilter {ItemId = -1, Name = "Mbti", FilterUserId = CurrentUser.Id};
-                    Context.MbtiFilter.Update(currentMbtiFilter);
+                    
                 }
+
+                Context.MbtiFilter.Update(currentMbtiFilter);
 
                 var currentAgeFromFilter = Context.AgeFilter.FirstOrDefault(u =>
                     u.FilterUserId == CurrentUser.Id && u.Name == "From");
-                if (model.AgeFromFilter == null && currentAgeFromFilter != null)
+                if (currentAgeFromFilter != null)
                 {
-                    Context.AgeFilter.Remove(currentAgeFromFilter);
-                    
+                    currentAgeFromFilter.FilterUserId = CurrentUser.Id;
+                    currentAgeFromFilter.ItemId = model.AgeFromFilter.ItemId;
                 }
                 else
                 {
-                    currentAgeFromFilter = new AgeFilter {ItemId = 0, Name = "From", FilterUserId = CurrentUser.Id };
+                    currentAgeFromFilter = model.AgeFromFilter ?? new AgeFilter { ItemId = Context.Age.Min(u => u.ItemId), Name = "To", FilterUserId = CurrentUser.Id };
                     Context.AgeFilter.Update(currentAgeFromFilter);
                 }
 
                 var currentAgeToFilter = Context.AgeFilter.FirstOrDefault(u =>
                     u.FilterUserId == CurrentUser.Id && u.Name == "To");
-                if (model.AgeToFilter == null && currentAgeToFilter != null)
+                if (currentAgeToFilter != null)
                 {
-                    Context.AgeFilter.Remove(currentAgeToFilter);
-                    
+                    currentAgeToFilter.FilterUserId = CurrentUser.Id;
+                    currentAgeToFilter.ItemId = model.AgeToFilter.ItemId;
+
                 }
                 else
                 {
-                    currentAgeToFilter = new AgeFilter {ItemId = 99, Name = "To", FilterUserId = CurrentUser.Id };
-                    Context.AgeFilter.Update(currentAgeToFilter);
+                    currentAgeToFilter = model.AgeToFilter ?? new AgeFilter {ItemId = Context.Age.Max(u => u.ItemId), Name = "To", FilterUserId = CurrentUser.Id };
+
+                    
                 }
 
+                Context.AgeFilter.Update(currentAgeToFilter);
                 //---------------------------------------------------------------
                 var currentWeightFromFilter = Context.WeightFilter.FirstOrDefault(u =>
                     u.FilterUserId == CurrentUser.Id && u.Name == "From");
-                if (model.WeightFromFilter == null && currentWeightFromFilter != null)
+                if (currentWeightFromFilter != null)
                 {
-                    Context.WeightFilter.Remove(currentWeightFromFilter);
-                   
+                    currentWeightFromFilter.FilterUserId = CurrentUser.Id;
+                    currentWeightFromFilter.ItemId = model.WeightFromFilter.ItemId;
+
                 }
                 else
                 {
-                    currentWeightFromFilter = new WeightFilter {ItemId = 0, Name = "From", FilterUserId = CurrentUser.Id };
-                    Context.WeightFilter.Update(currentWeightFromFilter);
+                    currentWeightFromFilter = model.WeightFromFilter ?? new WeightFilter {ItemId = Context.Weight.Min(u => u.ItemId), Name = "From", FilterUserId = CurrentUser.Id };
+                    
                 }
+
+                Context.WeightFilter.Update(currentWeightFromFilter);
 
                 var currentWeightToFilter = Context.WeightFilter.FirstOrDefault(u =>
                     u.FilterUserId == CurrentUser.Id && u.Name == "To");
-                if (model.WeightToFilter == null && currentWeightToFilter !=  null)
+                if (currentWeightToFilter !=  null)
                 {
-                    Context.WeightFilter.Remove(currentWeightToFilter);
-                   
+                    currentWeightToFilter.FilterUserId = CurrentUser.Id;
+                    currentWeightToFilter.ItemId = model.WeightToFilter.ItemId;
                 }
                 else
                 {
-                    currentWeightToFilter = new WeightFilter {ItemId = 299, Name = "To", FilterUserId = CurrentUser.Id };
-                    Context.WeightFilter.Update(currentWeightToFilter);
+                    currentWeightToFilter = model.WeightToFilter ?? new WeightFilter {ItemId = Context.Weight.Max(u=>u.ItemId), Name = "To", FilterUserId = CurrentUser.Id };
+                    
                 }
+
+                Context.WeightFilter.Update(currentWeightToFilter);
 
                 var currentHeightFromFilter = Context.HeightFilter.FirstOrDefault(u =>
                     u.FilterUserId == CurrentUser.Id && u.Name == "From");
-                if (model.HeightFromFilter == null && currentHeightFromFilter != null)
+                if (currentHeightFromFilter != null)
                 {
-                    Context.HeightFilter.Remove(currentHeightFromFilter);
-                    
+                    currentHeightFromFilter.FilterUserId = CurrentUser.Id;
+                    currentHeightFromFilter.ItemId = model.HeightFromFilter.ItemId;
                 }
                 else
                 {
-                    currentHeightFromFilter = new HeightFilter {ItemId = 0, Name = "From", FilterUserId = CurrentUser.Id };
-                    Context.HeightFilter.Update(currentHeightFromFilter);
+                    currentHeightFromFilter = model.HeightFromFilter ?? new HeightFilter {ItemId = Context.Height.Min(u => u.ItemId), Name = "From", FilterUserId = CurrentUser.Id };
+                    
                 }
+
+                Context.HeightFilter.Update(currentHeightFromFilter);
 
                 var currentHeightToFilter = Context.HeightFilter.FirstOrDefault(u =>
                     u.FilterUserId == CurrentUser.Id && u.Name == "To");
-                if (model.HeightToFilter == null && currentHeightToFilter !=  null)
+                if (currentHeightToFilter !=  null)
                 {
-                    Context.HeightFilter.Remove(currentHeightToFilter);
-                    
+                    currentHeightToFilter.FilterUserId = CurrentUser.Id;
+                    currentHeightToFilter.ItemId = model.HeightToFilter.ItemId;
                 }
                 else
                 {
-                    currentHeightToFilter = new HeightFilter {ItemId = 299, Name = "To", FilterUserId = CurrentUser.Id };
-                    Context.HeightFilter.Update(currentHeightToFilter);
+                    currentHeightToFilter = model.HeightToFilter ?? new HeightFilter {ItemId = Context.Height.Max(u => u.ItemId), Name = "To", FilterUserId = CurrentUser.Id };
+                   
                 }
+
+                Context.HeightFilter.Update(currentHeightToFilter);
                 //---------------------------------------------------------------
 
                 foreach (var petsFilter in model.PetsFilter)
