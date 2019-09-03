@@ -59,7 +59,7 @@
           <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
         </PackageReference>
         <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="2.1.6" />
-        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
+        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" />
         <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.1.4" />
         <PackageReference Include="Serilog.Extensions.Logging.File" Version="1.1.0" />
         <PackageReference Include="Telerik.UI.for.AspNet.Core" Version="2018.2.516" />
@@ -68,6 +68,8 @@
 
     <ItemGroup>
       <Folder Include="Areas\Identity\Services\" />
+      <Folder Include="Areas\Legal\Data\" />
+      <Folder Include="Areas\Legal\Models\" />
       <Folder Include="Controllers\" />
       <Folder Include="wwwroot\data\" />
     </ItemGroup>
