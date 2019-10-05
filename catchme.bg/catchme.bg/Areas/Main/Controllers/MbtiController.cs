@@ -51,6 +51,8 @@ namespace catchme.bg.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.Current = "Mbti";
+
             var answers = _context.Answers.Where(u => u.UserName == CurrentUser.UserName);
             if (answers.Any())
             {
@@ -66,6 +68,8 @@ namespace catchme.bg.Controllers
         [HttpGet]
         public IActionResult Step1()
         {
+            ViewBag.Current = "Mbti";
+
             var answersToDelete = _context.Answers.Where(u => u.UserName == CurrentUser.UserName);
             _context.Answers.RemoveRange(answersToDelete);
             _context.SaveChanges();
@@ -92,6 +96,8 @@ namespace catchme.bg.Controllers
         [HttpGet]
         public IActionResult Step2()
         {
+            ViewBag.Current = "Mbti";
+
             var model = new Evaluation()
             {
                 UserName = CurrentUser.UserName,
@@ -114,6 +120,8 @@ namespace catchme.bg.Controllers
         [HttpGet]
         public IActionResult Step3()
         {
+            ViewBag.Current = "Mbti";
+
             var model = new Evaluation()
             {
                 UserName = CurrentUser.UserName,
@@ -138,6 +146,8 @@ namespace catchme.bg.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Step1([Bind] Evaluation model)
         {
+            ViewBag.Current = "Mbti";
+
             if (ModelState.IsValid)
             {
                 var answers = _context.Answers.Where(u => u.UserName == CurrentUser.UserName).Where(u => u.QuestionID >= 1 && u.QuestionID <= 25);
@@ -170,6 +180,8 @@ namespace catchme.bg.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Step2([Bind] Evaluation model)
         {
+            ViewBag.Current = "Mbti";
+
             if (ModelState.IsValid)
             {
                 var answers = _context.Answers.Where(u => u.UserName == CurrentUser.UserName).Where(u => u.QuestionID >= 26 && u.QuestionID <= 50);
@@ -201,6 +213,8 @@ namespace catchme.bg.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Step3([Bind] Evaluation model)
         {
+            ViewBag.Current = "Mbti";
+
             if (ModelState.IsValid)
             {
                 var answers = _context.Answers.Where(u => u.UserName == CurrentUser.UserName).Where(u => u.QuestionID >= 51 && u.QuestionID <= 70);
@@ -230,6 +244,7 @@ namespace catchme.bg.Controllers
 
         public ActionResult ThankYou()
         {
+            ViewBag.Current = "Mbti";
             ViewBag.mbti_type = GetResult();
             CurrentUser.Mbti = ViewBag.mbti_type;
             _bgcontext.Users.Update(CurrentUser);

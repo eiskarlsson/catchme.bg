@@ -84,6 +84,8 @@ namespace catchme.bg.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.Current = "Profile";
+
             var model = new ProfileViewModel();
             //https://docs.microsoft.com/en-gb/ef/core/querying/related-data
             //var currentProfile = (from u in _context.Profiles.Include(u=>u.ProfileUser) where (u.ProfileUser.Id == CurrentUser.Id) select u).FirstOrDefault();
@@ -108,6 +110,8 @@ namespace catchme.bg.Controllers
         //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Index([Bind] ProfileViewModel model)
         {
+            ViewBag.Current = "Profile";
+
             if (ModelState.IsValid)
             {
                 var currentProfile = _context.Profiles.FirstOrDefault(u => u.ProfileUserId == CurrentUser.Id);

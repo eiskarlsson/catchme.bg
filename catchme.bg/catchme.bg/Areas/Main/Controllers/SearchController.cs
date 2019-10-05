@@ -60,6 +60,8 @@ namespace catchme.bg.Controllers
         [HttpGet]
         public IActionResult Index(/*int? page*/)
         {
+            ViewBag.Current = "Search";
+
             var model = new SearchViewModel();
 
             model.Profiles = Context.Profiles.ToList();
@@ -171,6 +173,8 @@ namespace catchme.bg.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Index([Bind] SearchViewModel model, int? page)
         {
+            ViewBag.Current = "Search";
+
             if (ModelState.IsValid)
             {
                 model.Profiles = Context.Profiles.ToList();

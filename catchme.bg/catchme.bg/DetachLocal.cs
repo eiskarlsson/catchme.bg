@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace catchme.bg
 {
@@ -37,6 +39,6 @@ namespace catchme.bg
         {
             dbSet.RemoveRange(dbSet);
         }
-
+        
     }
 }

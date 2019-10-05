@@ -23,11 +23,15 @@ namespace catchme.bg.Areas.Main.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.Current = "Home";
+
             return View();
         }
 
         public IActionResult About()
         {
+            ViewBag.Current = "About";
+
             ViewData["Message"] = "Your application description page.";
 
             return View();
@@ -35,6 +39,8 @@ namespace catchme.bg.Areas.Main.Controllers
 
         public IActionResult Contact()
         {
+            ViewBag.Current = "Contact";
+
             ViewData["Message"] = "Your contact page.";
 
             return View();

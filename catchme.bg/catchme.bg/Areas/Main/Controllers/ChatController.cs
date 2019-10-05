@@ -16,6 +16,8 @@ namespace catchme.bg.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
+            ViewBag.Current = "Chat";
+
             return View();
         }
     }
