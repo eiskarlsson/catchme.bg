@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using catchme.bg.Data;
 using catchme.bg.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,31 +14,23 @@ namespace catchme.bg
     [Authorize]
     public class ChatHub : Hub
     {
-        //public override async Task OnConnectedAsync()
-        //{
-        //    await Clients.All.SendAsync("SendAction", Context.User.Identity.Name, "joined");
-        //}
-
-        //public override async Task OnDisconnectedAsync(Exception ex)
-        //{
-        //    await Clients.All.SendAsync("SendAction", Context.User.Identity.Name, "left");
-        //}
-
-        //public async Task Send(string message)
-        //{
-        //    await Clients.All.SendAsync("SendMessage", Context.User.Identity.Name, message);
-        //}
-
         private CatchmeContext _context { get; set; }
+        private catchmebgContext _bgContext { get; set; }
 
-        public ChatHub(CatchmeContext context) 
+        public ChatHub(CatchmeContext context, catchmebgContext bgContext)
         {
             _context = context;
+            _bgContext = bgContext;
+
+            AllUsers = _bgContext.Users.Select(u => new UserDetail() { ConnectionId = "", UserName = u.UserName }).ToList();
+
+
         }
 
         #region Data Members
 
         static List<UserDetail> ConnectedUsers = new List<UserDetail>();
+        static List<UserDetail> AllUsers = new List<UserDetail>();
         static List<MessageDetail> CurrentMessage = new List<MessageDetail>();
         static List<PrivateMessageDetail> CurrentPrivateMessage = new List<PrivateMessageDetail>();
 
@@ -48,34 +41,42 @@ namespace catchme.bg
         public override async Task OnConnectedAsync()
         {
             var userName = Context.User.Identity.Name;
-            
+
             var id = Context.ConnectionId;
 
 
-            if (ConnectedUsers.Count(x => x.ConnectionId == id) == 0)
+
+
+            if (AllUsers.Count(x => x.ConnectionId == id) == 0)
             {
-                ConnectedUsers.Add(new UserDetail {ConnectionId = id, UserName = userName});
+                var user = AllUsers.FirstOrDefault(u => u.UserName == userName);
+
+                if (user != null)
+                {
+                    user.ConnectionId = id;
+                    AllUsers[AllUsers.FindIndex(ind => ind.UserName.Equals(userName))].ConnectionId = id;
+                }
 
                 CurrentMessage.Clear();
 
                 CurrentPrivateMessage.Clear();
 
-                foreach (var user_name in ConnectedUsers.Select(u=>u.UserName).Distinct())
+                foreach (var user_name in AllUsers.Select(u => u.UserName).Distinct())
                 {
                     CurrentMessage.AddRange(GetMessageDetailsForUser(user_name).Result);
 
                     CurrentPrivateMessage.AddRange(GetPrivateMessageDetailsForUsers(Context.User.Identity.Name, user_name).Result);
                 }
-                
+
                 // send to caller
-                await Clients.Caller.SendAsync("OnConnected", id, userName, ConnectedUsers, CurrentMessage, CurrentPrivateMessage);
+                await Clients.Caller.SendAsync("OnConnected", id, userName, AllUsers, CurrentMessage, CurrentPrivateMessage);
 
                 // send to all except caller client
                 await Clients.AllExcept(id).SendAsync("NewUserConnected", id, userName, CurrentPrivateMessage);
             }
         }
 
-        
+
         public async Task SendMessageToAll(string message)
         {
             var userName = Context.User.Identity.Name;
@@ -86,26 +87,25 @@ namespace catchme.bg
             await Clients.All.SendAsync("MessageReceived", userName, message);
         }
 
-        public async Task SendPrivateMessage(string toUserId, string message)
+        public async Task SendPrivateMessage(string toUserId, string toUserName, string message)
         {
 
             string fromUserId = Context.ConnectionId;
+            string fromUserName = Context.User.Identity.Name;
 
-            var toUser = ConnectedUsers.FirstOrDefault(x => x.ConnectionId == toUserId);
-            var fromUser = ConnectedUsers.FirstOrDefault(x => x.ConnectionId == fromUserId);
+            var fromUser = new UserDetail() { UserName = fromUserName, ConnectionId = fromUserId };
 
-            if (toUser != null && fromUser != null)
-            {
-                
-                // send to 
-                await Clients.Client(toUserId).SendAsync("SendPrivateMessage", fromUserId, fromUser.UserName, message);
+            var toUser = new UserDetail() { UserName = toUserName, ConnectionId = toUserId };
 
-                // send to caller user
-                await Clients.Caller.SendAsync("SendPrivateMessage", toUserId, fromUser.UserName, message);
 
-                AddPrivateMessageinCache(fromUser.UserName, toUser.UserName, message);
-                
-            }
+            // send to 
+            await Clients.Client(toUserId).SendAsync("SendPrivateMessage", fromUserId, fromUser.UserName, message);
+
+            // send to caller user
+            await Clients.Caller.SendAsync("SendPrivateMessage", toUserId, fromUser.UserName, message);
+
+            AddPrivateMessageinCache(fromUser.UserName, toUser.UserName, message);
+
 
         }
 
@@ -129,7 +129,7 @@ namespace catchme.bg
 
         private void AddMessageinCache(string userName, string message)
         {
-            var publicMessage = new MessageDetail {UserName = userName, Message = message};
+            var publicMessage = new MessageDetail { UserName = userName, Message = message };
             CurrentMessage.Add(publicMessage);
             _context.MessageDetails.Add(publicMessage);
             _context.SaveChanges();
@@ -141,14 +141,14 @@ namespace catchme.bg
                 _context.SaveChanges();
             }
 
-            
+
         }
 
         #endregion
 
         #region private Messages
 
-        
+
 
         private void AddPrivateMessageinCache(string userFrom, string userTo, string message)
         {
@@ -173,12 +173,12 @@ namespace catchme.bg
 
         public async Task<List<MessageDetail>> GetMessageDetailsForUser(string userName)
         {
-            return await _context.MessageDetails.Where(u=>u.UserName==userName).ToListAsync();
+            return await _context.MessageDetails.Where(u => u.UserName == userName).ToListAsync();
         }
 
         public async Task<List<PrivateMessageDetail>> GetPrivateMessageDetailsForUsers(string userFrom, string userTo)
         {
-            return await _context.PrivateMessageDetails.Where(u => u.UserNameFrom == userFrom && u.UserNameTo== userTo).ToListAsync();
+            return await _context.PrivateMessageDetails.Where(u => u.UserNameFrom == userFrom && u.UserNameTo == userTo).ToListAsync();
         }
     }
 }

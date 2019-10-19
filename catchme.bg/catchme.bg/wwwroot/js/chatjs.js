@@ -262,7 +262,7 @@
                 var msg = $textBox.val();
                 if (msg.length > 0) {
 
-                    connection.send("SendPrivateMessage", userId, msg);
+                    connection.send("SendPrivateMessage", userId, userName, msg);
                     $textBox.val('');
                 }
             });
