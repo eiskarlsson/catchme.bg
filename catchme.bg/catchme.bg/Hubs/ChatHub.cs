@@ -29,7 +29,7 @@ namespace catchme.bg
 
         #region Data Members
 
-        static List<UserDetail> ConnectedUsers = new List<UserDetail>();
+        // List<UserDetail> ConnectedUsers = new List<UserDetail>();
         static List<UserDetail> AllUsers = new List<UserDetail>();
         static List<MessageDetail> CurrentMessage = new List<MessageDetail>();
         static List<PrivateMessageDetail> CurrentPrivateMessage = new List<PrivateMessageDetail>();
@@ -111,10 +111,10 @@ namespace catchme.bg
 
         public override async Task OnDisconnectedAsync(Exception ex)
         {
-            var item = ConnectedUsers.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
+            var item = AllUsers.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
             if (item != null)
             {
-                ConnectedUsers.Remove(item);
+                //ConnectedUsers.Remove(item);
 
                 var id = Context.ConnectionId;
                 await Clients.All.SendAsync("UserDisconnected", id, item.UserName);

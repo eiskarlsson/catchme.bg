@@ -41,11 +41,15 @@ body {
 }
 
 .limboLink {
-    color: white;
+    color: black;
 }
 
 .limboLink:hover {
-    color: red;
+        color: #f44321;
+}
+
+.limboLogin {
+    background-color: white;
 }
 
 #menubar {
@@ -74,5 +78,4 @@ body {
 }*/
 
 #topheader {
-    
 }
